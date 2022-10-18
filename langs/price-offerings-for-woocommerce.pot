@@ -1,0 +1,920 @@
+#: includes/class-alg-wc-po-actions.php:94
+msgid "The link is no longer valid."
+msgstr ""
+
+#: includes/class-alg-wc-po-actions.php:128
+#: includes/class-alg-wc-po-actions.php:129
+#: includes/settings/class-alg-wc-po-settings-email.php:58
+#: includes/settings/class-alg-wc-po-settings-email.php:66
+msgid "Price offer"
+msgstr ""
+
+#: includes/class-alg-wc-po-actions.php:131
+#: includes/settings/class-alg-wc-po-settings-email.php:75
+#, php-format
+msgid "Product: %s"
+msgstr ""
+
+#: includes/class-alg-wc-po-actions.php:132
+#: includes/settings/class-alg-wc-po-settings-email.php:76
+#, php-format
+msgid "Offered price: %s"
+msgstr ""
+
+#: includes/class-alg-wc-po-actions.php:133
+#: includes/settings/class-alg-wc-po-settings-email.php:77
+#, php-format
+msgid "From: %s %s"
+msgstr ""
+
+#: includes/class-alg-wc-po-actions.php:134
+#: includes/settings/class-alg-wc-po-settings-email.php:78
+#, php-format
+msgid "Message: %s"
+msgstr ""
+
+#: includes/class-alg-wc-po-actions.php:200
+#: includes/settings/class-alg-wc-po-settings-form.php:199
+msgid "Your price offer has been sent."
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:178 includes/class-alg-wc-po-core.php:279
+msgid "Created"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:179 includes/class-alg-wc-po-core.php:278
+msgid "Status"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:180
+#: includes/class-alg-wc-po-meta-boxes-offer.php:249
+msgid "Customer"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:181
+#: includes/class-alg-wc-po-meta-boxes-offer.php:241
+msgid "Product"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:182 includes/class-alg-wc-po-core.php:280
+#: includes/class-alg-wc-po-meta-boxes-offer.php:248
+msgid "Price"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:236
+msgctxt "post type general name"
+msgid "Offers"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:237
+msgctxt "post type singular name"
+msgid "Offer"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:238
+msgctxt "admin menu"
+msgid "Offers"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:239
+msgctxt "add new on admin bar"
+msgid "Offer"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:240
+msgctxt "offer"
+msgid "Add New"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:241
+msgid "Add New Offer"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:242
+msgid "New Offer"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:243
+msgid "Edit Offer"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:244
+msgid "View Offer"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:245
+msgid "All Offers"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:246
+msgid "Search Offers"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:247
+msgid "Parent Offers:"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:248
+msgid "No offers found."
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:249
+msgid "No offers found in Trash."
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:251
+msgid "WooCommerce price offer"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:277
+msgid "Offer"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:281
+msgid "Message"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:282
+msgid "Name"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:283
+#: includes/class-alg-wc-po-meta-boxes-offer.php:257
+#: includes/settings/class-alg-wc-po-settings-email.php:25
+msgid "Email"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:284
+msgid "Customer ID"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:285
+msgid "User IP"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:286
+msgid "User Agent"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:287
+#: includes/class-alg-wc-po-meta-boxes-offer.php:258
+msgid "Sent to"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:302
+msgid "Regards,"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:303
+#, php-format
+msgid "All at %s"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:308 includes/class-alg-wc-po-core.php:309
+msgid "Offer rejected"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:310 includes/class-alg-wc-po-core.php:316
+#: includes/class-alg-wc-po-core.php:322
+msgid "Hi, %customer_name%,"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:311
+msgid ""
+"We are sorry to inform you, but your offer to buy \"%product_title%\" for "
+"%offered_price% has been rejected."
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:314 includes/class-alg-wc-po-core.php:315
+msgid "Offer accepted"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:317
+msgid ""
+"We are happy to inform you that your offer has been accepted. You can buy "
+"\"%product_title%\" for %offered_price% by clicking <a href="
+"\"%add_to_cart_url%\">this link</a>."
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:320 includes/class-alg-wc-po-core.php:321
+msgid "Counter offer"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:323
+msgid ""
+"Unfortunately, we can't go that low, but we can offer it to you for "
+"%counter_price%. You can buy \"%product_title%\" for %counter_price% by "
+"clicking <a href=\"%add_to_cart_url%\">this link</a>."
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:337 includes/class-alg-wc-po-core.php:355
+msgid "Open"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:338
+msgid "Reject"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:339
+msgid "Accept"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:340 includes/class-alg-wc-po-core.php:358
+msgid "Counter"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:341
+msgid "Cancel"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:342
+msgid "Complete"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:356
+msgid "Rejected"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:357
+msgid "Accepted"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:359
+msgid "Cancelled"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:360
+msgid "Completed"
+msgstr ""
+
+#: includes/class-alg-wc-po-core.php:382
+#, php-format
+msgid " <span class=\"count\">(%s)</span>"
+msgid_plural " <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-alg-wc-po-frontend.php:171
+#: includes/settings/class-alg-wc-po-settings-form.php:125
+msgid "Your email"
+msgstr ""
+
+#: includes/class-alg-wc-po-frontend.php:172
+#: includes/settings/class-alg-wc-po-settings-form.php:132
+msgid "Your name"
+msgstr ""
+
+#: includes/class-alg-wc-po-frontend.php:173
+#: includes/settings/class-alg-wc-po-settings-form.php:139
+msgid "Your message"
+msgstr ""
+
+#: includes/class-alg-wc-po-frontend.php:174
+#: includes/settings/class-alg-wc-po-settings-form.php:146
+msgid "Send a copy to your email"
+msgstr ""
+
+#: includes/class-alg-wc-po-frontend.php:175
+#: includes/settings/class-alg-wc-po-settings-form.php:171
+msgid "Send"
+msgstr ""
+
+#: includes/class-alg-wc-po-frontend.php:338
+#: includes/settings/class-alg-wc-po-settings-form.php:88
+#, php-format
+msgid "Your price (%s)"
+msgstr ""
+
+#: includes/class-alg-wc-po-frontend.php:343
+#: includes/settings/class-alg-wc-po-settings-form.php:163
+#, php-format
+msgid "Suggest your price for %s"
+msgstr ""
+
+#: includes/class-alg-wc-po-frontend.php:378
+#: includes/settings/class-alg-wc-po-settings-button.php:49
+msgid "Make an offer"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:135
+#: includes/class-alg-wc-po-meta-boxes-offer.php:220
+#: includes/class-alg-wc-po-meta-boxes-offer.php:221
+msgid "Update"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:143
+msgid "Data"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:151
+#: includes/settings/class-alg-wc-po-settings-general.php:136
+msgid "Notes"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:159
+#: includes/settings/class-alg-wc-po-settings-actions.php:25
+msgid "Actions"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:167
+msgid "Messages"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:193
+msgid "Status:"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:198
+#, php-format
+msgid "Created: %s"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:201
+#, php-format
+msgid "Modified: %s"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:208
+msgid "Delete permanently"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:210
+msgid "Move to Trash"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:256
+msgid "IP address"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:276
+msgid "No notes yet."
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:314
+#, php-format
+msgid "Offer %s"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:316
+msgid "Choose an action..."
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:325
+#: includes/class-alg-wc-po-meta-boxes-offer.php:338
+#: includes/class-alg-wc-po-meta-boxes-offer.php:354
+msgid "Email subject:"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:328
+#: includes/class-alg-wc-po-meta-boxes-offer.php:341
+#: includes/class-alg-wc-po-meta-boxes-offer.php:357
+msgid "Email heading:"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:331
+#: includes/class-alg-wc-po-meta-boxes-offer.php:344
+#: includes/class-alg-wc-po-meta-boxes-offer.php:360
+msgid "Email content:"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:351
+#, php-format
+msgid "Counter price (%s):"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:381
+msgid "No messages yet."
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-product.php:51
+#: includes/settings/class-alg-wc-po-settings-admin.php:54
+msgid "Price offers"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-product.php:69
+msgid "No price offers yet."
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-product.php:145
+#, php-format
+msgid "Average offer: %s (from %s offer)"
+msgid_plural "Average offer: %s (from %s offers)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-alg-wc-po.php:131
+msgid "Settings"
+msgstr ""
+
+#: includes/class-alg-wc-po.php:134
+msgid "Go Pro"
+msgstr ""
+
+#: includes/classes/class-alg-wc-price-offer.php:166
+#, php-format
+msgctxt "%s = human-readable time difference"
+msgid "%s ago"
+msgstr ""
+
+#: includes/classes/class-alg-wc-price-offer.php:170
+msgid "M j, Y"
+msgstr ""
+
+#: includes/classes/class-alg-wc-price-offer.php:496
+#, php-format
+msgid "Status updated from %s to %s."
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:37
+msgid "Price offers settings"
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:131
+#, php-format
+msgid "Selected: %s."
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:207
+#: includes/settings/class-alg-wc-po-settings-admin.php:44
+#: includes/settings/class-alg-wc-po-settings-general.php:106
+#: includes/settings/class-alg-wc-po-settings-general.php:114
+msgid "Enable"
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:213
+msgid "Yes"
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:214
+msgid "No"
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:218
+#: includes/settings/class-alg-wc-po-settings-form.php:92
+msgid "Price step"
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:219
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:228
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:237
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:246
+msgid "Leave blank to use global value."
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:227
+#: includes/settings/class-alg-wc-po-settings-form.php:99
+msgid "Minimal price"
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:236
+#: includes/settings/class-alg-wc-po-settings-form.php:106
+msgid "Maximal price"
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:237
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:246
+#: includes/settings/class-alg-wc-po-settings-form.php:107
+#: includes/settings/class-alg-wc-po-settings-form.php:115
+msgid "Set zero to disable."
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:245
+#: includes/settings/class-alg-wc-po-settings-form.php:114
+msgid "Default price"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-actions.php:42
+msgid "\"Reject\" Action Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-actions.php:47
+#: includes/settings/class-alg-wc-po-settings-actions.php:79
+#: includes/settings/class-alg-wc-po-settings-actions.php:111
+msgid "Default email subject"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-actions.php:54
+#: includes/settings/class-alg-wc-po-settings-actions.php:86
+#: includes/settings/class-alg-wc-po-settings-actions.php:118
+msgid "Default email heading"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-actions.php:61
+#: includes/settings/class-alg-wc-po-settings-actions.php:93
+#: includes/settings/class-alg-wc-po-settings-actions.php:125
+msgid "Default email content"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-actions.php:74
+msgid "\"Accept\" Action Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-actions.php:106
+msgid "\"Counter\" Action Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-admin.php:25
+msgid "Admin"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-admin.php:38
+msgid "Admin Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-admin.php:43
+msgid "Product meta box"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-admin.php:45
+msgid "Adds an offers meta box to each product's admin edit page."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-admin.php:51
+msgid "Meta box title"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-admin.php:57
+msgid "Meta box columns"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:25
+msgid "Button"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:41
+msgid "Button Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:46
+#: includes/settings/class-alg-wc-po-settings-form.php:168
+msgid "Label"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:53
+msgid "HTML class"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:60
+#: includes/settings/class-alg-wc-po-settings-form.php:175
+msgid "HTML style"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:65
+#, php-format
+msgid "E.g.: %s"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:68
+msgid "Position on single product page"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:74
+#: includes/settings/class-alg-wc-po-settings-button.php:109
+msgid "Do not add"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:75
+msgid "Before single product"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:76
+msgid "Before single product summary"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:77
+msgid "Inside single product summary"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:78
+msgid "Before add to cart form"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:79
+msgid "After add to cart form"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:80
+msgid "After single product summary"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:81
+msgid "After single product"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:85
+#: includes/settings/class-alg-wc-po-settings-button.php:116
+msgid "Position priority"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:95
+msgid "Advanced Positions Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:102
+msgid "Position on archive pages"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:103
+msgid "Possible values: Do not add; Before product; After product."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:110
+msgid "Before product"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:111
+msgid "After product"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:123
+msgid "Custom position(s)"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:124
+msgid ""
+"Add custom hook(s). If adding more than one hook, separate with vertical bar "
+"( | ). Ignored if empty."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:132
+msgid "Custom position priority"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:133
+msgid ""
+"Add custom hook priority. If adding more than one hook, separate with "
+"vertical bar ( | )."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-email.php:38
+msgid "Email Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-email.php:43
+msgid "Email recipient"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-email.php:44
+msgid "Can be comma separated list."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-email.php:45
+#, php-format
+msgid "Use %s to send to administrator email: %s."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-email.php:54
+msgid "Email subject"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-email.php:62
+msgid "Email heading"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-email.php:70
+msgid "Email template"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:25
+msgid "Form"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:41
+msgid "Field Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:46
+#: includes/settings/class-alg-wc-po-settings-form.php:66
+msgid "Enabled fields"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:47
+#, php-format
+msgid "%s are always enabled."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:49
+#: includes/settings/class-alg-wc-po-settings-form.php:69
+#: includes/settings/class-alg-wc-po-settings-form.php:84
+msgid "Price input"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:50
+#: includes/settings/class-alg-wc-po-settings-form.php:70
+#: includes/settings/class-alg-wc-po-settings-form.php:122
+msgid "Customer email"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:51
+#: includes/settings/class-alg-wc-po-settings-form.php:71
+msgid "Send button"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:58
+#: includes/settings/class-alg-wc-po-settings-form.php:78
+#: includes/settings/class-alg-wc-po-settings-form.php:129
+msgid "Customer name"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:59
+#: includes/settings/class-alg-wc-po-settings-form.php:79
+#: includes/settings/class-alg-wc-po-settings-form.php:136
+msgid "Customer message"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:60
+#: includes/settings/class-alg-wc-po-settings-form.php:80
+#: includes/settings/class-alg-wc-po-settings-form.php:143
+msgid "Send a copy to customer checkbox"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:64
+msgid "Required fields"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:65
+#, php-format
+msgid "Field must be included in the \"%s\" option as well."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:67
+#, php-format
+msgid "%s are always required."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:154
+msgid "Form and Notice Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:159
+msgid "Form header"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:167
+msgid "Form button"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:182
+msgid "Form footer"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:189
+msgid "Required HTML"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-form.php:196
+msgid "Customer notice"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:25
+msgid "General"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:39
+msgid "Price Offers Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:44
+#: includes/settings/class-alg-wc-po-settings.php:25
+msgid "Price Offers"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:45
+msgid "Enable plugin"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:58
+msgid "General Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:63
+msgid "Products"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:64
+msgid ""
+"You can enable price offers for <strong>all products</strong> or for "
+"<strong>selected products</strong> only."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:70
+msgid "Enable for all products"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:71
+msgid "Enable for selected products only"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:78
+msgid "Exclude"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:79
+msgid "Out of stock"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:80
+msgid "Excludes out of stock products."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:87
+msgid "With price"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:88
+msgid "Excludes all products with price (i.e with non-empty price)."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:99
+msgid "Selected Products Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:100
+msgid ""
+"This section is ignored unless \"Enable for selected products only\" is "
+"selected for \"Products\" option above."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:105
+msgid "Per product"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:107
+msgid "If enabled, this will add new meta box to each product's edit page."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:113
+msgid "Per product category"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:120
+msgid "Product categories"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:121
+msgid "Ignored if \"Per product category\" option is not enabled above."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:138
+#, php-format
+msgid "You can see and manage all price offers in the %s dashboard."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:139
+msgid "Offers"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-section.php:46
+#, php-format
+msgid "Available placeholder: %s."
+msgid_plural "Available placeholders: %s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/settings/class-alg-wc-po-settings-styling.php:27
+msgid "Styling"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-styling.php:43
+msgid "Form Styling Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-styling.php:48
+msgid "Width"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-styling.php:54
+msgid "Header background color"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-styling.php:60
+msgid "Header text color"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-styling.php:66
+msgid "Footer background color"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-styling.php:72
+msgid "Footer text color"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings.php:48
+msgid "Reset Settings"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings.php:53
+msgid "Reset section settings"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings.php:54
+msgid "Reset"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings.php:55
+msgid "Check the box and save changes to reset."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings.php:94
+msgid "Your settings have been reset."
+msgstr ""
