@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.0.0
+ * @version 2.1.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -167,7 +167,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * modify_columns.
 	 *
-	 * @version 2.0.0
+	 * @version 2.1.0
 	 * @since   2.0.0
 	 *
 	 * @todo    [next] (feature) sortable
@@ -179,6 +179,7 @@ class Alg_WC_PO_Core {
 		$columns['status']       = esc_html__( 'Status', 'price-offerings-for-woocommerce' );
 		$columns['customer']     = esc_html__( 'Customer', 'price-offerings-for-woocommerce' );
 		$columns['product']      = esc_html__( 'Product', 'price-offerings-for-woocommerce' );
+		$columns['product_sku']  = esc_html__( 'SKU', 'price-offerings-for-woocommerce' );
 		$columns['price']        = esc_html__( 'Price', 'price-offerings-for-woocommerce' );
 		return $columns;
 	}
@@ -186,7 +187,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * render_columns.
 	 *
-	 * @version 2.0.0
+	 * @version 2.1.0
 	 * @since   2.0.0
 	 *
 	 * @todo    [maybe] (dev) links?
@@ -204,7 +205,11 @@ class Alg_WC_PO_Core {
 					break;
 
 				case 'product':
-					echo $offer->get_product_name();
+					echo $offer->get_product_name_admin_link();
+					break;
+
+				case 'product_sku':
+					echo $offer->get_product_sku();
 					break;
 
 				case 'price':

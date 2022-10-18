@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Price Offer Class
  *
- * @version 2.0.0
+ * @version 2.1.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -217,6 +217,28 @@ class Alg_WC_Price_Offer {
 	 */
 	function get_product_name() {
 		return ( ( $product = $this->get_product() ) ? $product->get_title() : false );
+	}
+
+	/**
+	 * get_product_name_admin_link.
+	 *
+	 * @version 2.1.0
+	 * @since   2.1.0
+	 */
+	function get_product_name_admin_link() {
+		return ( ( $product_id = $this->get_product_id( true ) ) ?
+			'<a href="' . admin_url( 'post.php?post=' . $product_id . '&action=edit' ) . '" target="_blank">' . $this->get_product_name() . '</a>' :
+			$this->get_product_name() );
+	}
+
+	/**
+	 * get_product_sku.
+	 *
+	 * @version 2.1.0
+	 * @since   2.1.0
+	 */
+	function get_product_sku() {
+		return ( ( $product = $this->get_product() ) ? $product->get_sku() : false );
 	}
 
 	/**

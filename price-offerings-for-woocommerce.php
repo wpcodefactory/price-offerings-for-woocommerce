@@ -3,12 +3,12 @@
 Plugin Name: Price Offers for WooCommerce
 Plugin URI: https://wpfactory.com/item/price-offerings-for-woocommerce/
 Description: Allows your customers to start product price negotiations with you.
-Version: 2.0.0
-Author: Algoritmika Ltd
-Author URI: https://algoritmika.com
+Version: 2.1.0
+Author: WPFactory
+Author URI: https://wpfactory.com
 Text Domain: price-offerings-for-woocommerce
 Domain Path: /langs
-WC tested up to: 6.5
+WC tested up to: 7.0
 */
 
 defined( 'ABSPATH' ) || exit;
@@ -29,7 +29,7 @@ if ( 'price-offerings-for-woocommerce.php' === basename( __FILE__ ) ) {
 	}
 }
 
-defined( 'ALG_WC_PO_VERSION' ) || define( 'ALG_WC_PO_VERSION', '2.0.0' );
+defined( 'ALG_WC_PO_VERSION' ) || define( 'ALG_WC_PO_VERSION', '2.1.0' );
 
 defined( 'ALG_WC_PO_FILE' ) || define( 'ALG_WC_PO_FILE', __FILE__ );
 
