@@ -47,6 +47,9 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 
 == Changelog ==
 
+= 2.1.1 - 19/10/2022 =
+* Fix - Deploy script.
+
 = 2.1.0 - 18/10/2022 =
 * Dev - Offers - Product - Product links added.
 * Dev - Offers - "SKU" column added.
