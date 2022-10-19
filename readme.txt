@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder
 Tags: woocommerce, price, offers, offerings, negotiations, woo commerce
 Requires at least: 4.4
 Tested up to: 6.0
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,7 +48,7 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 == Changelog ==
 
 = 2.1.1 - 19/10/2022 =
-* Fix - Deploy script.
+* Fix - Deploy script fixed.
 
 = 2.1.0 - 18/10/2022 =
 * Dev - Offers - Product - Product links added.

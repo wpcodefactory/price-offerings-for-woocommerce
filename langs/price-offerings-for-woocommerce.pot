@@ -1,39 +1,3 @@
-# Copyright (C) 2022 WPFactory
-# This file is distributed under the same license as the Price Offers for WooCommerce Pro plugin.
-msgid ""
-msgstr ""
-"Project-Id-Version: price-offerings-for-woocommerce 2.1.1-dev\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/price-offerings-for-woocommerce\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-19T21:59:23+02:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
-"X-Domain: price-offerings-for-woocommerce\n"
-
-#. Plugin Name of the plugin
-msgid "Price Offers for WooCommerce Pro"
-msgstr ""
-
-#. Plugin URI of the plugin
-msgid "https://wpfactory.com/item/price-offerings-for-woocommerce/"
-msgstr ""
-
-#. Description of the plugin
-msgid "Allows your customers to start product price negotiations with you."
-msgstr ""
-
-#. Author of the plugin
-msgid "WPFactory"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://wpfactory.com"
-msgstr ""
-
 #: includes/class-alg-wc-po-actions.php:94
 msgid "The link is no longer valid."
 msgstr ""
@@ -47,21 +11,25 @@ msgstr ""
 
 #: includes/class-alg-wc-po-actions.php:131
 #: includes/settings/class-alg-wc-po-settings-email.php:75
+#, php-format
 msgid "Product: %s"
 msgstr ""
 
 #: includes/class-alg-wc-po-actions.php:132
 #: includes/settings/class-alg-wc-po-settings-email.php:76
+#, php-format
 msgid "Offered price: %s"
 msgstr ""
 
 #: includes/class-alg-wc-po-actions.php:133
 #: includes/settings/class-alg-wc-po-settings-email.php:77
+#, php-format
 msgid "From: %s %s"
 msgstr ""
 
 #: includes/class-alg-wc-po-actions.php:134
 #: includes/settings/class-alg-wc-po-settings-email.php:78
+#, php-format
 msgid "Message: %s"
 msgstr ""
 
@@ -70,13 +38,11 @@ msgstr ""
 msgid "Your price offer has been sent."
 msgstr ""
 
-#: includes/class-alg-wc-po-core.php:178
-#: includes/class-alg-wc-po-core.php:284
+#: includes/class-alg-wc-po-core.php:178 includes/class-alg-wc-po-core.php:284
 msgid "Created"
 msgstr ""
 
-#: includes/class-alg-wc-po-core.php:179
-#: includes/class-alg-wc-po-core.php:283
+#: includes/class-alg-wc-po-core.php:179 includes/class-alg-wc-po-core.php:283
 msgid "Status"
 msgstr ""
 
@@ -94,8 +60,7 @@ msgstr ""
 msgid "SKU"
 msgstr ""
 
-#: includes/class-alg-wc-po-core.php:183
-#: includes/class-alg-wc-po-core.php:285
+#: includes/class-alg-wc-po-core.php:183 includes/class-alg-wc-po-core.php:285
 #: includes/class-alg-wc-po-meta-boxes-offer.php:248
 msgid "Price"
 msgstr ""
@@ -205,44 +170,48 @@ msgid "Regards,"
 msgstr ""
 
 #: includes/class-alg-wc-po-core.php:308
+#, php-format
 msgid "All at %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-core.php:313
-#: includes/class-alg-wc-po-core.php:314
+#: includes/class-alg-wc-po-core.php:313 includes/class-alg-wc-po-core.php:314
 msgid "Offer rejected"
 msgstr ""
 
-#: includes/class-alg-wc-po-core.php:315
-#: includes/class-alg-wc-po-core.php:321
+#: includes/class-alg-wc-po-core.php:315 includes/class-alg-wc-po-core.php:321
 #: includes/class-alg-wc-po-core.php:327
 msgid "Hi, %customer_name%,"
 msgstr ""
 
 #: includes/class-alg-wc-po-core.php:316
-msgid "We are sorry to inform you, but your offer to buy \"%product_title%\" for %offered_price% has been rejected."
+msgid ""
+"We are sorry to inform you, but your offer to buy \"%product_title%\" for "
+"%offered_price% has been rejected."
 msgstr ""
 
-#: includes/class-alg-wc-po-core.php:319
-#: includes/class-alg-wc-po-core.php:320
+#: includes/class-alg-wc-po-core.php:319 includes/class-alg-wc-po-core.php:320
 msgid "Offer accepted"
 msgstr ""
 
 #: includes/class-alg-wc-po-core.php:322
-msgid "We are happy to inform you that your offer has been accepted. You can buy \"%product_title%\" for %offered_price% by clicking <a href=\"%add_to_cart_url%\">this link</a>."
+msgid ""
+"We are happy to inform you that your offer has been accepted. You can buy "
+"\"%product_title%\" for %offered_price% by clicking <a href="
+"\"%add_to_cart_url%\">this link</a>."
 msgstr ""
 
-#: includes/class-alg-wc-po-core.php:325
-#: includes/class-alg-wc-po-core.php:326
+#: includes/class-alg-wc-po-core.php:325 includes/class-alg-wc-po-core.php:326
 msgid "Counter offer"
 msgstr ""
 
 #: includes/class-alg-wc-po-core.php:328
-msgid "Unfortunately, we can't go that low, but we can offer it to you for %counter_price%. You can buy \"%product_title%\" for %counter_price% by clicking <a href=\"%add_to_cart_url%\">this link</a>."
+msgid ""
+"Unfortunately, we can't go that low, but we can offer it to you for "
+"%counter_price%. You can buy \"%product_title%\" for %counter_price% by "
+"clicking <a href=\"%add_to_cart_url%\">this link</a>."
 msgstr ""
 
-#: includes/class-alg-wc-po-core.php:342
-#: includes/class-alg-wc-po-core.php:360
+#: includes/class-alg-wc-po-core.php:342 includes/class-alg-wc-po-core.php:360
 msgid "Open"
 msgstr ""
 
@@ -254,8 +223,7 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: includes/class-alg-wc-po-core.php:345
-#: includes/class-alg-wc-po-core.php:363
+#: includes/class-alg-wc-po-core.php:345 includes/class-alg-wc-po-core.php:363
 msgid "Counter"
 msgstr ""
 
@@ -282,6 +250,13 @@ msgstr ""
 #: includes/class-alg-wc-po-core.php:365
 msgid "Completed"
 msgstr ""
+
+#: includes/class-alg-wc-po-core.php:387
+#, php-format
+msgid " <span class=\"count\">(%s)</span>"
+msgid_plural " <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
 
 #: includes/class-alg-wc-po-frontend.php:171
 #: includes/settings/class-alg-wc-po-settings-form.php:125
@@ -310,11 +285,13 @@ msgstr ""
 
 #: includes/class-alg-wc-po-frontend.php:338
 #: includes/settings/class-alg-wc-po-settings-form.php:88
+#, php-format
 msgid "Your price (%s)"
 msgstr ""
 
 #: includes/class-alg-wc-po-frontend.php:343
 #: includes/settings/class-alg-wc-po-settings-form.php:163
+#, php-format
 msgid "Suggest your price for %s"
 msgstr ""
 
@@ -324,6 +301,8 @@ msgid "Make an offer"
 msgstr ""
 
 #: includes/class-alg-wc-po-meta-boxes-offer.php:135
+#: includes/class-alg-wc-po-meta-boxes-offer.php:220
+#: includes/class-alg-wc-po-meta-boxes-offer.php:221
 msgid "Update"
 msgstr ""
 
@@ -345,12 +324,26 @@ msgstr ""
 msgid "Messages"
 msgstr ""
 
+#: includes/class-alg-wc-po-meta-boxes-offer.php:193
+msgid "Status:"
+msgstr ""
+
 #: includes/class-alg-wc-po-meta-boxes-offer.php:198
+#, php-format
 msgid "Created: %s"
 msgstr ""
 
 #: includes/class-alg-wc-po-meta-boxes-offer.php:201
+#, php-format
 msgid "Modified: %s"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:208
+msgid "Delete permanently"
+msgstr ""
+
+#: includes/class-alg-wc-po-meta-boxes-offer.php:210
+msgid "Move to Trash"
 msgstr ""
 
 #: includes/class-alg-wc-po-meta-boxes-offer.php:256
@@ -362,6 +355,7 @@ msgid "No notes yet."
 msgstr ""
 
 #: includes/class-alg-wc-po-meta-boxes-offer.php:314
+#, php-format
 msgid "Offer %s"
 msgstr ""
 
@@ -388,6 +382,7 @@ msgid "Email content:"
 msgstr ""
 
 #: includes/class-alg-wc-po-meta-boxes-offer.php:351
+#, php-format
 msgid "Counter price (%s):"
 msgstr ""
 
@@ -405,6 +400,7 @@ msgid "No price offers yet."
 msgstr ""
 
 #: includes/class-alg-wc-po-meta-boxes-product.php:145
+#, php-format
 msgid "Average offer: %s (from %s offer)"
 msgid_plural "Average offer: %s (from %s offers)"
 msgstr[0] ""
@@ -418,7 +414,18 @@ msgstr ""
 msgid "Go Pro"
 msgstr ""
 
+#: includes/classes/class-alg-wc-price-offer.php:166
+#, php-format
+msgctxt "%s = human-readable time difference"
+msgid "%s ago"
+msgstr ""
+
+#: includes/classes/class-alg-wc-price-offer.php:170
+msgid "M j, Y"
+msgstr ""
+
 #: includes/classes/class-alg-wc-price-offer.php:518
+#, php-format
 msgid "Status updated from %s to %s."
 msgstr ""
 
@@ -427,6 +434,7 @@ msgid "Price offers settings"
 msgstr ""
 
 #: includes/pro/class-alg-wc-po-pro-meta-boxes-product.php:131
+#, php-format
 msgid "Selected: %s."
 msgstr ""
 
@@ -556,6 +564,7 @@ msgid "HTML style"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-button.php:65
+#, php-format
 msgid "E.g.: %s"
 msgstr ""
 
@@ -626,7 +635,9 @@ msgid "Custom position(s)"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-button.php:124
-msgid "Add custom hook(s). If adding more than one hook, separate with vertical bar ( | ). Ignored if empty."
+msgid ""
+"Add custom hook(s). If adding more than one hook, separate with vertical bar "
+"( | ). Ignored if empty."
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-button.php:132
@@ -634,7 +645,9 @@ msgid "Custom position priority"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-button.php:133
-msgid "Add custom hook priority. If adding more than one hook, separate with vertical bar ( | )."
+msgid ""
+"Add custom hook priority. If adding more than one hook, separate with "
+"vertical bar ( | )."
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-email.php:38
@@ -650,6 +663,7 @@ msgid "Can be comma separated list."
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-email.php:45
+#, php-format
 msgid "Use %s to send to administrator email: %s."
 msgstr ""
 
@@ -679,6 +693,7 @@ msgid "Enabled fields"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-form.php:47
+#, php-format
 msgid "%s are always enabled."
 msgstr ""
 
@@ -722,10 +737,12 @@ msgid "Required fields"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-form.php:65
+#, php-format
 msgid "Field must be included in the \"%s\" option as well."
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-form.php:67
+#, php-format
 msgid "%s are always required."
 msgstr ""
 
@@ -779,7 +796,9 @@ msgid "Products"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-general.php:64
-msgid "You can enable price offers for <strong>all products</strong> or for <strong>selected products</strong> only."
+msgid ""
+"You can enable price offers for <strong>all products</strong> or for "
+"<strong>selected products</strong> only."
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-general.php:70
@@ -815,7 +834,9 @@ msgid "Selected Products Options"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-general.php:100
-msgid "This section is ignored unless \"Enable for selected products only\" is selected for \"Products\" option above."
+msgid ""
+"This section is ignored unless \"Enable for selected products only\" is "
+"selected for \"Products\" option above."
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-general.php:105
@@ -839,6 +860,7 @@ msgid "Ignored if \"Per product category\" option is not enabled above."
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-general.php:138
+#, php-format
 msgid "You can see and manage all price offers in the %s dashboard."
 msgstr ""
 
@@ -847,6 +869,7 @@ msgid "Offers"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-section.php:46
+#, php-format
 msgid "Available placeholder: %s."
 msgid_plural "Available placeholders: %s."
 msgstr[0] ""
