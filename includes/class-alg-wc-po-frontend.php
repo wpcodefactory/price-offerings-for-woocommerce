@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 2.0.0
+ * @version 2.1.2
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -327,12 +327,11 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * get_data_array.
 	 *
-	 * @version 1.0.0
+	 * @version 2.1.2
 	 * @since   1.0.0
-	 *
-	 * @todo    [maybe] (dev) rethink `str_replace( '\'', '"', ... )`
 	 */
 	function get_data_array( $product_id ) {
+
 		$form_options = get_option( 'alg_wc_price_offerings_form', array() );
 		$form_options = array_merge( array(
 			'price_label'     => sprintf( __( 'Your price (%s)', 'price-offerings-for-woocommerce' ), '%currency_symbol%' ),
@@ -342,34 +341,42 @@ class Alg_WC_PO_Frontend {
 			'price_default'   => 0,
 			'header_template' => '<h3>' . sprintf( __( 'Suggest your price for %s', 'price-offerings-for-woocommerce' ), '%product_title%' ) . '</h3>',
 		), $form_options );
+
 		$is_pp         = apply_filters( 'alg_wc_price_offerings_is_enabled_per_product', false );
 		$price_step    = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_price_step',    true ) ) ? $form_options['price_step']    : $pp );
 		$price_min     = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_min_price',     true ) ) ? $form_options['price_min']     : $pp );
 		$max_price     = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_max_price',     true ) ) ? $form_options['price_max']     : $pp );
 		$default_price = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_default_price', true ) ) ? $form_options['price_default'] : $pp );
+
 		return array(
 			'price_step'    => $price_step,
 			'min_price'     => $price_min,
 			'max_price'     => $max_price,
 			'default_price' => $default_price,
-			'price_label'   => str_replace( '\'', '"', ( str_replace( '%currency_symbol%', get_woocommerce_currency_symbol(), $form_options['price_label'] ) ) ),
-			'form_header'   => str_replace( '\'', '"', ( str_replace( '%product_title%', get_the_title(), $form_options['header_template'] ) ) ),
+			'price_label'   => str_replace( '%currency_symbol%', get_woocommerce_currency_symbol(), $form_options['price_label'] ),
+			'form_header'   => str_replace( '%product_title%', get_the_title(), $form_options['header_template'] ),
 			'product_id'    => $product_id,
 		);
+
 	}
 
 	/**
 	 * add_offer_price_button.
 	 *
-	 * @version 1.1.0
+	 * @version 2.1.2
 	 * @since   1.0.0
+	 *
+	 * @see     https://www.php.net/manual/en/function.htmlspecialchars.php
+	 * @see     https://stackoverflow.com/questions/34769665/php-json-encode-data-with-double-quotes
 	 */
 	function add_offer_price_button() {
 		$product_id = get_the_ID();
+
 		// Check if enabled for current product
 		if ( ! $this->is_offer_price_enabled_for_product( $product_id ) || $this->is_offer_price_excluded_for_product( $product_id ) ) {
 			return;
 		}
+
 		// The button
 		$button_options = get_option( 'alg_wc_price_offerings_button', array() );
 		$button_options = array_merge( array(
@@ -377,13 +384,20 @@ class Alg_WC_PO_Frontend {
 			'style' => '',
 			'label' => __( 'Make an offer', 'price-offerings-for-woocommerce' ),
 		), $button_options );
-		echo '<p class="alg-wc-price-offerings-button-wrapper">' . '<button type="submit"' .
-			' name="alg-wc-price-offerings-button"' .
-			' class="alg-wc-price-offerings-button' . ' ' . $button_options['class'] . '"' .
-			' value="' . $product_id . '"' .
-			' style="' . $button_options['style'] . '"' .
-			' alg_wc_price_offerings_data=\'' . json_encode( $this->get_data_array( $product_id ) ) . '\'' .
-			'>' . $button_options['label'] . '</button>' . '</p>';
+
+		echo '<p class="alg-wc-price-offerings-button-wrapper">' .
+			'<button' .
+				' type="submit"' .
+				' name="alg-wc-price-offerings-button"' .
+				' class="alg-wc-price-offerings-button' . ' ' . $button_options['class'] . '"' .
+				' value="' . $product_id . '"' .
+				' style="' . $button_options['style'] . '"' .
+				' alg_wc_price_offerings_data=\'' . htmlspecialchars( json_encode( $this->get_data_array( $product_id ) ), ENT_QUOTES, 'UTF-8' ) . '\'' .
+			'>' .
+				$button_options['label'] .
+			'</button>' .
+		'</p>';
+
 	}
 
 }

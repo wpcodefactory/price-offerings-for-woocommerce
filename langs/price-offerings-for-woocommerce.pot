@@ -283,19 +283,19 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:338
+#: includes/class-alg-wc-po-frontend.php:337
 #: includes/settings/class-alg-wc-po-settings-form.php:88
 #, php-format
 msgid "Your price (%s)"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:343
+#: includes/class-alg-wc-po-frontend.php:342
 #: includes/settings/class-alg-wc-po-settings-form.php:163
 #, php-format
 msgid "Suggest your price for %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:378
+#: includes/class-alg-wc-po-frontend.php:385
 #: includes/settings/class-alg-wc-po-settings-button.php:49
 msgid "Make an offer"
 msgstr ""
