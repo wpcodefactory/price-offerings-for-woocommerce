@@ -1,9 +1,9 @@
 === Price Offers for WooCommerce ===
-Contributors: wpcodefactory, algoritmika, anbinder
+Contributors: wpcodefactory, algoritmika, anbinder, omardabbas, kousikmukherjeeli
 Tags: woocommerce, price, offers, offerings, negotiations, woo commerce
 Requires at least: 4.4
-Tested up to: 6.0
-Stable tag: 2.1.2
+Tested up to: 6.2
+Stable tag: 2.1.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -46,6 +46,10 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 3. Start by visiting plugin settings at "WooCommerce > Settings > Price Offers".
 
 == Changelog ==
+
+= 2.1.3 - 18/06/2023 =
+* WC tested up to: 7.8.
+* Tested up to: 6.2.
 
 = 2.1.2 - 28/10/2022 =
 * Fix - Possible JS error fixed.
