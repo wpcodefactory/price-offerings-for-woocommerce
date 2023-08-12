@@ -406,11 +406,11 @@ msgid_plural "Average offer: %s (from %s offers)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-po.php:148
+#: includes/class-alg-wc-po.php:151
 msgid "Settings"
 msgstr ""
 
-#: includes/class-alg-wc-po.php:151
+#: includes/class-alg-wc-po.php:154
 msgid "Go Pro"
 msgstr ""
 

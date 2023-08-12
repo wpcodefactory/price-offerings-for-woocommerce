@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Main Class
  *
- * @version 2.2.0
+ * @version 2.2.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -95,7 +95,7 @@ final class Alg_WC_PO {
 	/**
 	 * wc_declare_compatibility.
 	 *
-	 * @version 2.2.0
+	 * @version 2.2.1
 	 * @since   2.2.0
 	 *
 	 * @see     https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
@@ -103,6 +103,9 @@ final class Alg_WC_PO {
 	function wc_declare_compatibility() {
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', ALG_WC_PO_FILE, true );
+			if ( defined( 'ALG_WC_PO_FILE_FREE' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', ALG_WC_PO_FILE_FREE, true );
+			}
 		}
 	}
 
