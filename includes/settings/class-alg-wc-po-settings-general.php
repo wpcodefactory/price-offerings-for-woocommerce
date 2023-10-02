@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - General Section Settings
  *
- * @version 2.0.0
+ * @version 2.2.3
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.0
+	 * @version 2.2.3
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -85,7 +85,7 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'desc'     => __( 'With price', 'price-offerings-for-woocommerce' ),
-				'desc_tip' => __( 'Excludes all products with price (i.e with non-empty price).', 'price-offerings-for-woocommerce' ),
+				'desc_tip' => __( 'Excludes all products with price (i.e., with non-empty price).', 'price-offerings-for-woocommerce' ),
 				'id'       => 'alg_wc_price_offerings_exclude[with_price]',
 				'type'     => 'checkbox',
 				'default'  => 'no',

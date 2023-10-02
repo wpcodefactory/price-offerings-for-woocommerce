@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.1.0
+ * @version 2.2.3
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -15,9 +15,17 @@ if ( ! class_exists( 'Alg_WC_PO_Core' ) ) :
 class Alg_WC_PO_Core {
 
 	/**
+	 * Properties.
+	 *
+	 * @version 2.2.3
+	 * @since   2.2.3
+	 */
+	public $frontend = false;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.0
+	 * @version 2.2.3
 	 * @since   1.0.0
 	 *
 	 * @todo    [next] (desc) list placeholders in the Actions meta box
@@ -38,7 +46,7 @@ class Alg_WC_PO_Core {
 			add_action( 'init', array( $this, 'create_post_status' ), 9 );
 
 			// Frontend
-			require_once( 'class-alg-wc-po-frontend.php' );
+			$this->frontend = require_once( 'class-alg-wc-po-frontend.php' );
 
 			// Actions
 			require_once( 'class-alg-wc-po-actions.php' );

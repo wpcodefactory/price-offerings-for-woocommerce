@@ -1,9 +1,9 @@
 === Price Offers for WooCommerce ===
-Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli
+Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmukherjeeli
 Tags: woocommerce, price, offers, offerings, negotiations, woo commerce
 Requires at least: 4.4
 Tested up to: 6.3
-Stable tag: 2.2.2
+Stable tag: 2.2.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -33,7 +33,7 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 [Pro version](https://wpfactory.com/item/price-offerings-for-woocommerce/) allows you to:
 
 * Enable price offers on **per product** and/or **per product category** basis.
-* Use **advanced positions** for the "Make an offer" button on frontend, for example, shop, category (i.e. archives) pages.
+* Use **advanced positions** for the "Make an offer" button on frontend, for example, shop, category (i.e., archives) pages.
 
 ### &#128472; Feedback ###
 
@@ -48,9 +48,13 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 
 == Changelog ==
 
+= 2.2.3 - 02/10/2023 =
+* Dev - Admin settings descriptions updated.
+* Dev - Minor code refactoring.
+
 = 2.2.2 - 26/09/2023 =
 * WC tested up to: 8.1.
-* Update plugin icon, banner.
+* Plugin icon, banner updated.
 
 = 2.2.1 - 12/08/2023 =
 * Fix - Declaring HPOS compatibility for the free plugin version, even if the Pro version is activated.

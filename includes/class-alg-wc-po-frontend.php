@@ -304,7 +304,7 @@ class Alg_WC_PO_Frontend {
 	 * @version 1.0.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [later] (feature) add more conditions to exclude (i.e. not only "out of stock" and "with non-empty price"), e.g. grouped products
+	 * @todo    [later] (feature) add more conditions to exclude (i.e., not only "out of stock" and "with non-empty price"), e.g., grouped products
 	 */
 	function is_offer_price_excluded_for_product( $product_id ) {
 		$exclude_options = get_option( 'alg_wc_price_offerings_exclude', array() );

@@ -180,7 +180,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	 *
 	 * @see     https://developer.wordpress.org/reference/functions/post_submit_meta_box/
 	 *
-	 * @todo    [next] (dev) better HTML, e.g. date
+	 * @todo    [next] (dev) better HTML, e.g., date
 	 */
 	function meta_box_update( $post ) {
 		$post_id = (int) $post->ID;
@@ -302,7 +302,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	 * @since   2.0.0
 	 *
 	 * @todo    [next] (dev) "Send email" checkboxes
-	 * @todo    [next] (dev) better HTML, e.g. shorter names, IDs, classes?
+	 * @todo    [next] (dev) better HTML, e.g., shorter names, IDs, classes?
 	 * @todo    [next] (dev) Email content: `wp_editor()`?
 	 */
 	function meta_box_actions( $post ) {

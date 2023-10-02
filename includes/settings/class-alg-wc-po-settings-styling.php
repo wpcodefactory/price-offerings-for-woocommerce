@@ -34,7 +34,7 @@ class Alg_WC_PO_Settings_Styling extends Alg_WC_PO_Settings_Section {
 	 * @version 1.0.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [later] (dev) better default values (e.g. match Storefront styling)
+	 * @todo    [later] (dev) better default values (e.g., match Storefront styling)
 	 * @todo    [maybe] (feature) customizable fonts etc.
 	 */
 	function get_settings() {
