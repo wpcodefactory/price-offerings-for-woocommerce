@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Button Section Settings
  *
- * @version 2.0.0
+ * @version 2.2.4
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_Button extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.0
+	 * @version 2.2.4
 	 * @since   1.0.0
 	 *
 	 * @todo    [later] (dev) more info about position priorities, e.g.: __( 'Standard priorities for "Inside single product summary": title - 5, rating - 10, price - 10, excerpt - 20, add to cart - 30, meta - 40, sharing - 50', 'price-offerings-for-woocommerce' )
@@ -62,10 +62,13 @@ class Alg_WC_PO_Settings_Button extends Alg_WC_PO_Settings_Section {
 				'type'     => 'text',
 				'default'  => '',
 				'css'      => 'width:100%;',
-				'desc'     => sprintf( __( 'E.g.: %s', 'price-offerings-for-woocommerce' ), '<code>background-color: #333333; border-color: #333333; color: #ffffff;</code>' ),
+				'desc'     => sprintf( __( 'E.g.: %s', 'price-offerings-for-woocommerce' ),
+					'<code>background-color: #333333; border-color: #333333; color: #ffffff;</code>' ),
 			),
 			array(
 				'title'    => __( 'Position on single product page', 'price-offerings-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Alternatively, you can use the %s shortcode.', 'price-offerings-for-woocommerce' ),
+					'<code>[alg_wc_price_offers_button]</code>' ),
 				'id'       => 'alg_wc_price_offerings_button[position_single_hook]',
 				'type'     => 'select',
 				'class'    => 'chosen_select',

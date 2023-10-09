@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 2.1.2
+ * @version 2.2.4
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -17,7 +17,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.0.0
+	 * @version 2.2.4
 	 * @since   1.0.0
 	 *
 	 * @todo    [next] (feature) AJAX form
@@ -33,7 +33,11 @@ class Alg_WC_PO_Frontend {
 			'position_single_priority' => 31,
 		), $position_options );
 		if ( 'disable' != $position_options['position_single_hook'] ) {
-			add_action( $position_options['position_single_hook'], array( $this, 'add_offer_price_button' ), $position_options['position_single_priority'] );
+			add_action(
+				$position_options['position_single_hook'],
+				array( $this, 'add_offer_price_button' ),
+				$position_options['position_single_priority']
+			);
 		}
 
 		// Form
@@ -45,12 +49,28 @@ class Alg_WC_PO_Frontend {
 		// CSS
 		add_action( 'wp_head', array( $this, 'add_styling' ), PHP_INT_MAX );
 
-		// Shortcodes
+		// Language shortcodes
 		add_shortcode( 'alg_wc_price_offerings_translate', array( $this, 'language_shortcode' ) );
+		add_shortcode( 'alg_wc_price_offers_translate',    array( $this, 'language_shortcode' ) );
+
+		// Button shortcode
+		add_shortcode( 'alg_wc_price_offers_button', array( $this, 'button_shortcode' ) );
 
 		// Frontend loaded
 		do_action( 'alg_wc_price_offerings_frontend_loaded', $this );
 
+	}
+
+	/**
+	 * button_shortcode.
+	 *
+	 * @version 2.2.4
+	 * @since   2.2.4
+	 */
+	function button_shortcode( $atts, $content = '' ) {
+		ob_start();
+		$this->add_offer_price_button();
+		return ob_get_clean();
 	}
 
 	/**

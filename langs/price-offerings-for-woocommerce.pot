@@ -258,44 +258,44 @@ msgid_plural " <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-po-frontend.php:171
+#: includes/class-alg-wc-po-frontend.php:191
 #: includes/settings/class-alg-wc-po-settings-form.php:125
 msgid "Your email"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:172
+#: includes/class-alg-wc-po-frontend.php:192
 #: includes/settings/class-alg-wc-po-settings-form.php:132
 msgid "Your name"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:173
+#: includes/class-alg-wc-po-frontend.php:193
 #: includes/settings/class-alg-wc-po-settings-form.php:139
 msgid "Your message"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:174
+#: includes/class-alg-wc-po-frontend.php:194
 #: includes/settings/class-alg-wc-po-settings-form.php:146
 msgid "Send a copy to your email"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:175
+#: includes/class-alg-wc-po-frontend.php:195
 #: includes/settings/class-alg-wc-po-settings-form.php:171
 msgid "Send"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:337
+#: includes/class-alg-wc-po-frontend.php:357
 #: includes/settings/class-alg-wc-po-settings-form.php:88
 #, php-format
 msgid "Your price (%s)"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:342
+#: includes/class-alg-wc-po-frontend.php:362
 #: includes/settings/class-alg-wc-po-settings-form.php:163
 #, php-format
 msgid "Suggest your price for %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:385
+#: includes/class-alg-wc-po-frontend.php:405
 #: includes/settings/class-alg-wc-po-settings-button.php:49
 msgid "Make an offer"
 msgstr ""
@@ -568,83 +568,88 @@ msgstr ""
 msgid "E.g.: %s"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:68
+#: includes/settings/class-alg-wc-po-settings-button.php:69
 msgid "Position on single product page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:74
-#: includes/settings/class-alg-wc-po-settings-button.php:109
-msgid "Do not add"
-msgstr ""
-
-#: includes/settings/class-alg-wc-po-settings-button.php:75
-msgid "Before single product"
-msgstr ""
-
-#: includes/settings/class-alg-wc-po-settings-button.php:76
-msgid "Before single product summary"
+#: includes/settings/class-alg-wc-po-settings-button.php:70
+#, php-format
+msgid "Alternatively, you can use the %s shortcode."
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-button.php:77
-msgid "Inside single product summary"
+#: includes/settings/class-alg-wc-po-settings-button.php:112
+msgid "Do not add"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-button.php:78
-msgid "Before add to cart form"
+msgid "Before single product"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-button.php:79
-msgid "After add to cart form"
+msgid "Before single product summary"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-button.php:80
-msgid "After single product summary"
+msgid "Inside single product summary"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-button.php:81
+msgid "Before add to cart form"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:82
+msgid "After add to cart form"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:83
+msgid "After single product summary"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-button.php:84
 msgid "After single product"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:85
-#: includes/settings/class-alg-wc-po-settings-button.php:116
+#: includes/settings/class-alg-wc-po-settings-button.php:88
+#: includes/settings/class-alg-wc-po-settings-button.php:119
 msgid "Position priority"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:95
+#: includes/settings/class-alg-wc-po-settings-button.php:98
 msgid "Advanced Positions Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:102
+#: includes/settings/class-alg-wc-po-settings-button.php:105
 msgid "Position on archive pages"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:103
+#: includes/settings/class-alg-wc-po-settings-button.php:106
 msgid "Possible values: Do not add; Before product; After product."
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:110
+#: includes/settings/class-alg-wc-po-settings-button.php:113
 msgid "Before product"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:111
+#: includes/settings/class-alg-wc-po-settings-button.php:114
 msgid "After product"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:123
+#: includes/settings/class-alg-wc-po-settings-button.php:126
 msgid "Custom position(s)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:124
+#: includes/settings/class-alg-wc-po-settings-button.php:127
 msgid ""
 "Add custom hook(s). If adding more than one hook, separate with vertical bar "
 "( | ). Ignored if empty."
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:132
+#: includes/settings/class-alg-wc-po-settings-button.php:135
 msgid "Custom position priority"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-button.php:133
+#: includes/settings/class-alg-wc-po-settings-button.php:136
 msgid ""
 "Add custom hook priority. If adding more than one hook, separate with "
 "vertical bar ( | )."
