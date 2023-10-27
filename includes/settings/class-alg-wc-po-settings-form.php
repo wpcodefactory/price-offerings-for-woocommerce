@@ -32,8 +32,8 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 	 * @version 2.0.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [later] (feature) make it optional - "When the user clicks anywhere outside of the modal, close it"
-	 * @todo    [later] (feature) notice: customizable notice type (now `notice`)
+	 * @todo    (feature) make it optional - "When the user clicks anywhere outside of the modal, close it"
+	 * @todo    (feature) notice: customizable notice type (now `notice`)
 	 */
 	function get_settings() {
 		return array(

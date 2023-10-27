@@ -1,60 +1,90 @@
 /**
  * alg-wc-price-offerings.js
  *
- * @version 1.0.0
+ * @version 2.3.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
  */
 
-var alg_wc_price_offerings_modal = jQuery( '#alg-wc-price-offerings-modal' );
+jQuery( document ).ready( function () {
 
-// When the user clicks on the button, fill in values and open the modal
-jQuery( '.alg-wc-price-offerings-button' ).click( function () {
+	/**
+	 * modal.
+	 *
+	 * @version 2.3.0
+	 * @since   1.0.0
+	 */
+	var modal = jQuery( '#alg-wc-price-offerings-modal' );
 
-	// Get data
-	var alg_wc_price_offerings_data = jQuery.parseJSON( jQuery( this ).attr( 'alg_wc_price_offerings_data' ) );
+	/**
+	 * When the user clicks on the button, fill in values and open the modal.
+	 *
+	 * @version 2.3.0
+	 * @since   1.0.0
+	 */
+	jQuery( '.alg-wc-price-offerings-button' ).on( 'click', function () {
 
-	// Fill in price input
-	var alg_wc_price_offerings_price_input = jQuery( '#alg-wc-price-offerings-price' );
-	alg_wc_price_offerings_price_input.attr( 'step', alg_wc_price_offerings_data[ 'price_step' ] );
-	alg_wc_price_offerings_price_input.attr( 'min', alg_wc_price_offerings_data[ 'min_price' ] );
-	if ( 0 != alg_wc_price_offerings_data[ 'max_price' ] ) {
-		alg_wc_price_offerings_price_input.attr( 'max', alg_wc_price_offerings_data[ 'max_price' ] );
-	}
-	if ( 0 != alg_wc_price_offerings_data[ 'default_price' ] ) {
-		alg_wc_price_offerings_price_input.val( alg_wc_price_offerings_data[ 'default_price' ] );
-	}
+		// Get data
+		var data = JSON.parse( jQuery( this ).attr( 'alg_wc_price_offerings_data' ) );
 
-	// Price label
-	jQuery( '#alg-wc-price-offerings-price-label' ).html( alg_wc_price_offerings_data[ 'price_label' ] );
+		// Fill in price input
+		var input = jQuery( '#alg-wc-price-offerings-price' );
+		input.attr( 'step', data['price_step'] );
+		input.attr( 'min', data['min_price'] );
+		if ( 0 != data['max_price'] ) {
+			input.attr( 'max', data['max_price'] );
+		}
+		if ( 0 != data['default_price'] ) {
+			input.val( data['default_price'] );
+		}
 
-	// Fill in form header
-	jQuery( '#alg-wc-price-offerings-form-header' ).html( alg_wc_price_offerings_data[ 'form_header' ] );
+		// Price label
+		jQuery( '#alg-wc-price-offerings-price-label' ).html( data['price_label'] );
 
-	// Product ID (hidden input)
-	jQuery( '#alg-wc-price-offerings-product-id' ).val( alg_wc_price_offerings_data[ 'product_id' ] );
+		// Fill in form header
+		jQuery( '#alg-wc-price-offerings-form-header' ).html( data['form_header'] );
 
-	// Show the form
-	alg_wc_price_offerings_modal.css( 'display', 'block' );
+		// Product ID (hidden input)
+		jQuery( '#alg-wc-price-offerings-product-id' ).val( data['product_id'] );
 
-} );
+		// Show the form
+		modal.css( 'display', 'block' );
 
-// When the user clicks on <span> (x), close the modal
-jQuery( '.alg-wc-price-offerings-form-close' ).first().click( function () {
-	alg_wc_price_offerings_modal.css( 'display', 'none' );
-} );
+	} );
 
-// When the user clicks anywhere outside of the modal, close it
-jQuery( window ).click( function ( e ) {
-	if ( alg_wc_price_offerings_modal.is( e.target ) ) {
-		alg_wc_price_offerings_modal.css( 'display', 'none' );
-	}
-} );
+	/**
+	 * When the user clicks on <span> (x), close the modal.
+	 *
+	 * @version 2.3.0
+	 * @since   1.0.0
+	 */
+	jQuery( '.alg-wc-price-offerings-form-close' ).first().on( 'click', function () {
+		modal.css( 'display', 'none' );
+	} );
 
-// When the user presses ESC, close the modal
-jQuery( document ).keyup( function ( e ) {
-	if ( 27 === e.keyCode ) {
-		alg_wc_price_offerings_modal.css( 'display', 'none' );
-	}
+	/**
+	 * When the user clicks anywhere outside of the modal, close it.
+	 *
+	 * @version 2.3.0
+	 * @since   1.0.0
+	 */
+	jQuery( window ).on( 'click', function ( e ) {
+		if ( modal.is( e.target ) ) {
+			modal.css( 'display', 'none' );
+		}
+	} );
+
+	/**
+	 * When the user presses ESC, close the modal.
+	 *
+	 * @version 2.3.0
+	 * @since   1.0.0
+	 */
+	jQuery( document ).on( 'keyup', function ( e ) {
+		if ( 27 === e.keyCode ) {
+			modal.css( 'display', 'none' );
+		}
+	} );
+
 } );

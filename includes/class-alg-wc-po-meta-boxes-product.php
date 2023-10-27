@@ -158,7 +158,7 @@ class Alg_WC_PO_Meta_Boxes_Product {
 	 * @version 1.0.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [maybe] (dev) remove this?
+	 * @todo    (dev) remove this?
 	 */
 	function get_table_html( $data, $args = array() ) {
 		$args = array_merge( array(

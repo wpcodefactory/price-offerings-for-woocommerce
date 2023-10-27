@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 2.2.4
+ * @version 2.3.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -20,9 +20,9 @@ class Alg_WC_PO_Frontend {
 	 * @version 2.2.4
 	 * @since   1.0.0
 	 *
-	 * @todo    [next] (feature) AJAX form
-	 * @todo    [maybe] (feature) button: multiple positions
-	 * @todo    [maybe] (feature) button: add shortcode
+	 * @todo    (feature) AJAX form
+	 * @todo    (feature) button: multiple positions
+	 * @todo    (feature) button: add shortcode
 	 */
 	function __construct() {
 
@@ -148,7 +148,7 @@ class Alg_WC_PO_Frontend {
 	 *
 	 * @see     https://www.w3schools.com/howto/howto_css_modals.asp
 	 *
-	 * @todo    [maybe] (dev) enqueue only if really needed
+	 * @todo    (dev) enqueue only if really needed
 	 */
 	function enqueue_scripts() {
 		$min_suffix = ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ? '' : '.min' );
@@ -173,13 +173,13 @@ class Alg_WC_PO_Frontend {
 	 * @version 2.0.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [next] (feature) `do_shortcode()`
-	 * @todo    [maybe] (feature) style options for input fields (class, style)
-	 * @todo    [maybe] (feature) form template
-	 * @todo    [maybe] (feature) optional, additional and custom form fields
-	 * @todo    [maybe] (dev) fix when empty header
-	 * @todo    [maybe] (dev) logged user - check `nickname` and `billing_email`
-	 * @todo    [maybe] (dev) better required asterix default
+	 * @todo    (feature) `do_shortcode()`
+	 * @todo    (feature) style options for input fields (class, style)
+	 * @todo    (feature) form template
+	 * @todo    (feature) optional, additional and custom form fields
+	 * @todo    (dev) fix when empty header
+	 * @todo    (dev) logged user - check `nickname` and `billing_email`
+	 * @todo    (dev) better required asterix default
 	 */
 	function add_offer_price_form() {
 
@@ -324,7 +324,7 @@ class Alg_WC_PO_Frontend {
 	 * @version 1.0.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [later] (feature) add more conditions to exclude (i.e., not only "out of stock" and "with non-empty price"), e.g., grouped products
+	 * @todo    (feature) add more conditions to exclude (i.e., not only "out of stock" and "with non-empty price"), e.g., grouped products
 	 */
 	function is_offer_price_excluded_for_product( $product_id ) {
 		$exclude_options = get_option( 'alg_wc_price_offerings_exclude', array() );
@@ -347,7 +347,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * get_data_array.
 	 *
-	 * @version 2.1.2
+	 * @version 2.3.0
 	 * @since   1.0.0
 	 */
 	function get_data_array( $product_id ) {
@@ -374,7 +374,7 @@ class Alg_WC_PO_Frontend {
 			'max_price'     => $max_price,
 			'default_price' => $default_price,
 			'price_label'   => str_replace( '%currency_symbol%', get_woocommerce_currency_symbol(), $form_options['price_label'] ),
-			'form_header'   => str_replace( '%product_title%', get_the_title(), $form_options['header_template'] ),
+			'form_header'   => str_replace( '%product_title%', get_the_title( $product_id ), $form_options['header_template'] ),
 			'product_id'    => $product_id,
 		);
 
@@ -383,21 +383,36 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * add_offer_price_button.
 	 *
-	 * @version 2.1.2
+	 * @version 2.3.0
 	 * @since   1.0.0
-	 *
-	 * @see     https://www.php.net/manual/en/function.htmlspecialchars.php
-	 * @see     https://stackoverflow.com/questions/34769665/php-json-encode-data-with-double-quotes
 	 */
 	function add_offer_price_button() {
+
+		// Get product ID
 		$product_id = get_the_ID();
 
 		// Check if enabled for current product
 		if ( ! $this->is_offer_price_enabled_for_product( $product_id ) || $this->is_offer_price_excluded_for_product( $product_id ) ) {
+			do_action( 'alg_wc_po_offer_price_button_disabled', $product_id );
 			return;
 		}
 
 		// The button
+		echo $this->get_offer_price_button( $product_id );
+
+	}
+
+	/**
+	 * get_offer_price_button.
+	 *
+	 * @version 2.3.0
+	 * @since   2.3.0
+	 *
+	 * @see     https://www.php.net/manual/en/function.htmlspecialchars.php
+	 * @see     https://stackoverflow.com/questions/34769665/php-json-encode-data-with-double-quotes
+	 */
+	function get_offer_price_button( $product_id, $do_hide = false ) {
+
 		$button_options = get_option( 'alg_wc_price_offerings_button', array() );
 		$button_options = array_merge( array(
 			'class' => 'button',
@@ -405,13 +420,13 @@ class Alg_WC_PO_Frontend {
 			'label' => __( 'Make an offer', 'price-offerings-for-woocommerce' ),
 		), $button_options );
 
-		echo '<p class="alg-wc-price-offerings-button-wrapper">' .
+		return '<p class="alg-wc-price-offerings-button-wrapper">' .
 			'<button' .
-				' type="submit"' .
-				' name="alg-wc-price-offerings-button"' .
+				' type="button"' .
+				' id="alg-wc-price-offerings-button-' . $product_id . '"' .
 				' class="alg-wc-price-offerings-button' . ' ' . $button_options['class'] . '"' .
 				' value="' . $product_id . '"' .
-				' style="' . $button_options['style'] . '"' .
+				' style="' . ( $do_hide ? 'display:none;' : '' ) . $button_options['style'] . '"' .
 				' alg_wc_price_offerings_data=\'' . htmlspecialchars( json_encode( $this->get_data_array( $product_id ) ), ENT_QUOTES, 'UTF-8' ) . '\'' .
 			'>' .
 				$button_options['label'] .

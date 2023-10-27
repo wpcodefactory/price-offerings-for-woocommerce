@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Custom Post
  *
- * @version 2.0.0
+ * @version 2.3.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -34,7 +34,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) use `admin_enqueue_scripts`
+	 * @todo    (dev) use `admin_enqueue_scripts`
 	 */
 	function js() {
 		if ( ( $id = get_the_ID() ) && 'alg_wc_price_offer' === get_post_type( $id ) ) {
@@ -65,7 +65,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) use `admin_enqueue_scripts`
+	 * @todo    (dev) use `admin_enqueue_scripts`
 	 */
 	function css() {
 		if ( ( $id = get_the_ID() ) && 'alg_wc_price_offer' === get_post_type( $id ) ) {
@@ -180,7 +180,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	 *
 	 * @see     https://developer.wordpress.org/reference/functions/post_submit_meta_box/
 	 *
-	 * @todo    [next] (dev) better HTML, e.g., date
+	 * @todo    (dev) better HTML, e.g., date
 	 */
 	function meta_box_update( $post ) {
 		$post_id = (int) $post->ID;
@@ -229,21 +229,17 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_data.
 	 *
-	 * @version 2.0.0
+	 * @version 2.3.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [maybe] (dev) add `get_user_agent()`?
+	 * @todo    (dev) add `get_user_agent()`?
 	 */
 	function meta_box_data( $post ) {
 		if ( ( $offer = new Alg_WC_Price_Offer( $post->ID ) ) ) {
 			?>
 			<table class="widefat striped">
 				<tr><th><?php echo esc_html__( 'Product', 'price-offerings-for-woocommerce' ); ?></th><td><?php
-					if ( ( $product = wc_get_product( $offer->get_product_id( true ) ) ) ) {
-						echo '<a href="' . admin_url( 'post.php?post=' . $offer->get_product_id( true ) . '&action=edit' ) . '">' . $offer->get_product_name() . '</a>';
-					} else {
-						echo $offer->get_product_name();
-					}
+					echo $offer->get_product_name_admin_link( false );
 					?></td></tr>
 				<tr><th><?php echo esc_html__( 'Price', 'price-offerings-for-woocommerce' ); ?></th><td><?php echo $offer->get_price_summary(); ?></td></tr>
 				<tr><th><?php echo esc_html__( 'Customer', 'price-offerings-for-woocommerce' ); ?></th><td><?php
@@ -267,7 +263,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) better styling
+	 * @todo    (dev) better styling
 	 */
 	function meta_box_notes( $post ) {
 		if ( ( $offer = new Alg_WC_Price_Offer( $post->ID ) ) ) {
@@ -301,9 +297,9 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) "Send email" checkboxes
-	 * @todo    [next] (dev) better HTML, e.g., shorter names, IDs, classes?
-	 * @todo    [next] (dev) Email content: `wp_editor()`?
+	 * @todo    (dev) "Send email" checkboxes
+	 * @todo    (dev) better HTML, e.g., shorter names, IDs, classes?
+	 * @todo    (dev) Email content: `wp_editor()`?
 	 */
 	function meta_box_actions( $post ) {
 		if ( ( $offer = new Alg_WC_Price_Offer( $post->ID ) ) ) {
@@ -372,7 +368,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) better styling
+	 * @todo    (dev) better styling
 	 */
 	function meta_box_messages( $post ) {
 		if ( ( $offer = new Alg_WC_Price_Offer( $post->ID ) ) ) {
@@ -408,9 +404,9 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) `isset`: `alg_wc_price_offer_email_content_reject`, `alg_wc_price_offer_email_content_accept`, etc.?
-	 * @todo    [next] (dev) notices?
-	 * @todo    [next] (dev) nonce?
+	 * @todo    (dev) `isset`: `alg_wc_price_offer_email_content_reject`, `alg_wc_price_offer_email_content_accept`, etc.?
+	 * @todo    (dev) notices?
+	 * @todo    (dev) nonce?
 	 */
 	function save_meta_boxes( $post_id ) {
 		if ( ( $offer = new Alg_WC_Price_Offer( $post_id ) ) ) {

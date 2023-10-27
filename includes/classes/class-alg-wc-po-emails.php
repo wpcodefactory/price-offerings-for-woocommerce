@@ -30,7 +30,7 @@ class Alg_WC_PO_Emails {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) `stripslashes`?
+	 * @todo    (dev) `stripslashes`?
 	 */
 	static function send_email( $to, $subject, $content, $heading, $from, $from_name ) {
 

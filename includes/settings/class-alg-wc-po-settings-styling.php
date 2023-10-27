@@ -20,7 +20,7 @@ class Alg_WC_PO_Settings_Styling extends Alg_WC_PO_Settings_Section {
 	 * @version 1.0.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [maybe] (dev) rename to "Form Styling"
+	 * @todo    (dev) rename to "Form Styling"
 	 */
 	function __construct() {
 		$this->id   = 'styling';
@@ -34,8 +34,8 @@ class Alg_WC_PO_Settings_Styling extends Alg_WC_PO_Settings_Section {
 	 * @version 1.0.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [later] (dev) better default values (e.g., match Storefront styling)
-	 * @todo    [maybe] (feature) customizable fonts etc.
+	 * @todo    (dev) better default values (e.g., match Storefront styling)
+	 * @todo    (feature) customizable fonts etc.
 	 */
 	function get_settings() {
 		return array(

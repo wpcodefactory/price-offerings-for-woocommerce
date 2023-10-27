@@ -32,7 +32,7 @@ class Alg_WC_PO_Settings_Actions extends Alg_WC_PO_Settings_Section {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) better default values
+	 * @todo    (dev) better default values
 	 */
 	function get_settings() {
 		$default = Alg_WC_PO_Core::get_default_action_option_values();

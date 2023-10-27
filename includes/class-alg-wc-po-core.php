@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.2.3
+ * @version 2.3.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -25,61 +25,58 @@ class Alg_WC_PO_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.2.3
+	 * @version 2.3.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [next] (desc) list placeholders in the Actions meta box
-	 * @todo    [next] (dev) re-test empty values
-	 * @todo    [next] (feature) Offers list: filter, e.g., by product
-	 * @todo    [maybe] (dev) recheck multicurrency
+	 * @todo    (desc) list placeholders in the Actions meta box
+	 * @todo    (dev) re-test empty values
+	 * @todo    (feature) Offers list: filter, e.g., by product
+	 * @todo    (dev) "New Offer" (manually by admin)?
+	 * @todo    (dev) recheck multicurrency
 	 */
 	function __construct() {
 
-		if ( 'yes' === get_option( 'alg_wc_price_offerings_plugin_enabled', 'yes' ) ) {
+		// Classes
+		require_once( 'classes/class-alg-wc-price-offer.php' );
+		require_once( 'classes/class-alg-wc-po-emails.php' );
 
-			// Classes
-			require_once( 'classes/class-alg-wc-price-offer.php' );
-			require_once( 'classes/class-alg-wc-po-emails.php' );
+		// Custom post & statuses
+		add_action( 'init', array( $this, 'create_post_type' ), 9 );
+		add_action( 'init', array( $this, 'create_post_status' ), 9 );
 
-			// Custom post & statuses
-			add_action( 'init', array( $this, 'create_post_type' ), 9 );
-			add_action( 'init', array( $this, 'create_post_status' ), 9 );
+		// Frontend
+		$this->frontend = require_once( 'class-alg-wc-po-frontend.php' );
 
-			// Frontend
-			$this->frontend = require_once( 'class-alg-wc-po-frontend.php' );
+		// Actions
+		require_once( 'class-alg-wc-po-actions.php' );
 
-			// Actions
-			require_once( 'class-alg-wc-po-actions.php' );
+		// Admin
+		if ( is_admin() ) {
 
-			// Admin
-			if ( is_admin() ) {
+			// Meta boxes
+			require_once( 'class-alg-wc-po-meta-boxes-offer.php' );
+			require_once( 'class-alg-wc-po-meta-boxes-product.php' );
 
-				// Meta boxes
-				require_once( 'class-alg-wc-po-meta-boxes-offer.php' );
-				require_once( 'class-alg-wc-po-meta-boxes-product.php' );
+			// CSS
+			add_action( 'admin_head', array( $this, 'css' ) );
 
-				// CSS
-				add_action( 'admin_head', array( $this, 'css' ) );
+			// Custom post columns
+			add_filter( 'manage_edit-alg_wc_price_offer_columns', array( $this, 'modify_columns' ) );
+			add_action( 'manage_alg_wc_price_offer_posts_custom_column', array( $this, 'render_columns' ), 10, 2 );
 
-				// Custom post columns
-				add_filter( 'manage_edit-alg_wc_price_offer_columns', array( $this, 'modify_columns' ) );
-				add_action( 'manage_alg_wc_price_offer_posts_custom_column', array( $this, 'render_columns' ), 10, 2 );
+			// Custom post actions
+			add_filter( 'bulk_actions-edit-alg_wc_price_offer', array( $this, 'filter_bulk_actions' ) );
+			add_filter( 'post_row_actions', array( $this, 'filter_row_actions' ), 10, 2 );
 
-				// Custom post actions
-				add_filter( 'bulk_actions-edit-alg_wc_price_offer', array( $this, 'filter_bulk_actions' ) );
-				add_filter( 'post_row_actions', array( $this, 'filter_row_actions' ), 10, 2 );
+			// Add screens to WooCommerce screen IDs
+			add_filter( 'woocommerce_screen_ids', array( $this, 'add_screen_ids' ) );
 
-				// Add screens to WooCommerce screen IDs
-				add_filter( 'woocommerce_screen_ids', array( $this, 'add_screen_ids' ) );
+			// Disable "Add new"
+			add_action( 'admin_menu', array( $this, 'disable_new_posts_submenu' ) );
+			add_action( 'admin_head', array( $this, 'disable_new_posts_buttons' ) );
 
-				// Disable "Add new"
-				add_action( 'admin_menu', array( $this, 'disable_new_posts_submenu' ) );
-				add_action( 'admin_head', array( $this, 'disable_new_posts_buttons' ) );
-
-				// Admin loaded
-				do_action( 'alg_wc_price_offerings_admin_loaded', $this );
-
-			}
+			// Admin loaded
+			do_action( 'alg_wc_price_offerings_admin_loaded', $this );
 
 		}
 
@@ -120,9 +117,9 @@ class Alg_WC_PO_Core {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) load only when necessary
-	 * @todo    [next] (dev) use `admin_enqueue_scripts`
-	 * @todo    [maybe] (dev) `alg_wc_po_counter`: different color?
+	 * @todo    (dev) load only when necessary
+	 * @todo    (dev) use `admin_enqueue_scripts`
+	 * @todo    (dev) `alg_wc_po_counter`: different color?
 	 */
 	function css() {
 		?><style>
@@ -178,8 +175,8 @@ class Alg_WC_PO_Core {
 	 * @version 2.1.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (feature) sortable
-	 * @todo    [maybe] (dev) more columns?
+	 * @todo    (feature) sortable
+	 * @todo    (dev) more columns?
 	 */
 	function modify_columns( $columns ) {
 		unset( $columns['date'] );
@@ -198,7 +195,7 @@ class Alg_WC_PO_Core {
 	 * @version 2.1.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [maybe] (dev) links?
+	 * @todo    (dev) links?
 	 */
 	function render_columns( $column, $postid ) {
 		if ( ( $offer = new Alg_WC_Price_Offer( $postid ) ) ) {
@@ -240,7 +237,7 @@ class Alg_WC_PO_Core {
 	 *
 	 * @see     https://developer.wordpress.org/reference/functions/register_post_type/
 	 *
-	 * @todo    [next] (dev) re-check `capabilities` and `capability_type`
+	 * @todo    (dev) re-check `capabilities` and `capability_type`
 	 */
 	function create_post_type() {
 		register_post_type( 'alg_wc_price_offer',
@@ -283,7 +280,7 @@ class Alg_WC_PO_Core {
 	 * @version 2.0.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [next] (dev) move to another class/file?
+	 * @todo    (dev) move to another class/file?
 	 */
 	static function get_product_meta_box_columns() {
 		return array(
@@ -307,8 +304,8 @@ class Alg_WC_PO_Core {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) move to another class/file?
-	 * @todo    [next] (dev) `esc_html__`?
+	 * @todo    (dev) move to another class/file?
+	 * @todo    (dev) `esc_html__`?
 	 */
 	static function get_default_action_option_values() {
 
@@ -382,7 +379,7 @@ class Alg_WC_PO_Core {
 	 *
 	 * @see     https://developer.wordpress.org/reference/functions/register_post_status/
 	 *
-	 * @todo    [next] (dev) recheck args
+	 * @todo    (dev) recheck args
 	 */
 	function create_post_status() {
 		foreach ( $this->get_statuses() as $id => $title ) {

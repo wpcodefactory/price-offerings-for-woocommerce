@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Price Offer Class
  *
- * @version 2.1.0
+ * @version 2.3.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -210,24 +210,26 @@ class Alg_WC_Price_Offer {
 	/**
 	 * get_product_name.
 	 *
-	 * @version 2.0.0
+	 * @version 2.3.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) use `$this->get_formatted_name()`?
+	 * @todo    (dev) `get_title()`: variations?
 	 */
-	function get_product_name() {
-		return ( ( $product = $this->get_product() ) ? $product->get_title() : false );
+	function get_product_name( $is_formatted_name = true ) {
+		return ( ( $product = $this->get_product() ) ? ( $is_formatted_name ? $product->get_formatted_name() : $product->get_title() ) : false );
 	}
 
 	/**
 	 * get_product_name_admin_link.
 	 *
-	 * @version 2.1.0
+	 * @version 2.3.0
 	 * @since   2.1.0
 	 */
-	function get_product_name_admin_link() {
+	function get_product_name_admin_link( $do_open_in_new_tab = true ) {
 		return ( ( $product_id = $this->get_product_id( true ) ) ?
-			'<a href="' . admin_url( 'post.php?post=' . $product_id . '&action=edit' ) . '" target="_blank">' . $this->get_product_name() . '</a>' :
+			'<a href="' . admin_url( 'post.php?post=' . $product_id . '&action=edit' ) . '"' . ( $do_open_in_new_tab ? ' target="_blank"' : '' ) . '>' .
+				$this->get_product_name() .
+			'</a>' :
 			$this->get_product_name() );
 	}
 
@@ -277,7 +279,7 @@ class Alg_WC_Price_Offer {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) better styling
+	 * @todo    (dev) better styling
 	 */
 	function get_price_summary() {
 		$summary = $this->get_price_html();
@@ -484,7 +486,7 @@ class Alg_WC_Price_Offer {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) `$this->add_note( esc_html__( 'Token created.', 'price-offerings-for-woocommerce' ) );`?
+	 * @todo    (dev) `$this->add_note( esc_html__( 'Token created.', 'price-offerings-for-woocommerce' ) );`?
 	 */
 	function create_token() {
 		$token = md5( time() );
@@ -524,13 +526,13 @@ class Alg_WC_Price_Offer {
 	/**
 	 * process_action.
 	 *
-	 * @version 2.0.0
+	 * @version 2.3.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) `process_placeholders`: duplicated in `Alg_WC_PO_Emails::send_email`
-	 * @todo    [next] (dev) move to `Alg_WC_PO_Meta_Boxes_Offer`?
-	 * @todo    [next] (dev) `%offered_price%`: rethink, maybe `%price%`?
-	 * @todo    [next] (dev) `accepted_price`: track prices history
+	 * @todo    (dev) `process_placeholders`: duplicated in `Alg_WC_PO_Emails::send_email`
+	 * @todo    (dev) move to `Alg_WC_PO_Meta_Boxes_Offer`?
+	 * @todo    (dev) `%offered_price%`: rethink, maybe `%price%`?
+	 * @todo    (dev) `accepted_price`: track prices history
 	 */
 	function process_action( $action, $args = array() ) {
 
@@ -562,7 +564,7 @@ class Alg_WC_Price_Offer {
 				'%add_to_cart_url%' => ( isset( $token_url ) ? $token_url : '' ),
 				'%counter_price%'   => ( isset( $args['counter_price'] ) ? wc_price( $args['counter_price'], array( 'currency' => $this->get_currency() ) ) : '' ),
 				'%offered_price%'   => $this->get_price_html(),
-				'%product_title%'   => $this->get_product_name(),
+				'%product_title%'   => $this->get_product_name( false ),
 				'%customer_name%'   => $this->get_customer_name(),
 			);
 			$content = Alg_WC_PO_Emails::process_placeholders( $args['email_content'] );

@@ -38,7 +38,7 @@ class Alg_WC_PO_Actions {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (feature) fixed quantity: `$cart_object->set_quantity( $item_key, X, false );`
+	 * @todo    (feature) fixed quantity: `$cart_object->set_quantity( $item_key, X, false );`
 	 */
 	function apply_product_price( $cart_object ) {
 		foreach ( $cart_object->get_cart() as $item_key => $item ) {
@@ -57,7 +57,7 @@ class Alg_WC_PO_Actions {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] (dev) `$offer->delete_token()`?
+	 * @todo    (dev) `$offer->delete_token()`?
 	 */
 	function complete_offer() {
 		foreach ( WC()->cart->get_cart() as $item_key => $item ) {
@@ -75,8 +75,8 @@ class Alg_WC_PO_Actions {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    [next] [!] (dev) `add_to_cart()`: products with an empty price: `woocommerce_is_purchasable`
-	 * @todo    [next] (dev) The link is no longer valid: Better (and maybe customizable) message
+	 * @todo    (dev) `add_to_cart()`: products with an empty price: `woocommerce_is_purchasable`!
+	 * @todo    (dev) The link is no longer valid: Better (and maybe customizable) message
 	 */
 	function add_to_cart() {
 		if ( ! empty( $_GET['alg_wc_price_offer_id'] ) && ! empty( $_GET['alg_wc_price_offer_token'] ) ) {
@@ -102,14 +102,14 @@ class Alg_WC_PO_Actions {
 	 * @version 2.0.0
 	 * @since   1.0.0
 	 *
-	 * @todo    [next] (dev) start with "Create price offer"
-	 * @todo    [next] (feature) optionally require user to be registered to offer a price
-	 * @todo    [maybe] (feature) optional *plain text* email and optional *no wrapping in WC email template*
-	 * @todo    [maybe] (feature) separate *customer copy* email *template and subject*
-	 * @todo    [maybe] (feature) `%product_title%` etc. in notice, subject, heading etc.
-	 * @todo    [maybe] (dev) redirect (no notice though)
-	 * @todo    [maybe] (dev) check if mail has really been sent
-	 * @todo    [maybe] (dev) recheck "From" header
+	 * @todo    (dev) start with "Create price offer"
+	 * @todo    (feature) optionally require user to be registered to offer a price
+	 * @todo    (feature) optional *plain text* email and optional *no wrapping in WC email template*
+	 * @todo    (feature) separate *customer copy* email *template and subject*
+	 * @todo    (feature) `%product_title%` etc. in notice, subject, heading etc.
+	 * @todo    (dev) redirect (no notice though)
+	 * @todo    (dev) check if mail has really been sent
+	 * @todo    (dev) recheck "From" header
 	 */
 	function offer_price() {
 		if ( isset( $_POST['alg-wc-price-offerings-submit'] ) ) {
