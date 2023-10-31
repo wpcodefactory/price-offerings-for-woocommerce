@@ -22,7 +22,6 @@ class Alg_WC_PO_Frontend {
 	 *
 	 * @todo    (feature) AJAX form
 	 * @todo    (feature) button: multiple positions
-	 * @todo    (feature) button: add shortcode
 	 */
 	function __construct() {
 

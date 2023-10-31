@@ -258,44 +258,44 @@ msgid_plural " <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-po-frontend.php:191
+#: includes/class-alg-wc-po-frontend.php:190
 #: includes/settings/class-alg-wc-po-settings-form.php:125
 msgid "Your email"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:192
+#: includes/class-alg-wc-po-frontend.php:191
 #: includes/settings/class-alg-wc-po-settings-form.php:132
 msgid "Your name"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:193
+#: includes/class-alg-wc-po-frontend.php:192
 #: includes/settings/class-alg-wc-po-settings-form.php:139
 msgid "Your message"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:194
+#: includes/class-alg-wc-po-frontend.php:193
 #: includes/settings/class-alg-wc-po-settings-form.php:146
 msgid "Send a copy to your email"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:195
+#: includes/class-alg-wc-po-frontend.php:194
 #: includes/settings/class-alg-wc-po-settings-form.php:171
 msgid "Send"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:357
+#: includes/class-alg-wc-po-frontend.php:356
 #: includes/settings/class-alg-wc-po-settings-form.php:88
 #, php-format
 msgid "Your price (%s)"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:362
+#: includes/class-alg-wc-po-frontend.php:361
 #: includes/settings/class-alg-wc-po-settings-form.php:163
 #, php-format
 msgid "Suggest your price for %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:420
+#: includes/class-alg-wc-po-frontend.php:419
 #: includes/settings/class-alg-wc-po-settings-button.php:49
 msgid "Make an offer"
 msgstr ""
