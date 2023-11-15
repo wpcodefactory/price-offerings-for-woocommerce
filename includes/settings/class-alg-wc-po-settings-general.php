@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - General Section Settings
  *
- * @version 2.3.0
+ * @version 2.4.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.3.0
+	 * @version 2.4.0
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -73,6 +73,24 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 				'checkboxgroup'     => 'end',
 			),
 			array(
+				'desc'              => __( 'Above price', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => __( 'Excludes all products with the price higher than the set price.', 'price-offerings-for-woocommerce' ) . ' ' .
+					__( 'Ignored if set to zero.', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_price_offerings_exclude[above_price]',
+				'type'              => 'number',
+				'default'           => '',
+				'custom_attributes' => array( 'min' => 0, 'step' => 0.0000001 ),
+			),
+			array(
+				'desc'              => __( 'Below price', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => __( 'Excludes all products with the price lower than the set price.', 'price-offerings-for-woocommerce' ) . ' ' .
+					__( 'Ignored if set to zero.', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_price_offerings_exclude[below_price]',
+				'type'              => 'number',
+				'default'           => '',
+				'custom_attributes' => array( 'min' => 0, 'step' => 0.0000001 ),
+			),
+			array(
 				'id'                => 'alg_wc_price_offerings_general_options',
 				'type'              => 'sectionend',
 			),
@@ -85,7 +103,7 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 			array(
 				'title'             => __( 'Per product', 'price-offerings-for-woocommerce' ),
 				'desc'              => __( 'Enable', 'price-offerings-for-woocommerce' ),
-				'desc_tip'          => __( 'If enabled, this will add new meta box to each product\'s edit page.', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => __( 'If enabled, this will add new settings to each product\'s edit page ("Product data" meta box).', 'price-offerings-for-woocommerce' ),
 				'id'                => 'alg_wc_price_offerings_per_product',
 				'type'              => 'checkbox',
 				'default'           => 'no',
@@ -103,14 +121,19 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'title'             => __( 'Per product category', 'price-offerings-for-woocommerce' ),
-				'desc'              => __( 'Enable', 'price-offerings-for-woocommerce' ),
 				'id'                => 'alg_wc_price_offerings_per_category',
-				'type'              => 'checkbox',
+				'type'              => 'select',
+				'class'             => 'chosen_select',
 				'default'           => 'no',
+				'options'           => array(
+					'no'   => __( 'Disabled', 'price-offerings-for-woocommerce' ),
+					'yes'  => __( 'Require categories', 'price-offerings-for-woocommerce' ),
+					'excl' => __( 'Exclude categories', 'price-offerings-for-woocommerce' ),
+				),
 			),
 			array(
 				'desc'              => __( 'Product categories', 'price-offerings-for-woocommerce' ),
-				'desc_tip'          => __( 'Ignored if "Per product category" option is not enabled above.', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => __( 'Ignored if the "Per product category" option is set to "Disabled".', 'price-offerings-for-woocommerce' ),
 				'id'                => 'alg_wc_price_offerings_per_category_cats',
 				'type'              => 'multiselect',
 				'class'             => 'chosen_select',

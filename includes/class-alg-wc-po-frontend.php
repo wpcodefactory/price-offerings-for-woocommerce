@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 2.3.0
+ * @version 2.4.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -320,27 +320,38 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * is_offer_price_excluded_for_product.
 	 *
-	 * @version 1.0.0
+	 * @version 2.4.0
 	 * @since   1.0.0
 	 *
-	 * @todo    (feature) add more conditions to exclude (i.e., not only "out of stock" and "with non-empty price"), e.g., grouped products
+	 * @todo    (feature) add more conditions to exclude, e.g., grouped products
 	 */
 	function is_offer_price_excluded_for_product( $product_id ) {
+
+		if ( ! ( $product = wc_get_product( $product_id ) ) ) {
+			return false;
+		}
+
 		$exclude_options = get_option( 'alg_wc_price_offerings_exclude', array() );
 		$exclude_options = array_merge( array(
 			'out_of_stock' => 'no',
 			'with_price'   => 'no',
+			'above_price'  => '',
+			'below_price'  => '',
 		), $exclude_options );
-		if ( in_array( 'yes', $exclude_options ) ) {
-			$product = wc_get_product( $product_id );
-			if (
-				( 'yes' === $exclude_options['out_of_stock'] && ! $product->is_in_stock() ) ||
-				( 'yes' === $exclude_options['with_price']   && '' !== $product->get_price() )
-			) {
-				return true;
-			}
+
+		if (
+			( 'yes' === $exclude_options['out_of_stock'] && ! $product->is_in_stock() ) ||
+			( 'yes' === $exclude_options['with_price']   && '' !== $product->get_price() ) ||
+			( ! empty( $exclude_options['above_price'] ) && $product->get_price() > $exclude_options['above_price'] ) ||
+			( ! empty( $exclude_options['below_price'] ) && $product->get_price() < $exclude_options['below_price'] )
+		) {
+			// Exclude
+			return true;
 		}
+
+		// Do not exclude
 		return false;
+
 	}
 
 	/**
