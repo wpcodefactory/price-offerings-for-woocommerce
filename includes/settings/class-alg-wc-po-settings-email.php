@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Email Section Settings
  *
- * @version 2.0.0
+ * @version 2.5.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_Email extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.0
+	 * @version 2.5.0
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -68,7 +68,7 @@ class Alg_WC_PO_Settings_Email extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Email template', 'price-offerings-for-woocommerce' ),
-				'desc'     => $this->placeholders_msg( array( '{site_title}', '{site_url}', '%product_title%', '%product_sku%', '%offered_price%', '%customer_name%', '%customer_email%', '%customer_message%', '%user_ip%', '%user_agent%' ) ),
+				'desc'     => $this->placeholders_msg( array( '{site_title}', '{site_url}', '%product_title%', '%product_sku%', '%offered_price%', '%quantity%', '%customer_name%', '%customer_phone%', '%customer_email%', '%customer_message%', '%user_ip%', '%user_agent%' ) ),
 				'id'       => 'alg_wc_price_offerings_email[template]',
 				'type'     => 'textarea',
 				'default'  =>

@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Form Section Settings
  *
- * @version 2.4.0
+ * @version 2.5.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -27,9 +27,25 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 	}
 
 	/**
+	 * get_fields.
+	 *
+	 * @version 2.5.0
+	 * @since   2.5.0
+	 */
+	function get_fields() {
+		return array(
+			'quantity'         => __( 'Quantity', 'price-offerings-for-woocommerce' ),
+			'customer_name'    => __( 'Customer name', 'price-offerings-for-woocommerce' ),
+			'customer_phone'   => __( 'Customer phone', 'price-offerings-for-woocommerce' ),
+			'customer_message' => __( 'Customer message', 'price-offerings-for-woocommerce' ),
+			'customer_copy'    => __( 'Send a copy to customer checkbox', 'price-offerings-for-woocommerce' ),
+		);
+	}
+
+	/**
 	 * get_settings.
 	 *
-	 * @version 2.4.0
+	 * @version 2.5.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (feature) make it optional - "When the user clicks anywhere outside of the modal, close it"
@@ -54,11 +70,7 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 				'type'              => 'multiselect',
 				'class'             => 'chosen_select',
 				'default'           => array( 'customer_name', 'customer_message', 'customer_copy' ),
-				'options'           => array(
-					'customer_name'    => __( 'Customer name', 'price-offerings-for-woocommerce' ),
-					'customer_message' => __( 'Customer message', 'price-offerings-for-woocommerce' ),
-					'customer_copy'    => __( 'Send a copy to customer checkbox', 'price-offerings-for-woocommerce' ),
-				),
+				'options'           => $this->get_fields(),
 			),
 			array(
 				'title'             => __( 'Required fields', 'price-offerings-for-woocommerce' ),
@@ -74,11 +86,7 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 				'type'              => 'multiselect',
 				'class'             => 'chosen_select',
 				'default'           => array(),
-				'options'           => array(
-					'customer_name'    => __( 'Customer name', 'price-offerings-for-woocommerce' ),
-					'customer_message' => __( 'Customer message', 'price-offerings-for-woocommerce' ),
-					'customer_copy'    => __( 'Send a copy to customer checkbox', 'price-offerings-for-woocommerce' ),
-				),
+				'options'           => $this->get_fields(),
 			),
 			array(
 				'title'             => __( 'Price input', 'price-offerings-for-woocommerce' ),
@@ -119,6 +127,21 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 				'custom_attributes' => array( 'min' => 0, 'step' => 0.0000001 ),
 			),
 			array(
+				'title'             => __( 'Quantity', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_price_offerings_form[quantity]',
+				'type'              => 'textarea',
+				'default'           => __( 'Quantity', 'price-offerings-for-woocommerce' ),
+				'css'               => 'width:100%;',
+			),
+			array(
+				'desc'              => __( 'Default quantity', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => __( 'Set to zero to disable.', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_price_offerings_form[quantity_default]',
+				'type'              => 'number',
+				'default'           => 1,
+				'custom_attributes' => array( 'min' => 0 ),
+			),
+			array(
 				'title'             => __( 'Customer email', 'price-offerings-for-woocommerce' ),
 				'id'                => 'alg_wc_price_offerings_form[customer_email]',
 				'type'              => 'textarea',
@@ -130,6 +153,13 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 				'id'                => 'alg_wc_price_offerings_form[customer_name]',
 				'type'              => 'textarea',
 				'default'           => __( 'Your name', 'price-offerings-for-woocommerce' ),
+				'css'               => 'width:100%;',
+			),
+			array(
+				'title'             => __( 'Customer phone', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_price_offerings_form[customer_phone]',
+				'type'              => 'textarea',
+				'default'           => __( 'Your phone', 'price-offerings-for-woocommerce' ),
 				'css'               => 'width:100%;',
 			),
 			array(

@@ -1,7 +1,7 @@
 /**
  * alg-wc-price-offerings.js
  *
- * @version 2.3.0
+ * @version 2.5.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -20,7 +20,7 @@ jQuery( document ).ready( function () {
 	/**
 	 * When the user clicks on the button, fill in values and open the modal.
 	 *
-	 * @version 2.3.0
+	 * @version 2.5.0
 	 * @since   1.0.0
 	 */
 	jQuery( '.alg-wc-price-offerings-button' ).on( 'click', function () {
@@ -37,6 +37,14 @@ jQuery( document ).ready( function () {
 		}
 		if ( 0 != data['default_price'] ) {
 			input.val( data['default_price'] );
+		}
+
+		// Fill in quantity input
+		if ( 0 != data['default_quantity'] ) {
+			var quantity_input = jQuery( '#alg-wc-price-offerings-quantity' );
+			if ( quantity_input.length ) {
+				quantity_input.val( data['default_quantity'] );
+			}
 		}
 
 		// Price label

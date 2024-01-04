@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 2.4.0
+ * @version 2.5.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -169,9 +169,10 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * add_offer_price_form.
 	 *
-	 * @version 2.0.0
+	 * @version 2.5.0
 	 * @since   1.0.0
 	 *
+	 * @todo    (dev) code refactoring: fields (quantity, customer_email, customer_name, etc.): add `Alg_WC_PO_Fields` class?
 	 * @todo    (feature) `do_shortcode()`
 	 * @todo    (feature) style options for input fields (class, style)
 	 * @todo    (feature) form template
@@ -187,8 +188,10 @@ class Alg_WC_PO_Frontend {
 		$form_options = array_merge( array(
 			'enabled_fields'   => array( 'customer_name', 'customer_message', 'customer_copy' ),
 			'required_fields'  => array(),
+			'quantity'         => __( 'Quantity', 'price-offerings-for-woocommerce' ),
 			'customer_email'   => __( 'Your email', 'price-offerings-for-woocommerce' ),
 			'customer_name'    => __( 'Your name', 'price-offerings-for-woocommerce' ),
+			'customer_phone'   => __( 'Your phone', 'price-offerings-for-woocommerce' ),
 			'customer_message' => __( 'Your message', 'price-offerings-for-woocommerce' ),
 			'customer_copy'    => __( 'Send a copy to your email', 'price-offerings-for-woocommerce' ),
 			'button_label'     => __( 'Send', 'price-offerings-for-woocommerce' ),
@@ -198,7 +201,7 @@ class Alg_WC_PO_Frontend {
 		), $form_options );
 		// Form options: Enabled fields
 		$form_options['enabled_fields'] = array_intersect(
-			array( 'price', 'customer_email', 'customer_name', 'customer_message', 'button', 'customer_copy' ),
+			array( 'price', 'quantity', 'customer_email', 'customer_name', 'customer_phone', 'customer_message', 'button', 'customer_copy' ),
 			array_merge( array( 'price', 'customer_email', 'button' ), $form_options['enabled_fields'] )
 		);
 		// Form options: Required fields
@@ -206,6 +209,7 @@ class Alg_WC_PO_Frontend {
 
 		// Prepare logged user data
 		$customer_name  = '';
+		$customer_phone = '';
 		$customer_email = '';
 		$customer_id    = 0;
 		if ( is_user_logged_in() ) {
@@ -213,6 +217,9 @@ class Alg_WC_PO_Frontend {
 			$customer_id  = $current_user->ID;
 			if ( '' != ( $meta = get_user_meta( $current_user->ID, 'nickname', true ) ) ) {
 				$customer_name = $meta;
+			}
+			if ( '' != ( $meta = get_user_meta( $current_user->ID, 'billing_phone', true ) ) ) {
+				$customer_phone = $meta;
 			}
 			if ( '' != ( $meta = get_user_meta( $current_user->ID, 'billing_email', true ) ) ) {
 				$customer_email = $meta;
@@ -241,6 +248,12 @@ class Alg_WC_PO_Frontend {
 						'label'       => '<span id="alg-wc-price-offerings-price-label"></span>',
 					);
 					break;
+				case 'quantity':
+					$data = array(
+						'type'        => 'number',
+						'min'         => 1,
+					);
+					break;
 				case 'customer_email':
 					$data = array(
 						'type'        => 'email',
@@ -250,6 +263,12 @@ class Alg_WC_PO_Frontend {
 				case 'customer_name':
 					$data = array(
 						'value'       => $customer_name,
+					);
+					break;
+				case 'customer_phone':
+					$data = array(
+						'type'        => 'tel',
+						'value'       => $customer_phone,
 					);
 					break;
 				case 'customer_message':
@@ -283,6 +302,7 @@ class Alg_WC_PO_Frontend {
 			$input = ( 'textarea' === $data['type'] ?
 				'<textarea' . ( $data['is_required'] ? ' required' : '' ) . ' id="' . $data['id'] . '" name="' . $data['id'] . '">' . $data['value'] . '</textarea>' :
 				'<input type="' . $data['type'] . '"' . ( $data['is_required'] ? ' required' : '' ) . ' id="' . $data['id'] . '" name="' . $data['id'] . '"' .
+					( isset( $data['min'] ) ? ' min="' . $data['min'] . '"' : '' ) .
 					( isset( $data['style'] ) ? ' style="' . $data['style'] . '"' : '' ) . ( '' !== $data['value'] ? ' value="' . $data['value'] . '"' : '' ) . '>' );
 			$fields[] = '<p class="' . $data['id'] . '-wrapper">' . $label . $input . '</p>';
 
@@ -357,35 +377,38 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * get_data_array.
 	 *
-	 * @version 2.3.0
+	 * @version 2.5.0
 	 * @since   1.0.0
 	 */
 	function get_data_array( $product_id ) {
 
 		$form_options = get_option( 'alg_wc_price_offerings_form', array() );
 		$form_options = array_merge( array(
-			'price_label'     => sprintf( __( 'Your price (%s)', 'price-offerings-for-woocommerce' ), '%currency_symbol%' ),
-			'price_step'      => 0.01,
-			'price_min'       => 0,
-			'price_max'       => 0,
-			'price_default'   => 0,
-			'header_template' => '<h3>' . sprintf( __( 'Suggest your price for %s', 'price-offerings-for-woocommerce' ), '%product_title%' ) . '</h3>',
+			'price_label'      => sprintf( __( 'Your price (%s)', 'price-offerings-for-woocommerce' ), '%currency_symbol%' ),
+			'price_step'       => 0.01,
+			'price_min'        => 0,
+			'price_max'        => 0,
+			'price_default'    => 0,
+			'quantity_default' => 1,
+			'header_template'  => '<h3>' . sprintf( __( 'Suggest your price for %s', 'price-offerings-for-woocommerce' ), '%product_title%' ) . '</h3>',
 		), $form_options );
 
-		$is_pp         = apply_filters( 'alg_wc_price_offerings_is_enabled_per_product', false );
-		$price_step    = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_price_step',    true ) ) ? $form_options['price_step']    : $pp );
-		$price_min     = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_min_price',     true ) ) ? $form_options['price_min']     : $pp );
-		$max_price     = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_max_price',     true ) ) ? $form_options['price_max']     : $pp );
-		$default_price = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_default_price', true ) ) ? $form_options['price_default'] : $pp );
+		$is_pp            = apply_filters( 'alg_wc_price_offerings_is_enabled_per_product', false );
+		$price_step       = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_price_step',       true ) ) ? $form_options['price_step']       : $pp );
+		$price_min        = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_min_price',        true ) ) ? $form_options['price_min']        : $pp );
+		$max_price        = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_max_price',        true ) ) ? $form_options['price_max']        : $pp );
+		$default_price    = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_default_price',    true ) ) ? $form_options['price_default']    : $pp );
+		$default_quantity = ( ! $is_pp || '' === ( $pp = get_post_meta( $product_id, '_alg_wc_price_offerings_default_quantity', true ) ) ? $form_options['quantity_default'] : $pp );
 
 		return array(
-			'price_step'    => $price_step,
-			'min_price'     => $price_min,
-			'max_price'     => $max_price,
-			'default_price' => $default_price,
-			'price_label'   => str_replace( '%currency_symbol%', get_woocommerce_currency_symbol(), $form_options['price_label'] ),
-			'form_header'   => str_replace( '%product_title%', get_the_title( $product_id ), $form_options['header_template'] ),
-			'product_id'    => $product_id,
+			'price_step'       => $price_step,
+			'min_price'        => $price_min,
+			'max_price'        => $max_price,
+			'default_price'    => $default_price,
+			'default_quantity' => $default_quantity,
+			'price_label'      => str_replace( '%currency_symbol%', get_woocommerce_currency_symbol(), $form_options['price_label'] ),
+			'form_header'      => str_replace( '%product_title%', get_the_title( $product_id ), $form_options['header_template'] ),
+			'product_id'       => $product_id,
 		);
 
 	}

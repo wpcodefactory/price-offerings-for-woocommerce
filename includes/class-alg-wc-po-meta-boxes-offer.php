@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Custom Post
  *
- * @version 2.3.0
+ * @version 2.5.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -229,7 +229,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_data.
 	 *
-	 * @version 2.3.0
+	 * @version 2.5.0
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) add `get_user_agent()`?
@@ -242,6 +242,9 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 					echo $offer->get_product_name_admin_link( false );
 					?></td></tr>
 				<tr><th><?php echo esc_html__( 'Price', 'price-offerings-for-woocommerce' ); ?></th><td><?php echo $offer->get_price_summary(); ?></td></tr>
+				<?php if ( false !== ( $quantity = $offer->get_quantity() ) && '' !== $quantity ) { ?>
+					<tr><th><?php echo esc_html__( 'Quantity', 'price-offerings-for-woocommerce' ); ?></th><td><?php echo $quantity; ?></td></tr>
+				<?php } ?>
 				<tr><th><?php echo esc_html__( 'Customer', 'price-offerings-for-woocommerce' ); ?></th><td><?php
 					$customer_id = $offer->get_customer_id();
 					if ( ! empty( $customer_id ) && false !== get_userdata( $customer_id ) ) {
@@ -250,6 +253,9 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 						echo $offer->get_customer_name();
 					}
 					?> (<?php echo esc_html__( 'IP address', 'price-offerings-for-woocommerce' ); ?>: <?php echo $offer->get_user_ip(); ?>)</td></tr>
+				<?php if ( false !== ( $customer_phone = $offer->get_customer_phone() ) && '' !== $customer_phone ) { ?>
+					<tr><th><?php echo esc_html__( 'Phone', 'price-offerings-for-woocommerce' ); ?></th><td><a href="tel:<?php echo $customer_phone; ?>"><?php echo $customer_phone; ?></a></td></tr>
+				<?php } ?>
 				<tr><th><?php echo esc_html__( 'Email', 'price-offerings-for-woocommerce' ); ?></th><td><?php echo make_clickable( $offer->get_customer_email() ); ?></td></tr>
 				<tr><th><?php echo esc_html__( 'Sent to', 'price-offerings-for-woocommerce' ); ?></th><td><?php echo make_clickable( implode( ', ', $offer->get_sent_to() ) ); ?></td></tr>
 			</table>

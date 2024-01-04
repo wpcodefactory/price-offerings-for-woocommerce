@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Product
  *
- * @version 2.0.0
+ * @version 2.5.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -60,7 +60,7 @@ class Alg_WC_PO_Meta_Boxes_Product {
 	/**
 	 * create_offer_price_history_meta_box.
 	 *
-	 * @version 2.0.0
+	 * @version 2.5.0
 	 * @since   1.0.0
 	 */
 	function create_offer_price_history_meta_box() {
@@ -97,11 +97,17 @@ class Alg_WC_PO_Meta_Boxes_Product {
 						case 'offered_price':
 							$row[] = $price_offer->get_price_summary();
 							break;
+						case 'quantity':
+							$row[] = $price_offer->get_quantity();
+							break;
 						case 'customer_message':
 							$row[] = $price_offer->get_customer_message();
 							break;
 						case 'customer_name':
 							$row[] = $price_offer->get_customer_name();
+							break;
+						case 'customer_phone':
+							$row[] = $price_offer->get_customer_phone();
 							break;
 						case 'customer_email':
 							$row[] = $price_offer->get_customer_email();

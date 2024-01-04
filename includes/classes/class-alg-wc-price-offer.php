@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Price Offer Class
  *
- * @version 2.3.0
+ * @version 2.5.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -310,6 +310,16 @@ class Alg_WC_Price_Offer {
 	}
 
 	/**
+	 * get_quantity.
+	 *
+	 * @version 2.5.0
+	 * @since   2.5.0
+	 */
+	function get_quantity() {
+		return $this->get( 'quantity' );
+	}
+
+	/**
 	 * get_customer_message.
 	 *
 	 * @version 2.0.0
@@ -331,6 +341,22 @@ class Alg_WC_Price_Offer {
 			$customer_name = $user->display_name;
 		}
 		return $customer_name;
+	}
+
+	/**
+	 * get_customer_phone.
+	 *
+	 * @version 2.5.0
+	 * @since   2.5.0
+	 *
+	 * @todo    (dev) code refactoring: (almost) repeating code: `( ( false === $customer_phone || '' === $customer_phone ) && ( $customer_id = $this->get_customer_id() ) && ( $user = get_user_by( 'id', $customer_id ) ) )`
+	 */
+	function get_customer_phone() {
+		$customer_phone = $this->get( 'customer_phone' );
+		if ( ( false === $customer_phone || '' === $customer_phone ) && ( $customer_id = $this->get_customer_id() ) && ( $user = get_user_by( 'id', $customer_id ) ) ) {
+			$customer_phone = get_user_meta( $customer_id, 'billing_phone', true );
+		}
+		return $customer_phone;
 	}
 
 	/**
@@ -526,9 +552,10 @@ class Alg_WC_Price_Offer {
 	/**
 	 * process_action.
 	 *
-	 * @version 2.3.0
+	 * @version 2.5.0
 	 * @since   2.0.0
 	 *
+	 * @todo    (dev) `customer_phone`: `<a href="tel:...">...</a>`
 	 * @todo    (dev) `process_placeholders`: duplicated in `Alg_WC_PO_Emails::send_email`
 	 * @todo    (dev) move to `Alg_WC_PO_Meta_Boxes_Offer`?
 	 * @todo    (dev) `%offered_price%`: rethink, maybe `%price%`?
@@ -564,8 +591,10 @@ class Alg_WC_Price_Offer {
 				'%add_to_cart_url%' => ( isset( $token_url ) ? $token_url : '' ),
 				'%counter_price%'   => ( isset( $args['counter_price'] ) ? wc_price( $args['counter_price'], array( 'currency' => $this->get_currency() ) ) : '' ),
 				'%offered_price%'   => $this->get_price_html(),
+				'%quantity%'        => $this->get_quantity(),
 				'%product_title%'   => $this->get_product_name( false ),
 				'%customer_name%'   => $this->get_customer_name(),
+				'%customer_phone%'  => $this->get_customer_phone(),
 			);
 			$content = Alg_WC_PO_Emails::process_placeholders( $args['email_content'] );
 			$content = wpautop( do_shortcode( str_replace( array_keys( $placeholders ), $placeholders, $content ) ) );

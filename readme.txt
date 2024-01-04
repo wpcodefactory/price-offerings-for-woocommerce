@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmu
 Tags: woocommerce, price, offers, offerings, negotiations, woo commerce
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 2.4.0
+Stable tag: 2.5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,7 +21,7 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 
 * **Exclude** selected products from price offers, e.g., **out of stock** products, products with **non-empty price**, etc.
 * Set custom **label**, **CSS class**, **style** and **position** for the "Make an offer" button on frontend.
-* Customize the **frontend form**: select enabled and required fields, set price input options, labels, notices, styles, etc.
+* Customize the **frontend form**: select enabled and required fields, set price input options, quantity options, labels, notices, styles, etc.
 * Set recipient(s), subject, heading, content template for the price offers **emails**.
 * Choose columns you want to see in **admin price offers history** for the product.
 * Available price offer **actions**: Reject, Accept, Counter, etc.
@@ -47,6 +47,11 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 3. Start by visiting plugin settings at "WooCommerce > Settings > Price Offers".
 
 == Changelog ==
+
+= 2.5.0 - 04/01/2024 =
+* Dev - "Quantity" field added.
+* Dev - "Customer phone" field added.
+* WC tested up to: 8.4.
 
 = 2.4.0 - 15/11/2023 =
 * Dev - General - Exclude - "Above price" and "Below price" options added.

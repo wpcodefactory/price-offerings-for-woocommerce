@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.3.0
+ * @version 2.5.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -277,7 +277,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * get_product_meta_box_columns.
 	 *
-	 * @version 2.0.0
+	 * @version 2.5.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) move to another class/file?
@@ -288,8 +288,10 @@ class Alg_WC_PO_Core {
 			'status'           => esc_html__( 'Status', 'price-offerings-for-woocommerce' ),
 			'date'             => esc_html__( 'Created', 'price-offerings-for-woocommerce' ),
 			'offered_price'    => esc_html__( 'Price', 'price-offerings-for-woocommerce' ),
+			'quantity'         => esc_html__( 'Quantity', 'price-offerings-for-woocommerce' ),
 			'customer_message' => esc_html__( 'Message', 'price-offerings-for-woocommerce' ),
 			'customer_name'    => esc_html__( 'Name', 'price-offerings-for-woocommerce' ),
+			'customer_phone'   => esc_html__( 'Phone', 'price-offerings-for-woocommerce' ),
 			'customer_email'   => esc_html__( 'Email', 'price-offerings-for-woocommerce' ),
 			'customer_id'      => esc_html__( 'Customer ID', 'price-offerings-for-woocommerce' ),
 			'user_ip'          => esc_html__( 'User IP', 'price-offerings-for-woocommerce' ),

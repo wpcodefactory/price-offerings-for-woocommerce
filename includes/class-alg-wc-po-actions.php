@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 2.0.0
+ * @version 2.5.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -99,7 +99,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * offer_price.
 	 *
-	 * @version 2.0.0
+	 * @version 2.5.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) start with "Create price offer"
@@ -155,8 +155,10 @@ class Alg_WC_PO_Actions {
 				'user_agent'       => wc_clean( $_SERVER['HTTP_USER_AGENT'] ),
 				'sent_to'          => $email_options['address'],
 				'offered_price'    => ( isset( $_POST['alg-wc-price-offerings-price'] )          ? wc_clean( $_POST['alg-wc-price-offerings-price'] )          : '' ),
+				'quantity'         => ( isset( $_POST['alg-wc-price-offerings-quantity'] )       ? wc_clean( $_POST['alg-wc-price-offerings-quantity'] )       : '' ),
 				'customer_message' => ( isset( $_POST['alg-wc-price-offerings-message'] )        ? wc_clean( $_POST['alg-wc-price-offerings-message'] )        : '' ),
 				'customer_name'    => ( isset( $_POST['alg-wc-price-offerings-customer-name'] )  ? wc_clean( $_POST['alg-wc-price-offerings-customer-name'] )  : '' ),
+				'customer_phone'   => ( isset( $_POST['alg-wc-price-offerings-customer-phone'] ) ? wc_clean( $_POST['alg-wc-price-offerings-customer-phone'] ) : '' ),
 				'customer_email'   => ( isset( $_POST['alg-wc-price-offerings-customer-email'] ) ? wc_clean( $_POST['alg-wc-price-offerings-customer-email'] ) : '' ),
 				'copy_to_customer' => ( isset( $_POST['alg-wc-price-offerings-customer-copy'] )  ? wc_clean( $_POST['alg-wc-price-offerings-customer-copy'] )  : 'no' ),
 			);
@@ -166,8 +168,10 @@ class Alg_WC_PO_Actions {
 				'%product_title%'    => $price_offer['product_title'],
 				'%product_sku%'      => $price_offer['product_sku'],
 				'%offered_price%'    => wc_price( $price_offer['offered_price'] ),
+				'%quantity%'         => $price_offer['quantity'],
 				'%customer_message%' => $price_offer['customer_message'],
 				'%customer_name%'    => $price_offer['customer_name'],
+				'%customer_phone%'   => $price_offer['customer_phone'],
 				'%customer_email%'   => $price_offer['customer_email'],
 				'%user_ip%'          => $price_offer['user_ip'],
 				'%user_agent%'       => $price_offer['user_agent'],
