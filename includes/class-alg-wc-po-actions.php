@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 2.5.0
+ * @version 2.6.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -17,7 +17,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.0
+	 * @version 2.6.0
 	 * @since   2.0.0
 	 */
 	function __construct() {
@@ -26,6 +26,8 @@ class Alg_WC_PO_Actions {
 		add_action( 'wp_loaded', array( $this, 'add_to_cart' ), PHP_INT_MAX );
 		add_action( 'woocommerce_before_calculate_totals', array( $this, 'apply_product_price' ) );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'complete_offer' ) );
+		add_filter( 'woocommerce_cart_item_is_purchasable', array( $this, 'force_cart_item_is_purchasable' ), PHP_INT_MAX, 3 );
+		add_filter( 'woocommerce_cart_item_quantity', array( $this, 'cart_item_quantity' ), PHP_INT_MAX, 3 );
 
 		// "Create offer" action
 		add_action( 'init', array( $this, 'offer_price' ) );
@@ -72,28 +74,109 @@ class Alg_WC_PO_Actions {
 	/**
 	 * add_to_cart.
 	 *
-	 * @version 2.0.0
+	 * @version 2.6.0
 	 * @since   2.0.0
 	 *
-	 * @todo    (dev) `add_to_cart()`: products with an empty price: `woocommerce_is_purchasable`!
-	 * @todo    (dev) The link is no longer valid: Better (and maybe customizable) message
+	 * @todo    (dev) better (and maybe customizable) notices
 	 */
 	function add_to_cart() {
 		if ( ! empty( $_GET['alg_wc_price_offer_id'] ) && ! empty( $_GET['alg_wc_price_offer_token'] ) ) {
+
 			$offer_id    = wc_clean( $_GET['alg_wc_price_offer_id'] );
 			$offer_token = wc_clean( $_GET['alg_wc_price_offer_token'] );
+
 			if ( ( $offer = new Alg_WC_Price_Offer( $offer_id ) ) && $offer_token === $offer->get_token() && $offer->is_valid() ) {
-				$product_id     = $offer->get_product_id();
-				$cart_item_data = array( 'alg_wc_price_offer' => $offer->get_accepted_price(), 'alg_wc_price_offer_id' => $offer_id );
-				if ( ! WC()->cart->find_product_in_cart( WC()->cart->generate_cart_id( $product_id, 0, array(), $cart_item_data ) ) ) {
-					WC()->cart->add_to_cart( $product_id, 1, 0, array(), $cart_item_data );
+
+				$product_id = $offer->get_product_id();
+				$product    = wc_get_product( $product_id );
+
+				if ( $product ) {
+
+					$cart_item_data = array( 'alg_wc_price_offer' => $offer->get_accepted_price(), 'alg_wc_price_offer_id' => $offer_id );
+					$cart_item_id   = ( 'variation' === $product->get_type() ?
+						WC()->cart->generate_cart_id( $product->get_parent_id(), $product_id, $product->get_variation_attributes(), $cart_item_data ) :
+						WC()->cart->generate_cart_id( $product_id,               0,           array(),                              $cart_item_data )
+					);
+
+					if ( ! WC()->cart->find_product_in_cart( $cart_item_id ) ) {
+
+						add_filter( 'woocommerce_is_purchasable',              array( $this, 'product_is_purchasable' ), PHP_INT_MAX, 2 );
+						add_filter( 'woocommerce_variation_is_purchasable',    array( $this, 'product_is_purchasable' ), PHP_INT_MAX, 2 );
+
+						WC()->cart->add_to_cart( $product_id, max( $offer->get_quantity(), 1 ), 0, array(), $cart_item_data );
+
+						remove_filter( 'woocommerce_is_purchasable',           array( $this, 'product_is_purchasable' ), PHP_INT_MAX );
+						remove_filter( 'woocommerce_variation_is_purchasable', array( $this, 'product_is_purchasable' ), PHP_INT_MAX );
+
+					} else {
+						wc_add_notice( esc_html__( 'Product is already in the cart.', 'price-offerings-for-woocommerce' ), 'error' );
+					}
+
+					wp_safe_redirect( wc_get_cart_url() );
+					exit;
+
+				} else {
+					wc_add_notice( esc_html__( 'Product not found.', 'price-offerings-for-woocommerce' ), 'error' );
 				}
-				wp_safe_redirect( wc_get_cart_url() );
-				exit;
+
 			} else {
 				wc_add_notice( esc_html__( 'The link is no longer valid.', 'price-offerings-for-woocommerce' ), 'error' );
 			}
+
 		}
+	}
+
+	/**
+	 * product_is_purchasable.
+	 *
+	 * @version 2.6.0
+	 * @since   2.6.0
+	 */
+	function product_is_purchasable( $is_purchasable, $product ) {
+		if ( ! $is_purchasable && '' === $product->get_price() ) {
+			return (
+				$product->exists() &&
+				( 'publish' === $product->get_status() || current_user_can( 'edit_post', $product->get_id() ) ) &&
+				(
+					'variation' !== $product->get_type() ||
+					(
+						( $parent = wc_get_product( $product->get_parent_id() ) ) &&
+						( 'publish' === $parent->get_status() || current_user_can( 'edit_post', $parent->get_id() ) )
+					)
+				)
+			);
+		}
+		return $is_purchasable;
+	}
+
+	/**
+	 * force_cart_item_is_purchasable.
+	 *
+	 * @version 2.6.0
+	 * @since   2.6.0
+	 */
+	function force_cart_item_is_purchasable( $is_purchasable, $key, $values ) {
+		return ( isset( $values['alg_wc_price_offer'], $values['alg_wc_price_offer_id'] ) ? true : $is_purchasable );
+	}
+
+	/**
+	 * cart_item_quantity.
+	 *
+	 * @version 2.6.0
+	 * @since   2.6.0
+	 *
+	 * @todo    (dev) make this optional || only for qty != 1
+	 */
+	function cart_item_quantity( $product_quantity, $cart_item_key, $cart_item ) {
+		if ( isset( $cart_item['alg_wc_price_offer'], $cart_item['alg_wc_price_offer_id'] ) ) {
+			return sprintf(
+				'<label class="screen-reader-text" for="%1$s">%2$s</label><span id="%1$s">%3$s</span>',
+				esc_attr( uniqid( 'quantity_' ) ),
+				esc_html__( 'Quantity', 'woocommerce' ),
+				$cart_item['quantity']
+			);
+		}
+		return $product_quantity;
 	}
 
 	/**

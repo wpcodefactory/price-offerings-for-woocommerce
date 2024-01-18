@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmu
 Tags: woocommerce, price, offers, offerings, negotiations, woo commerce
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 2.5.0
+Stable tag: 2.6.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -47,6 +47,13 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 3. Start by visiting plugin settings at "WooCommerce > Settings > Price Offers".
 
 == Changelog ==
+
+= 2.6.0 - 18/01/2024 =
+* Fix - Actions - Variations were not identified by cart item ID, thus, the offer could be added to the cart multiple times - this is fixed now.
+* Fix - Actions - Now using the offer "quantity" field when adding the product to the cart.
+* Dev - Actions - Showing quantity in the cart.
+* Dev - Actions - Forcing empty price products to be `purchasable`.
+* WC tested up to: 8.5.
 
 = 2.5.0 - 04/01/2024 =
 * Dev - "Quantity" field added.

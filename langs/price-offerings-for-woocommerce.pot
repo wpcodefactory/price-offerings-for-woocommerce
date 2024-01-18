@@ -1,39 +1,57 @@
-#: includes/class-alg-wc-po-actions.php:94
+#: includes/class-alg-wc-po-actions.php:112
+msgid "Product is already in the cart."
+msgstr ""
+
+#: includes/class-alg-wc-po-actions.php:119
+msgid "Product not found."
+msgstr ""
+
+#: includes/class-alg-wc-po-actions.php:123
 msgid "The link is no longer valid."
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:128
-#: includes/class-alg-wc-po-actions.php:129
+#: includes/class-alg-wc-po-actions.php:175
+#: includes/class-alg-wc-po-core.php:291
+#: includes/class-alg-wc-po-frontend.php:191
+#: includes/class-alg-wc-po-meta-boxes-offer.php:246
+#: includes/settings/class-alg-wc-po-settings-form.php:37
+#: includes/settings/class-alg-wc-po-settings-form.php:130
+#: includes/settings/class-alg-wc-po-settings-form.php:133
+msgid "Quantity"
+msgstr ""
+
+#: includes/class-alg-wc-po-actions.php:211
+#: includes/class-alg-wc-po-actions.php:212
 #: includes/settings/class-alg-wc-po-settings-email.php:58
 #: includes/settings/class-alg-wc-po-settings-email.php:66
 msgid "Price offer"
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:131
+#: includes/class-alg-wc-po-actions.php:214
 #: includes/settings/class-alg-wc-po-settings-email.php:75
 #, php-format
 msgid "Product: %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:132
+#: includes/class-alg-wc-po-actions.php:215
 #: includes/settings/class-alg-wc-po-settings-email.php:76
 #, php-format
 msgid "Offered price: %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:133
+#: includes/class-alg-wc-po-actions.php:216
 #: includes/settings/class-alg-wc-po-settings-email.php:77
 #, php-format
 msgid "From: %s %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:134
+#: includes/class-alg-wc-po-actions.php:217
 #: includes/settings/class-alg-wc-po-settings-email.php:78
 #, php-format
 msgid "Message: %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:204
+#: includes/class-alg-wc-po-actions.php:287
 #: includes/settings/class-alg-wc-po-settings-form.php:229
 msgid "Your price offer has been sent."
 msgstr ""
@@ -132,15 +150,6 @@ msgstr ""
 
 #: includes/class-alg-wc-po-core.php:287
 msgid "Offer"
-msgstr ""
-
-#: includes/class-alg-wc-po-core.php:291
-#: includes/class-alg-wc-po-frontend.php:191
-#: includes/class-alg-wc-po-meta-boxes-offer.php:246
-#: includes/settings/class-alg-wc-po-settings-form.php:37
-#: includes/settings/class-alg-wc-po-settings-form.php:130
-#: includes/settings/class-alg-wc-po-settings-form.php:133
-msgid "Quantity"
 msgstr ""
 
 #: includes/class-alg-wc-po-core.php:292
