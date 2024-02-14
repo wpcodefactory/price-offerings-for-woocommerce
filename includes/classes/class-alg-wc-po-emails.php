@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Emails
  *
- * @version 2.0.0
+ * @version 2.7.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -27,9 +27,10 @@ class Alg_WC_PO_Emails {
 	/**
 	 * send_email.
 	 *
-	 * @version 2.0.0
+	 * @version 2.7.0
 	 * @since   2.0.0
 	 *
+	 * @todo    (dev) remove "From" and leave only "Reply-To"?
 	 * @todo    (dev) `stripslashes`?
 	 */
 	static function send_email( $to, $subject, $content, $heading, $from, $from_name ) {
@@ -49,11 +50,19 @@ class Alg_WC_PO_Emails {
 
 		// Headers
 		$headers = 'Content-Type: text/html' . "\r\n" .
-			'From: "' . $from_name . '" <' . $from . '>' . "\r\n" .
-			'Reply-To: ' . $from . "\r\n";
+			'From: "'    . $from_name . '" <' . $from . '>' . "\r\n" .
+			'Reply-To: ' . $from_name .  ' <' . $from . '>' . "\r\n";
+
+		// Add email "name" and "address" filters
+		add_filter( 'wp_mail_from',      array( alg_wc_po()->core, 'get_email_from_address' ), PHP_INT_MAX );
+		add_filter( 'wp_mail_from_name', array( alg_wc_po()->core, 'get_email_from_name' ),    PHP_INT_MAX );
 
 		// Send
 		wc_mail( $to, $subject, $content, $headers );
+
+		// Remove email "name" and "address" filters
+		remove_filter( 'wp_mail_from',      array( alg_wc_po()->core, 'get_email_from_address' ), PHP_INT_MAX );
+		remove_filter( 'wp_mail_from_name', array( alg_wc_po()->core, 'get_email_from_name' ),    PHP_INT_MAX );
 
 	}
 

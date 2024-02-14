@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Price Offer Class
  *
- * @version 2.5.0
+ * @version 2.7.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -535,16 +535,17 @@ class Alg_WC_Price_Offer {
 	/**
 	 * update_status.
 	 *
-	 * @version 2.0.0
+	 * @version 2.7.0
 	 * @since   2.0.0
 	 *
 	 * @see     https://developer.wordpress.org/reference/functions/wp_update_post/
 	 */
-	function update_status( $status ) {
+	function update_status( $status, $extra_note = '' ) {
 		$prev_status = $this->get_status_name();
 		if ( ( $result = wp_update_post( array( 'ID' => $this->id, 'post_status' => $status ) ) ) && $prev_status !== $this->get_status_name() ) {
-			$this->add_note( sprintf( esc_html__( 'Status updated from %s to %s.', 'price-offerings-for-woocommerce' ),
-				'<strong>' . $prev_status . '</strong>', '<strong>' . $this->get_status_name() . '</strong>' ) );
+			$note = sprintf( esc_html__( 'Status updated from %s to %s.', 'price-offerings-for-woocommerce' ),
+				'<strong>' . $prev_status . '</strong>', '<strong>' . $this->get_status_name() . '</strong>' );
+			$this->add_note( ( '' !== $extra_note ? $note . ' ' . $extra_note : $note ) );
 		}
 		return $result;
 	}
@@ -552,7 +553,7 @@ class Alg_WC_Price_Offer {
 	/**
 	 * process_action.
 	 *
-	 * @version 2.5.0
+	 * @version 2.7.0
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) `customer_phone`: `<a href="tel:...">...</a>`
@@ -614,8 +615,8 @@ class Alg_WC_Price_Offer {
 				$args['email_subject'],
 				$content,
 				$args['email_heading'],
-				get_bloginfo( 'admin_email' ),
-				get_bloginfo( 'name' )
+				alg_wc_po()->core->get_email_from_address(),
+				alg_wc_po()->core->get_email_from_name(),
 			);
 
 		}

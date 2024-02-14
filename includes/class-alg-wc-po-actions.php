@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 2.6.0
+ * @version 2.7.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -17,7 +17,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.6.0
+	 * @version 2.7.0
 	 * @since   2.0.0
 	 */
 	function __construct() {
@@ -25,7 +25,8 @@ class Alg_WC_PO_Actions {
 		// "Add to cart" action
 		add_action( 'wp_loaded', array( $this, 'add_to_cart' ), PHP_INT_MAX );
 		add_action( 'woocommerce_before_calculate_totals', array( $this, 'apply_product_price' ) );
-		add_action( 'woocommerce_checkout_order_processed', array( $this, 'complete_offer' ) );
+		add_action( 'woocommerce_checkout_order_processed', array( $this, 'complete_offer' ), PHP_INT_MAX, 3 );
+		add_action( 'woocommerce_cancelled_order', array( $this, 'uncomplete_offer' ) );
 		add_filter( 'woocommerce_cart_item_is_purchasable', array( $this, 'force_cart_item_is_purchasable' ), PHP_INT_MAX, 3 );
 		add_filter( 'woocommerce_cart_item_quantity', array( $this, 'cart_item_quantity' ), PHP_INT_MAX, 3 );
 
@@ -40,7 +41,8 @@ class Alg_WC_PO_Actions {
 	 * @version 2.0.0
 	 * @since   2.0.0
 	 *
-	 * @todo    (feature) fixed quantity: `$cart_object->set_quantity( $item_key, X, false );`
+	 * @todo    (dev) test `quantity > 1` + `set_sold_individually()`?
+	 * @todo    (feature) fixed quantity: `$cart_object->set_quantity( $item_key, X, false );`?
 	 */
 	function apply_product_price( $cart_object ) {
 		foreach ( $cart_object->get_cart() as $item_key => $item ) {
@@ -54,20 +56,56 @@ class Alg_WC_PO_Actions {
 	}
 
 	/**
-	 * complete_offer.
+	 * uncomplete_offer.
 	 *
-	 * @version 2.0.0
-	 * @since   2.0.0
+	 * @version 2.7.0
+	 * @since   2.7.0
 	 *
-	 * @todo    (dev) `$offer->delete_token()`?
+	 * @todo    (dev) run on other hooks as well, e.g., `woocommerce_order_status_cancelled`?
 	 */
-	function complete_offer() {
-		foreach ( WC()->cart->get_cart() as $item_key => $item ) {
-			if ( isset( $item['alg_wc_price_offer_id'] ) ) {
-				if ( ( $offer = new Alg_WC_Price_Offer( $item['alg_wc_price_offer_id'] ) ) ) {
-					$offer->update_status( 'alg_wc_po_complete' );
+	function uncomplete_offer( $order_id ) {
+		if (
+			( $order = wc_get_order( $order_id ) ) &&
+			( $offer_ids = $order->get_meta( '_alg_wc_price_offer_ids' ) ) &&
+			is_array( $offer_ids )
+		) {
+			foreach ( $offer_ids as $offer_id ) {
+				if (
+					( $offer = new Alg_WC_Price_Offer( $offer_id ) ) &&
+					'alg_wc_po_complete' === $offer->get_status()
+				) {
+					$offer->update_status( 'alg_wc_po_accept',
+						esc_html__( 'Reason: order cancelled.', 'price-offerings-for-woocommerce' ) );
 				}
 			}
+		}
+	}
+
+	/**
+	 * complete_offer.
+	 *
+	 * @version 2.7.0
+	 * @since   2.0.0
+	 *
+	 * @todo    (feature) admin order meta box: "Related offers" (use `$order->get_meta( '_alg_wc_price_offer_ids' )`)
+	 * @todo    (dev) use another hook, e.g., `woocommerce_payment_complete`?
+	 * @todo    (dev) `update_status`: check for `'alg_wc_po_complete' !== $offer->get_status()` before updating the status?
+	 * @todo    (dev) `$offer->delete_token()`?
+	 */
+	function complete_offer( $order_id, $posted_data, $order ) {
+		$offer_ids = array();
+		foreach ( WC()->cart->get_cart() as $item_key => $item ) {
+			if ( isset( $item['alg_wc_price_offer_id'] ) ) {
+				$offer_id = wc_clean( $item['alg_wc_price_offer_id'] );
+				if ( ( $offer = new Alg_WC_Price_Offer( $offer_id ) ) ) {
+					$offer->update_status( 'alg_wc_po_complete' );
+					$offer_ids[] = $offer_id;
+				}
+			}
+		}
+		if ( ! empty( $offer_ids ) ) {
+			$order->update_meta_data( '_alg_wc_price_offer_ids', array_unique( $offer_ids ) );
+			$order->save();
 		}
 	}
 

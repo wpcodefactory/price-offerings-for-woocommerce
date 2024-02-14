@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions Section Settings
  *
- * @version 2.5.0
+ * @version 2.7.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_Actions extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.5.0
+	 * @version 2.7.0
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) better default values
@@ -132,6 +132,32 @@ class Alg_WC_PO_Settings_Actions extends Alg_WC_PO_Settings_Section {
 			array(
 				'id'       => 'alg_wc_po_actions_counter_options',
 				'type'     => 'sectionend',
+			),
+
+			array(
+				'title'       => __( 'Email Sender Options', 'price-offerings-for-woocommerce' ),
+				'id'          => 'alg_wc_po_actions_emails_options',
+				'type'        => 'title',
+			),
+			array(
+				'title'       => __( '"From" name', 'price-offerings-for-woocommerce' ),
+				'desc_tip'    => __( 'How the sender name appears in outgoing price offer emails.', 'price-offerings-for-woocommerce' ),
+				'placeholder' => alg_wc_po()->core->get_default_email_from_name(),
+				'id'          => 'alg_wc_po_actions_email_from_name',
+				'type'        => 'text',
+				'default'     => '',
+			),
+			array(
+				'title'       => __( '"From" address', 'price-offerings-for-woocommerce' ),
+				'desc_tip'    => __( 'How the sender email appears in outgoing price offer emails.', 'price-offerings-for-woocommerce' ),
+				'placeholder' => alg_wc_po()->core->get_default_email_from_address(),
+				'id'          => 'alg_wc_po_actions_email_from_address',
+				'type'        => 'email',
+				'default'     => '',
+			),
+			array(
+				'id'          => 'alg_wc_po_actions_emails_options',
+				'type'        => 'sectionend',
 			),
 
 		);

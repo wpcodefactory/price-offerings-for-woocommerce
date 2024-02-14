@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.5.0
+ * @version 2.7.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -15,7 +15,7 @@ if ( ! class_exists( 'Alg_WC_PO_Core' ) ) :
 class Alg_WC_PO_Core {
 
 	/**
-	 * Properties.
+	 * frontend.
 	 *
 	 * @version 2.2.3
 	 * @since   2.2.3
@@ -23,9 +23,17 @@ class Alg_WC_PO_Core {
 	public $frontend = false;
 
 	/**
+	 * actions.
+	 *
+	 * @version 2.7.0
+	 * @since   2.7.0
+	 */
+	public $actions;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 2.3.0
+	 * @version 2.7.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) list placeholders in the Actions meta box
@@ -48,7 +56,7 @@ class Alg_WC_PO_Core {
 		$this->frontend = require_once( 'class-alg-wc-po-frontend.php' );
 
 		// Actions
-		require_once( 'class-alg-wc-po-actions.php' );
+		$this->actions = require_once( 'class-alg-wc-po-actions.php' );
 
 		// Admin
 		if ( is_admin() ) {
@@ -83,6 +91,50 @@ class Alg_WC_PO_Core {
 		// Core loaded
 		do_action( 'alg_wc_price_offerings_core_loaded', $this );
 
+	}
+
+	/**
+	 * get_default_email_from_name.
+	 *
+	 * @version 2.7.0
+	 * @since   2.7.0
+	 */
+	function get_default_email_from_name() {
+		$wc_option = WC_Emails::instance()->get_from_name();
+		return ( '' === $wc_option ? get_bloginfo( 'name', 'display' ) : $wc_option );
+	}
+
+	/**
+	 * get_default_email_from_address.
+	 *
+	 * @version 2.7.0
+	 * @since   2.7.0
+	 */
+	function get_default_email_from_address() {
+		$wc_option = WC_Emails::instance()->get_from_address();
+		return ( '' === $wc_option ? get_bloginfo( 'admin_email' ) : $wc_option );
+	}
+
+	/**
+	 * get_email_from_name.
+	 *
+	 * @version 2.7.0
+	 * @since   2.7.0
+	 */
+	function get_email_from_name() {
+		$option = get_option( 'alg_wc_po_actions_email_from_name', '' );
+		return ( '' === $option ? $this->get_default_email_from_name() : $option );
+	}
+
+	/**
+	 * get_email_from_address.
+	 *
+	 * @version 2.7.0
+	 * @since   2.7.0
+	 */
+	function get_email_from_address() {
+		$option = get_option( 'alg_wc_po_actions_email_from_address', '' );
+		return ( '' === $option ? $this->get_default_email_from_address() : $option );
 	}
 
 	/**
