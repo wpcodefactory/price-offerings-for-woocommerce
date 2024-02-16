@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Emails
  *
- * @version 2.7.0
+ * @version 2.7.1
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -27,13 +27,30 @@ class Alg_WC_PO_Emails {
 	/**
 	 * send_email.
 	 *
-	 * @version 2.7.0
+	 * @version 2.7.1
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) remove "From" and leave only "Reply-To"?
 	 * @todo    (dev) `stripslashes`?
 	 */
-	static function send_email( $to, $subject, $content, $heading, $from, $from_name ) {
+	static function send_email( $to, $subject, $content, $heading, $from, $from_name, $do_force = false ) {
+
+		// Send emails in background
+		if ( ! $do_force && 'yes' === get_option( 'alg_wc_po_send_emails_in_background', 'no' ) ) {
+			as_enqueue_async_action(
+				'alg_wc_price_offers_send_email',
+				array(
+					'to'        => $to,
+					'subject'   => $subject,
+					'content'   => $content,
+					'heading'   => $heading,
+					'from'      => $from,
+					'from_name' => $from_name,
+					'do_force'  => true,
+				)
+			);
+			return;
+		}
 
 		// Subject
 		$subject = self::process_placeholders( $subject );

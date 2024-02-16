@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.7.0
+ * @version 2.7.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -33,7 +33,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.7.0
+	 * @version 2.7.1
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) list placeholders in the Actions meta box
@@ -47,6 +47,9 @@ class Alg_WC_PO_Core {
 		// Classes
 		require_once( 'classes/class-alg-wc-price-offer.php' );
 		require_once( 'classes/class-alg-wc-po-emails.php' );
+
+		// Send emails in background
+		add_action( 'alg_wc_price_offers_send_email', array( 'Alg_WC_PO_Emails', 'send_email' ), 10, 7 );
 
 		// Custom post & statuses
 		add_action( 'init', array( $this, 'create_post_type' ), 9 );

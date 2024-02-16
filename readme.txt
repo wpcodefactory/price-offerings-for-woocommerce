@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmu
 Tags: woocommerce, price, offers, offerings, negotiations, woo commerce
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 2.7.0
+Stable tag: 2.7.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -47,6 +47,10 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 3. Start by visiting plugin settings at "WooCommerce > Settings > Price Offers".
 
 == Changelog ==
+
+= 2.7.1 - 16/02/2024 =
+* Dev - Advanced - "Send emails in background" option added (defaults to `no`).
+* WC tested up to: 8.6.
 
 = 2.7.0 - 14/02/2024 =
 * Fix - Actions - Un-completing offers on "cancelled order".

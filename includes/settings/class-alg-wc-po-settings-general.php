@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - General Section Settings
  *
- * @version 2.4.0
+ * @version 2.7.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.4.0
+	 * @version 2.7.1
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -142,6 +142,26 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'id'                => 'alg_wc_price_offerings_selected_products_options',
+				'type'              => 'sectionend',
+			),
+			array(
+				'title'             => __( 'Advanced Options', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_price_offerings_advanced_options',
+				'type'              => 'title',
+			),
+			array(
+				'title'             => __( 'Send emails in background', 'price-offerings-for-woocommerce' ),
+				'desc'              => __( 'Enable', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => sprintf( __( 'Queues emails for background processing with the %s.', 'price-offerings-for-woocommerce' ),
+					'<a href="' . admin_url( 'admin.php?page=wc-status&tab=action-scheduler&s=alg_wc_price_offers_send_email' ) . '">' .
+						__( 'Action Scheduler', 'price-offerings-for-woocommerce' ) .
+					'</a>' ),
+				'id'                => 'alg_wc_po_send_emails_in_background',
+				'type'              => 'checkbox',
+				'default'           => 'no',
+			),
+			array(
+				'id'                => 'alg_wc_price_offerings_advanced_options',
 				'type'              => 'sectionend',
 			),
 		);
