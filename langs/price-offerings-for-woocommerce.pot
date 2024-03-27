@@ -1,20 +1,20 @@
-#: includes/class-alg-wc-po-actions.php:78
+#: includes/class-alg-wc-po-actions.php:92
 msgid "Reason: order cancelled."
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:150
+#: includes/class-alg-wc-po-actions.php:164
 msgid "Product is already in the cart."
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:157
+#: includes/class-alg-wc-po-actions.php:171
 msgid "Product not found."
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:161
+#: includes/class-alg-wc-po-actions.php:175
 msgid "The link is no longer valid."
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:213
+#: includes/class-alg-wc-po-actions.php:227
 #: includes/class-alg-wc-po-core.php:346
 #: includes/class-alg-wc-po-frontend.php:191
 #: includes/class-alg-wc-po-meta-boxes-offer.php:246
@@ -24,38 +24,38 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:249
-#: includes/class-alg-wc-po-actions.php:250
+#: includes/class-alg-wc-po-actions.php:263
+#: includes/class-alg-wc-po-actions.php:264
 #: includes/settings/class-alg-wc-po-settings-email.php:58
 #: includes/settings/class-alg-wc-po-settings-email.php:66
 msgid "Price offer"
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:252
+#: includes/class-alg-wc-po-actions.php:266
 #: includes/settings/class-alg-wc-po-settings-email.php:75
 #, php-format
 msgid "Product: %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:253
+#: includes/class-alg-wc-po-actions.php:267
 #: includes/settings/class-alg-wc-po-settings-email.php:76
 #, php-format
 msgid "Offered price: %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:254
+#: includes/class-alg-wc-po-actions.php:268
 #: includes/settings/class-alg-wc-po-settings-email.php:77
 #, php-format
 msgid "From: %s %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:255
+#: includes/class-alg-wc-po-actions.php:269
 #: includes/settings/class-alg-wc-po-settings-email.php:78
 #, php-format
 msgid "Message: %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:325
+#: includes/class-alg-wc-po-actions.php:339
 #: includes/settings/class-alg-wc-po-settings-form.php:229
 msgid "Your price offer has been sent."
 msgstr ""
@@ -327,7 +327,7 @@ msgstr ""
 msgid "Suggest your price for %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:453
+#: includes/class-alg-wc-po-frontend.php:471
 #: includes/settings/class-alg-wc-po-settings-button.php:49
 msgid "Make an offer"
 msgstr ""
@@ -343,7 +343,7 @@ msgid "Data"
 msgstr ""
 
 #: includes/class-alg-wc-po-meta-boxes-offer.php:151
-#: includes/settings/class-alg-wc-po-settings-general.php:171
+#: includes/settings/class-alg-wc-po-settings-general.php:189
 msgid "Notes"
 msgstr ""
 
@@ -575,8 +575,8 @@ msgid "Product meta box"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-admin.php:44
-#: includes/settings/class-alg-wc-po-settings-general.php:105
-#: includes/settings/class-alg-wc-po-settings-general.php:154
+#: includes/settings/class-alg-wc-po-settings-general.php:116
+#: includes/settings/class-alg-wc-po-settings-general.php:172
 msgid "Enable"
 msgstr ""
 
@@ -855,6 +855,7 @@ msgid "Enable for selected products only"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-general.php:59
+#: includes/settings/class-alg-wc-po-settings-general.php:165
 msgid "Exclude"
 msgstr ""
 
@@ -895,81 +896,97 @@ msgstr ""
 msgid "Excludes all products with the price lower than the set price."
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:98
+#: includes/settings/class-alg-wc-po-settings-general.php:94
+msgid "User visibility"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:100
+msgid "All users"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:101
+msgid "Logged-in users only"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:109
 msgid "Selected Products Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:99
+#: includes/settings/class-alg-wc-po-settings-general.php:110
 msgid ""
 "This section is ignored unless \"Enable for selected products only\" is "
 "selected for \"Products\" option above."
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:104
+#: includes/settings/class-alg-wc-po-settings-general.php:115
 msgid "Per product"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:106
+#: includes/settings/class-alg-wc-po-settings-general.php:117
 msgid ""
 "If enabled, this will add new settings to each product's edit page "
 "(\"Product data\" meta box)."
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:114
+#: includes/settings/class-alg-wc-po-settings-general.php:125
 msgid "Per variation"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:115
+#: includes/settings/class-alg-wc-po-settings-general.php:126
 msgid "Will add new options to each variation of a variable product."
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:123
+#: includes/settings/class-alg-wc-po-settings-general.php:134
 msgid "Per product category"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:129
+#: includes/settings/class-alg-wc-po-settings-general.php:140
 msgid "Disabled"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:130
+#: includes/settings/class-alg-wc-po-settings-general.php:141
 msgid "Require categories"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:131
+#: includes/settings/class-alg-wc-po-settings-general.php:142
 msgid "Exclude categories"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:135
+#: includes/settings/class-alg-wc-po-settings-general.php:146
 msgid "Product categories"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:136
+#: includes/settings/class-alg-wc-po-settings-general.php:147
 msgid "Ignored if the \"Per product category\" option is set to \"Disabled\"."
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:148
+#: includes/settings/class-alg-wc-po-settings-general.php:159
 msgid "Advanced Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:153
+#: includes/settings/class-alg-wc-po-settings-general.php:164
+msgid "Exclude price offers from coupons"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:171
 msgid "Send emails in background"
-msgstr ""
-
-#: includes/settings/class-alg-wc-po-settings-general.php:155
-#, php-format
-msgid "Queues emails for background processing with the %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-po-settings-general.php:157
-msgid "Action Scheduler"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-general.php:173
 #, php-format
+msgid "Queues emails for background processing with the %s."
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:175
+msgid "Action Scheduler"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:191
+#, php-format
 msgid "You can see and manage all price offers in the %s dashboard."
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:174
+#: includes/settings/class-alg-wc-po-settings-general.php:192
 msgid "Offers"
 msgstr ""
 

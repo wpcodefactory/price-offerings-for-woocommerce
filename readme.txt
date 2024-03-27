@@ -1,9 +1,9 @@
 === Price Offers for WooCommerce ===
 Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmukherjeeli
-Tags: woocommerce, price, offers, offerings, negotiations, woo commerce
+Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 2.7.1
+Stable tag: 2.8.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,6 +21,7 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 
 * **Exclude** selected products from price offers, e.g., **out of stock** products, products with **non-empty price**, etc.
 * Set custom **label**, **CSS class**, **style** and **position** for the "Make an offer" button on frontend.
+* Optionally show the button to the **logged-in users only**.
 * Customize the **frontend form**: select enabled and required fields, set price input options, quantity options, labels, notices, styles, etc.
 * Set recipient(s), subject, heading, content template for the price offers **emails**.
 * Choose columns you want to see in **admin price offers history** for the product.
@@ -47,6 +48,14 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 3. Start by visiting plugin settings at "WooCommerce > Settings > Price Offers".
 
 == Changelog ==
+
+= 2.8.0 - 26/03/2024 =
+* Dev - General - "User visibility" option added ("All users" (default) and "Logged-in users only").
+* Dev - Advanced - "Exclude price offers from coupons" option added (defaults to `yes` (new behaviour)).
+* Dev - Developers - `alg_wc_po_show_offer_price_button` filter added.
+* Dev - Developers - `alg_wc_po_before_offer_price_button` and `alg_wc_po_after_offer_price_button` actions added.
+* WC tested up to: 8.7.
+* Readme.txt - Tags updated.
 
 = 2.7.1 - 16/02/2024 =
 * Dev - Advanced - "Send emails in background" option added (defaults to `no`).

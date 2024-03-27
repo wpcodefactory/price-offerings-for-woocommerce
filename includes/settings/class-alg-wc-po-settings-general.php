@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - General Section Settings
  *
- * @version 2.7.1
+ * @version 2.8.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.7.1
+	 * @version 2.8.0
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -91,6 +91,17 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 				'custom_attributes' => array( 'min' => 0, 'step' => 0.0000001 ),
 			),
 			array(
+				'title'             => __( 'User visibility', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_po_offer_price_button_user_visibility',
+				'type'              => 'select',
+				'class'             => 'chosen_select',
+				'default'           => 'all',
+				'options'           => array(
+					'all'       => __( 'All users', 'price-offerings-for-woocommerce' ),
+					'logged_in' => __( 'Logged-in users only', 'price-offerings-for-woocommerce' ),
+				),
+			),
+			array(
 				'id'                => 'alg_wc_price_offerings_general_options',
 				'type'              => 'sectionend',
 			),
@@ -148,6 +159,13 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 				'title'             => __( 'Advanced Options', 'price-offerings-for-woocommerce' ),
 				'id'                => 'alg_wc_price_offerings_advanced_options',
 				'type'              => 'title',
+			),
+			array(
+				'title'             => __( 'Exclude price offers from coupons', 'price-offerings-for-woocommerce' ),
+				'desc'              => __( 'Exclude', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_po_exclude_cart_items_from_coupons',
+				'type'              => 'checkbox',
+				'default'           => 'yes',
 			),
 			array(
 				'title'             => __( 'Send emails in background', 'price-offerings-for-woocommerce' ),

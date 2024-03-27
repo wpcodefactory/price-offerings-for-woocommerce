@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 2.7.0
+ * @version 2.8.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -17,13 +17,14 @@ class Alg_WC_PO_Actions {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.7.0
+	 * @version 2.8.0
 	 * @since   2.0.0
 	 */
 	function __construct() {
 
 		// "Add to cart" action
 		add_action( 'wp_loaded', array( $this, 'add_to_cart' ), PHP_INT_MAX );
+		add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'exclude_cart_item_from_coupons' ), PHP_INT_MAX, 5 );
 		add_action( 'woocommerce_before_calculate_totals', array( $this, 'apply_product_price' ) );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'complete_offer' ), PHP_INT_MAX, 3 );
 		add_action( 'woocommerce_cancelled_order', array( $this, 'uncomplete_offer' ) );
@@ -33,6 +34,19 @@ class Alg_WC_PO_Actions {
 		// "Create offer" action
 		add_action( 'init', array( $this, 'offer_price' ) );
 
+	}
+
+	/**
+	 * exclude_cart_item_from_coupons.
+	 *
+	 * @version 2.8.0
+	 * @since   2.8.0
+	 */
+	function exclude_cart_item_from_coupons( $discount, $discounting_amount, $cart_item, $single, $coupon ) {
+		return (
+			'yes' === get_option( 'alg_wc_po_exclude_cart_items_from_coupons', 'yes' ) &&
+			! empty( $cart_item['alg_wc_price_offer_id'] ) ?
+		0 : $discount );
 	}
 
 	/**

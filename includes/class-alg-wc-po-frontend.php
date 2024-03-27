@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 2.5.0
+ * @version 2.8.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -416,7 +416,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * add_offer_price_button.
 	 *
-	 * @version 2.3.0
+	 * @version 2.8.0
 	 * @since   1.0.0
 	 */
 	function add_offer_price_button() {
@@ -425,13 +425,31 @@ class Alg_WC_PO_Frontend {
 		$product_id = get_the_ID();
 
 		// Check if enabled for current product
-		if ( ! $this->is_offer_price_enabled_for_product( $product_id ) || $this->is_offer_price_excluded_for_product( $product_id ) ) {
+		if (
+			! $this->is_offer_price_enabled_for_product( $product_id ) ||
+			$this->is_offer_price_excluded_for_product( $product_id )
+		) {
 			do_action( 'alg_wc_po_offer_price_button_disabled', $product_id );
 			return;
 		}
 
+		// Check if we are showing the button for the logged-in users only
+		if (
+			'logged_in' === get_option( 'alg_wc_po_offer_price_button_user_visibility', 'all' ) &&
+			! is_user_logged_in()
+		) {
+			return;
+		}
+
+		// Filter
+		if ( ! apply_filters( 'alg_wc_po_show_offer_price_button', true, $product_id ) ) {
+			return;
+		}
+
 		// The button
+		do_action( 'alg_wc_po_before_offer_price_button', $product_id );
 		echo $this->get_offer_price_button( $product_id );
+		do_action( 'alg_wc_po_after_offer_price_button', $product_id );
 
 	}
 
