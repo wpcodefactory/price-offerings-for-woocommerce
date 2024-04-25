@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Product
  *
- * @version 2.5.0
+ * @version 2.9.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -13,6 +13,14 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'Alg_WC_PO_Meta_Boxes_Product' ) ) :
 
 class Alg_WC_PO_Meta_Boxes_Product {
+
+	/**
+	 * admin_options.
+	 *
+	 * @version 2.9.0
+	 * @since   2.9.0
+	 */
+	public $admin_options;
 
 	/**
 	 * Constructor.

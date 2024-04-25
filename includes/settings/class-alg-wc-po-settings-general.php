@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - General Section Settings
  *
- * @version 2.8.0
+ * @version 2.9.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.8.0
+	 * @version 2.9.0
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -175,6 +175,33 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 						__( 'Action Scheduler', 'price-offerings-for-woocommerce' ) .
 					'</a>' ),
 				'id'                => 'alg_wc_po_send_emails_in_background',
+				'type'              => 'checkbox',
+				'default'           => 'no',
+			),
+			array(
+				'title'             => __( 'REST API', 'price-offerings-for-woocommerce' ),
+				'desc'              => __( 'Enable', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => sprintf( '<details><summary style="cursor: pointer;">%s</summary><p>%s</p></details>',
+					__( 'Routes', 'price-offerings-for-woocommerce' ),
+					implode( '<br>', array(
+						sprintf( '%s %s - %s',
+							'<code>GET</code>',
+							'<code>' . esc_html( '/wp-json/wc/v3/alg_wc_price_offers' ) . '</code>',
+							__( 'List all offers.', 'price-offerings-for-woocommerce' )
+						),
+						sprintf( '%s %s - %s',
+							'<code>GET</code>',
+							'<code>' . esc_html( '/wp-json/wc/v3/alg_wc_price_offers/<id>' ) . '</code>',
+							__( 'Retrieve an offer.', 'price-offerings-for-woocommerce' )
+						),
+						sprintf( '%s %s - %s',
+							'<code>PUT</code>',
+							'<code>' . esc_html( '/wp-json/wc/v3/alg_wc_price_offers/<id>' ) . '</code>',
+							__( 'Update an offer.', 'price-offerings-for-woocommerce' )
+						),
+					) )
+				),
+				'id'                => 'alg_wc_po_rest_api_enabled',
 				'type'              => 'checkbox',
 				'default'           => 'no',
 			),

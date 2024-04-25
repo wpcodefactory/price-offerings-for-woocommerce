@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.7.1
+ * @version 2.9.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -33,7 +33,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.7.1
+	 * @version 2.9.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) list placeholders in the Actions meta box
@@ -60,6 +60,9 @@ class Alg_WC_PO_Core {
 
 		// Actions
 		$this->actions = require_once( 'class-alg-wc-po-actions.php' );
+
+		// REST API
+		$this->maybe_init_rest_api();
 
 		// Admin
 		if ( is_admin() ) {
@@ -94,6 +97,33 @@ class Alg_WC_PO_Core {
 		// Core loaded
 		do_action( 'alg_wc_price_offerings_core_loaded', $this );
 
+	}
+
+	/**
+	 * maybe_init_rest_api.
+	 *
+	 * @version 2.9.0
+	 * @since   2.9.0
+	 *
+	 * @see     https://github.com/woocommerce/woocommerce/blob/8.8.2/plugins/woocommerce/includes/rest-api/Server.php#L59
+	 */
+	function maybe_init_rest_api() {
+		if ( 'yes' === get_option( 'alg_wc_po_rest_api_enabled', 'no' ) ) {
+			require_once( 'rest/class-wc-rest-alg-wc-po-controller.php' );
+			require_once( 'rest/class-wc-rest-alg-wc-po.php' );
+			add_filter( 'woocommerce_rest_api_get_rest_namespaces', array( $this, 'add_rest_controller' ) );
+		}
+	}
+
+	/**
+	 * add_rest_controller.
+	 *
+	 * @version 2.9.0
+	 * @since   2.9.0
+	 */
+	function add_rest_controller( $controllers ) {
+		$controllers['wc/v3']['alg_wc_price_offers'] = 'WC_REST_Alg_WC_PO_Controller';
+		return $controllers;
 	}
 
 	/**

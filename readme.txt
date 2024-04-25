@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmukherjeeli
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
-Tested up to: 6.4
-Stable tag: 2.8.0
+Tested up to: 6.5
+Stable tag: 2.9.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,6 +27,7 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 * Choose columns you want to see in **admin price offers history** for the product.
 * Available price offer **actions**: Reject, Accept, Counter, etc.
 * The plugin is **"High-Performance Order Storage (HPOS)"** compatible.
+* Integrated with the WordPress **REST API**.
 * And more...
 
 ### &#127942; Premium Version ###
@@ -48,6 +49,12 @@ The plugin adds customizable "Make an offer" button to the frontend product page
 3. Start by visiting plugin settings at "WooCommerce > Settings > Price Offers".
 
 == Changelog ==
+
+= 2.9.0 - 25/04/2024 =
+* Dev - Advanced - "REST API" option added (defaults to `no`).
+* Dev - PHP 8.2 compatibility - "Creation of dynamic property is deprecated" notice fixed.
+* WC tested up to: 8.8.
+* Tested up to: 6.5.
 
 = 2.8.0 - 26/03/2024 =
 * Dev - General - "User visibility" option added ("All users" (default) and "Logged-in users only").

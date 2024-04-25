@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Main Class
  *
- * @version 2.3.1
+ * @version 2.9.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -21,6 +21,14 @@ final class Alg_WC_PO {
 	 * @since   1.0.0
 	 */
 	public $version = ALG_WC_PO_VERSION;
+
+	/**
+	 * core.
+	 *
+	 * @version 2.9.0
+	 * @since   2.9.0
+	 */
+	public $core;
 
 	/**
 	 * @var     Alg_WC_PO The single instance of the class

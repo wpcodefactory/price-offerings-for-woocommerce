@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Price Offer Class
  *
- * @version 2.7.0
+ * @version 2.9.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -13,6 +13,22 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'Alg_WC_Price_Offer' ) ) :
 
 class Alg_WC_Price_Offer {
+
+	/**
+	 * id.
+	 *
+	 * @version 2.9.0
+	 * @since   2.9.0
+	 */
+	public $id;
+
+	/**
+	 * values.
+	 *
+	 * @version 2.9.0
+	 * @since   2.9.0
+	 */
+	public $values;
 
 	/**
 	 * Constructor.
