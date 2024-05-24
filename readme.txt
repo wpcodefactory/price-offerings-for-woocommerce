@@ -1,54 +1,171 @@
-=== Price Offers for WooCommerce ===
+=== Name Your Price for WooCommerce: Open Pricing & Offers for WooCommerce ===
 Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmukherjeeli
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 2.9.0
+Stable tag: 2.9.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Allows your customers to start product price negotiations with you.
+Let customers name their own price on WooCommerce products & donations, offer a flexible pricing options with NYOP, open pricing, and open negotiation features.
 
 == Description ==
 
-**Price Offers for WooCommerce** plugin allows your customers to start product price negotiations with you. The plugin allows them to suggest their price for your products. Then you can reject, accept, counter their offer.
+> “Always at the top: I also bought this plugin which it works great. In addition, the availability and level of technical support always at the top. Thanks!” – ⭐⭐⭐⭐⭐  [gio61](https://wordpress.org/support/topic/always-at-the-top/)
 
-### &#9881; How it Works ###
+[Main Page](https://wpfactory.com/item/price-offers-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Main Page") | [Demo (Pro version)](https://nameyourprice.instawp.xyz/ "Demo") | [Support Forum](https://wpfactory.com/support/item/price-offers-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Support Forum") | [Documentation & How to](https://wpfactory.com/docs/price-offers-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Documentation & How to")
 
-The plugin adds customizable "Make an offer" button to the frontend product pages of your WooCommerce store. After customer clicks the button, modal form is displayed, where he can enter his suggested price, reply email, optional message etc. You will then receive an email with the price offer and the offer will also be saved in backend price offers dashboard. Then you can perform price offer actions (reject, accept, counter, etc.).
 
-### &#9989; Features ###
+Name Your Price for WooCommerce is an intuitive plugin designed to give your customers the flexibility to set their own price for your products. Whether it's for open pricing, making a donation, or negotiating a preferred price, this plugin empowers your customers to choose how much they can pay.
 
-* **Exclude** selected products from price offers, e.g., **out of stock** products, products with **non-empty price**, etc.
-* Set custom **label**, **CSS class**, **style** and **position** for the "Make an offer" button on frontend.
-* Optionally show the button to the **logged-in users only**.
-* Customize the **frontend form**: select enabled and required fields, set price input options, quantity options, labels, notices, styles, etc.
-* Set recipient(s), subject, heading, content template for the price offers **emails**.
-* Choose columns you want to see in **admin price offers history** for the product.
-* Available price offer **actions**: Reject, Accept, Counter, etc.
-* The plugin is **"High-Performance Order Storage (HPOS)"** compatible.
-* Integrated with the WordPress **REST API**.
-* And more...
+The plugin is easy to use and integrates seamlessly with your WooCommerce store, requiring minimal setup so you can be up & running in a few clicks.
 
-### &#127942; Premium Version ###
+What the plugin can help you with?
 
-[Pro version](https://wpfactory.com/item/price-offerings-for-woocommerce/) allows you to:
+1. Allow customers to suggest their own prices.
+2. Define minimum prices to ensure profitability. 
+3. Negotiate by accept, reject, or counter offer.
+4. Stay informed using email notifications for all updates
+5. Enhance customer satisfaction and drive more sales by providing a personalized shopping experience with open pricing.
 
-* Enable price offers on **per product** (including **per variation**) and/or **per product category** basis.
-* Use **advanced positions** for the "Make an offer" button on frontend, for example, shop, category (i.e., archives) pages.
+## How it Works ##
 
-### &#128472; Feedback ###
+The plugin adds a customizable "Make an Offer" button to your WooCommerce product pages. When a customer clicks the button, a form pops up where they can enter their suggested price, email, and an optional message. 
 
-* We are open to your suggestions and feedback. Thank you for using or trying out one of our plugins!
-* [Visit plugin site](https://wpfactory.com/item/price-offerings-for-woocommerce/).
+You'll receive an email with their offer, which will also be saved in the backend price offers dashboard. From there, you can take actions like rejecting, accepting, or countering the offer.
+
+Let's get into each feature in more details.
+
+
+## 🚀 Main Features: FREE Version##
+
+### 🚀 Allow Customers to Name Their Own Prices ###
+
+As basic as it sounds, this feature lets your customers set their own prices for your products, by providing a field to enter the amount they are willing to pay, to enhance their shopping experience and potentially boosting sales.
+
+### 🚀 Single Dashboard to View All Offers ###
+
+View all offers from a single report page, showing products, customer info, their offer, and other details.
+
+### 🚀 Filter Products to Show Name Your Price Options ###
+
+Easily control which products display the "Name Your Price" option. You can filter products by excluding out-of-stock items, or excluding products with defined prices, or based on price thresholds (higher or lower than a specified amount).
+
+### 🚀 Control Name Your Price Visibility  ###
+
+Fully control the visibility of the "Name Your Price" option by choosing to show it to all visitors or only to logged-in users.
+
+### 🚀 Customize Name Your Price Field Position & Style  ###
+
+Customize & adjust the position and appearance of the "Name Your Price" field on product pages, full control on field label, HTML class, and styling options to match your store's design and layout.
+
+### 🚀 Show/hide Fields in Form/Popup For Customers  ###
+
+Tailor the form or popup to suit your needs by selecting which fields to display when customers click the button. Choose from name, message, email, quantity, and phone number. Control which fields are optional or required, customize all field labels, and more.
+
+### 🚀 Style Open Your Price Popup Styling  ###
+
+You can reflect your brand colors into form style, adjust form header & footer background color, font color, and form width percentage.
+
+### 🚀 Offer Email Customization ###
+
+Personalize the emails sent from the plugin by customizing the recipient, subject, heading, and template. Utilize over 10 placeholders such as `%product_sku%`, `%offered_price%`, `%quantity%`, `%customer_name%`, and `%customer_phone%` for detailed and tailored email content.
+
+### 🚀 Accept, Reject & Counter Emails Customization ###
+
+Tailor the emails sent for accepted, rejected, or countered offers. Change the "From" & "Name" fields values, and customize the recipient, subject, heading, and template with different placeholders to ensure personalized communication.
+
+### 🚀 Product Detailed Reports for Offers ###
+
+Adds a detailed offers report to each product's admin edit page, displaying all received offers along with their status, quantity, user information, and other relevant details.
+
+### 🚀 Advanced Options  ###
+
+* Exclude price offers from coupons
+* REST API support to list, retrieve and update offers
+
+
+## 🏆 Do More: PRO Version##
+
+The plugin is free, including all features listed above, but if you want to go further, check what the premium version of [Name Your Price for WooCommerce: Open Pricing & Offers for WooCommerce](https://wpfactory.com/item/price-offers-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme) plugin does:
+
+### 🏆 Enable Name Your Price by Product ###
+
+The plugin free version enables open pricing site-wide by default (with filters mentioned above), the Pro version allows you to select on a product level which products to have this option enabled.
+
+### 🏆 Show Name Your Price on Archive/Category Pages ###
+
+Enable the Name Your Price field on archive and category pages (shop pages), to allow customers to browse & set their own prices directly from these pages.
+
+___
+## ❤️ User Testimonials: See What Others Are Saying!##
+
+> “Great Plugin: Great plugin! I would suggest that on the field of Product there will be a link to check the product directly or add the SKU number.” – ⭐⭐⭐⭐⭐ [estebandido](https://wordpress.org/support/topic/great-plugin-34795/)
+
+> “Useful Plugin: Liked the plugin and the support..” – ⭐⭐⭐⭐⭐ [asmarif](https://wordpress.org/support/topic/useful-plugin-1011/)
+
+> Translated: “Great availability and patience of the support person. Well informed about my little problem; everything is OK now. I recommend this plugin and the team.” – ⭐⭐⭐⭐⭐ [Gérald](https://wpfactory.com/item/price-offers-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
+
+> “Great plugin: Great functionality and fast & good support whenever needed” – ⭐⭐⭐⭐⭐ [marketoo](https://wordpress.org/support/topic/great-plugin-38322/)
+
+___
+## 💯 Why WPFactory? ##
+
+* **Experience You Can Trust:** Over a decade in the business
+* **Wide Plugin Selection:** Offering 65+ unique and powerful plugins
+* **Highly-Rated Support:** Backed by hundreds of 5-star reviews
+* **Expert Team:** Dedicated developers and technical support at your service
+
+___
+## What's Next? Discover More Plugins by WPFactory ##
+
+WPFactory has a diverse range of plugins tailored to enhance your experience:
+
+* [**Dynamic Pricing & Bulk Quantity Discounts**](https://wpfactory.com/item/product-price-by-quantity-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Dynamic Pricing & Bulk Quantity Discounts**"): Advanced dynamic pricing and discount rules for WooCommerce, encouraging bulk purchases and driving more sales (**[Free version](https://wordpress.org/plugins/wholesale-pricing-woocommerce/ "Free version")**)
+
+* [**EAN, UPC, ISBN Generator: Product Barcode Inventory for WooCommerce**](https://wpfactory.com/item/ean-barcodes-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**EAN, UPC, ISBN Generator: Product Barcode Inventory for WooCommerce***"): Manage GTINs (EAN, UPC, ISBN, etc.) effortlessly in WooCommerce! Create, save, search, and display EANs easily, with admin tools for bulk actions.
+ (**[Free version](https://wordpress.org/plugins/ean-for-woocommerce/ "Free version")**)
+
+* [**Wishlist for WooCommerce: Multi Wishlists per Customer**](https://wpfactory.com/item/wish-list-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Wishlist for WooCommerce: Multi Wishlists per Customer**"): Increase loyalty & sales by allowing customers to add products to wishlist, create multiple wishlists, save them, share them with friends & family on your WooCommerce store (**[Free version](https://wordpress.org/plugins/wish-list-for-woocommerce/ "Free version")**)
+
+* [**Additional Custom Emails for WooCommerce**](https://wpfactory.com/item/custom-emails-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Additional Custom Emails for WooCommerce**"): Define & customize more emails based on triggers, choose from multiple recipient options, personalize content, and send emails manually. (**[Free version](https://wordpress.org/plugins/custom-emails-for-woocommerce/ "Free version")**)
+
+* [**Automated Order Status Controller for WooCommerce**](https://wpfactory.com/item/order-status-rules-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Automated Order Status Controller for WooCommerce**"): Change order statuses programmatically based on a wide range of conditions, like time intervals, user roles and more! (**[Free version](https://wordpress.org/plugins/order-status-rules-for-woocommerce/ "Free version")**)
+
+* [**Custom Order Status for WooCommerce**](https://wpfactory.com/item/order-status-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Custom Order Status for WooCommerce**"): Create & manage unlimited number of custom statuses, to reflect your business desires & needs. (**[Free version](https://wordpress.org/plugins/order-status-for-woocommerce/ "Free version")**)
+
+* [**Free Shipping Bar: Amount Left for Free Shipping for WooCommerce**](https://wpfactory.com/item/amount-left-free-shipping-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Free Shipping Bar: Amount Left for Free Shipping for WooCommerce**"): Encourage higher spending by offering free shipping based on amount, with a progress bar for customers. (**[Free version](https://wordpress.org/plugins/amount-left-free-shipping-woocommerce/ "Free version")**)
 
 == Installation ==
 
-1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
-2. Activate the plugin through the "Plugins" menu in WordPress.
-3. Start by visiting plugin settings at "WooCommerce > Settings > Price Offers".
+**Follow these simplified steps to get your plugin up and running:**
+
+**From the WordPress Admin Panel:**
+1. Navigate to “Plugins” > “Add New”.
+2. Use the search bar and find the plugin using the exact name.
+3. Click “Install Now” for the desired plugin.
+4. Once the installation is finished, and click “Activate”.
+
+**Manual Installation Using FTP:**
+1. Download the desired plugin from WordPress.org.
+2. Using your preferred FTP client, upload the entire plugin folder to the /wp-content/plugins/ directory of your WordPress installation.
+3. Go to “Plugins” > “Installed Plugins” in your dashboard and click “Activate”.
+
+**Manual download & upload from the WordPress Admin Panel:**
+1. Download the desired plugin in a ZIP format.
+2. On your site, navigate to “Plugins” > “Add New” and click the “Upload Plugin” button.
+3. Choose the downloaded plugin file and click “Install Now.”
+4. After the installation is complete, click “Activate”.
+
+**Post-Activation:**
+Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
+
 
 == Changelog ==
+
+= 2.9.1 - 25/05/2024 =
+* WC tested up to: 8.8.
+* Update readme content.
 
 = 2.9.0 - 25/04/2024 =
 * Dev - Advanced - "REST API" option added (defaults to `no`).
