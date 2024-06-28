@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Price Offer Class
  *
- * @version 2.9.0
+ * @version 2.9.2
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -84,7 +84,10 @@ class Alg_WC_Price_Offer {
 	 * @since   2.0.0
 	 */
 	function get_token_url() {
-		return ( ( $token = $this->get_token() ) ? add_query_arg( array( 'alg_wc_price_offer_id' => $this->id, 'alg_wc_price_offer_token' => $token ), site_url() ) : false );
+		return ( ( $token = $this->get_token() ) ?
+			add_query_arg( array( 'alg_wc_price_offer_id' => $this->id, 'alg_wc_price_offer_token' => $token ), site_url() ) :
+			false
+		);
 	}
 
 	/**
@@ -236,6 +239,16 @@ class Alg_WC_Price_Offer {
 	}
 
 	/**
+	 * get_product_url.
+	 *
+	 * @version 2.9.2
+	 * @since   2.9.2
+	 */
+	function get_product_url() {
+		return ( ( $product = $this->get_product() ) ? $product->get_permalink() : false );
+	}
+
+	/**
 	 * get_product_name_admin_link.
 	 *
 	 * @version 2.3.0
@@ -353,7 +366,11 @@ class Alg_WC_Price_Offer {
 	 */
 	function get_customer_name() {
 		$customer_name = $this->get( 'customer_name' );
-		if ( ( false === $customer_name || '' === $customer_name ) && ( $customer_id = $this->get_customer_id() ) && ( $user = get_user_by( 'id', $customer_id ) ) ) {
+		if (
+			( false === $customer_name || '' === $customer_name ) &&
+			( $customer_id = $this->get_customer_id() ) &&
+			( $user = get_user_by( 'id', $customer_id ) )
+		) {
 			$customer_name = $user->display_name;
 		}
 		return $customer_name;
@@ -369,7 +386,11 @@ class Alg_WC_Price_Offer {
 	 */
 	function get_customer_phone() {
 		$customer_phone = $this->get( 'customer_phone' );
-		if ( ( false === $customer_phone || '' === $customer_phone ) && ( $customer_id = $this->get_customer_id() ) && ( $user = get_user_by( 'id', $customer_id ) ) ) {
+		if (
+			( false === $customer_phone || '' === $customer_phone ) &&
+			( $customer_id = $this->get_customer_id() ) &&
+			( $user = get_user_by( 'id', $customer_id ) )
+		) {
 			$customer_phone = get_user_meta( $customer_id, 'billing_phone', true );
 		}
 		return $customer_phone;
@@ -383,7 +404,11 @@ class Alg_WC_Price_Offer {
 	 */
 	function get_customer_email() {
 		$customer_email = $this->get( 'customer_email' );
-		if ( ( false === $customer_email || '' === $customer_email ) && ( $customer_id = $this->get_customer_id() ) && ( $user = get_user_by( 'id', $customer_id ) ) ) {
+		if (
+			( false === $customer_email || '' === $customer_email ) &&
+			( $customer_id = $this->get_customer_id() ) &&
+			( $user = get_user_by( 'id', $customer_id ) )
+		) {
 			$customer_email = $user->user_email;
 		}
 		return $customer_email;
@@ -426,7 +451,10 @@ class Alg_WC_Price_Offer {
 	 * @since   2.0.0
 	 */
 	function get_sent_to() {
-		return ( array_filter( array( get_post_meta( $this->id, 'sent_to', true ), ( $this->do_copy_to_customer() ? $this->get_customer_email() : '' ) ) ) );
+		return ( array_filter( array(
+			get_post_meta( $this->id, 'sent_to', true ),
+			( $this->do_copy_to_customer() ? $this->get_customer_email() : '' )
+		) ) );
 	}
 
 	/**
@@ -558,7 +586,10 @@ class Alg_WC_Price_Offer {
 	 */
 	function update_status( $status, $extra_note = '' ) {
 		$prev_status = $this->get_status_name();
-		if ( ( $result = wp_update_post( array( 'ID' => $this->id, 'post_status' => $status ) ) ) && $prev_status !== $this->get_status_name() ) {
+		if (
+			( $result = wp_update_post( array( 'ID' => $this->id, 'post_status' => $status ) ) ) &&
+			$prev_status !== $this->get_status_name()
+		) {
 			$note = sprintf( esc_html__( 'Status updated from %s to %s.', 'price-offerings-for-woocommerce' ),
 				'<strong>' . $prev_status . '</strong>', '<strong>' . $this->get_status_name() . '</strong>' );
 			$this->add_note( ( '' !== $extra_note ? $note . ' ' . $extra_note : $note ) );
@@ -569,7 +600,7 @@ class Alg_WC_Price_Offer {
 	/**
 	 * process_action.
 	 *
-	 * @version 2.7.0
+	 * @version 2.9.2
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) `customer_phone`: `<a href="tel:...">...</a>`
@@ -583,7 +614,10 @@ class Alg_WC_Price_Offer {
 		// "Accept" or "Counter"
 		if ( in_array( $action, array( 'counter', 'accept' ) ) ) {
 
-			$accepted_price = ( 'accept' === $action ? $this->get_price() : ( isset( $args['counter_price'] ) ? $args['counter_price'] : false ) );
+			$accepted_price = ( 'accept' === $action ?
+				$this->get_price() :
+				( isset( $args['counter_price'] ) ? $args['counter_price'] : false )
+			);
 
 			if ( $accepted_price ) {
 
@@ -606,10 +640,14 @@ class Alg_WC_Price_Offer {
 			// Content
 			$placeholders = array(
 				'%add_to_cart_url%' => ( isset( $token_url ) ? $token_url : '' ),
-				'%counter_price%'   => ( isset( $args['counter_price'] ) ? wc_price( $args['counter_price'], array( 'currency' => $this->get_currency() ) ) : '' ),
+				'%counter_price%'   => ( isset( $args['counter_price'] ) ?
+					wc_price( $args['counter_price'], array( 'currency' => $this->get_currency() ) ) :
+					''
+				),
 				'%offered_price%'   => $this->get_price_html(),
 				'%quantity%'        => $this->get_quantity(),
 				'%product_title%'   => $this->get_product_name( false ),
+				'%product_url%'     => $this->get_product_url(),
 				'%customer_name%'   => $this->get_customer_name(),
 				'%customer_phone%'  => $this->get_customer_phone(),
 			);

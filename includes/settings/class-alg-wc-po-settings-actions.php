@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions Section Settings
  *
- * @version 2.7.0
+ * @version 2.9.2
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_Actions extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.7.0
+	 * @version 2.9.2
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) better default values
@@ -59,7 +59,16 @@ class Alg_WC_PO_Settings_Actions extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Default email content', 'price-offerings-for-woocommerce' ),
-				'desc'     => $this->placeholders_msg( array( '{site_title}', '{site_url}', '%product_title%', '%offered_price%', '%quantity%', '%customer_name%', '%customer_phone%' ) ),
+				'desc'     => $this->placeholders_msg( array(
+					'{site_title}',
+					'{site_url}',
+					'%product_title%',
+					'%product_url%',
+					'%offered_price%',
+					'%quantity%',
+					'%customer_name%',
+					'%customer_phone%',
+				) ),
 				'id'       => 'alg_wc_po_actions[reject_default_email_content]',
 				'type'     => 'textarea',
 				'default'  => $default['reject_default_email_content'],
@@ -91,7 +100,17 @@ class Alg_WC_PO_Settings_Actions extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Default email content', 'price-offerings-for-woocommerce' ),
-				'desc'     => $this->placeholders_msg( array( '{site_title}', '{site_url}', '%product_title%', '%offered_price%', '%quantity%', '%customer_name%', '%customer_phone%', '%add_to_cart_url%' ) ),
+				'desc'     => $this->placeholders_msg( array(
+					'{site_title}',
+					'{site_url}',
+					'%product_title%',
+					'%product_url%',
+					'%offered_price%',
+					'%quantity%',
+					'%customer_name%',
+					'%customer_phone%',
+					'%add_to_cart_url%',
+				) ),
 				'id'       => 'alg_wc_po_actions[accept_default_email_content]',
 				'type'     => 'textarea',
 				'default'  => $default['accept_default_email_content'],
@@ -123,7 +142,18 @@ class Alg_WC_PO_Settings_Actions extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Default email content', 'price-offerings-for-woocommerce' ),
-				'desc'     => $this->placeholders_msg( array( '{site_title}', '{site_url}', '%product_title%', '%offered_price%', '%quantity%', '%customer_name%', '%customer_phone%', '%add_to_cart_url%', '%counter_price%' ) ),
+				'desc'     => $this->placeholders_msg( array(
+					'{site_title}',
+					'{site_url}',
+					'%product_title%',
+					'%product_url%',
+					'%offered_price%',
+					'%quantity%',
+					'%customer_name%',
+					'%customer_phone%',
+					'%add_to_cart_url%',
+					'%counter_price%',
+				) ),
 				'id'       => 'alg_wc_po_actions[counter_default_email_content]',
 				'type'     => 'textarea',
 				'default'  => $default['counter_default_email_content'],

@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmu
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 2.9.1
+Stable tag: 2.9.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -23,14 +23,14 @@ The plugin is easy to use and integrates seamlessly with your WooCommerce store,
 What the plugin can help you with?
 
 1. Allow customers to suggest their own prices.
-2. Define minimum prices to ensure profitability. 
+2. Define minimum prices to ensure profitability.
 3. Negotiate by accept, reject, or counter offer.
 4. Stay informed using email notifications for all updates
 5. Enhance customer satisfaction and drive more sales by providing a personalized shopping experience with open pricing.
 
 ## How it Works ##
 
-The plugin adds a customizable "Make an Offer" button to your WooCommerce product pages. When a customer clicks the button, a form pops up where they can enter their suggested price, email, and an optional message. 
+The plugin adds a customizable "Make an Offer" button to your WooCommerce product pages. When a customer clicks the button, a form pops up where they can enter their suggested price, email, and an optional message.
 
 You'll receive an email with their offer, which will also be saved in the backend price offers dashboard. From there, you can take actions like rejecting, accepting, or countering the offer.
 
@@ -160,12 +160,17 @@ WPFactory has a diverse range of plugins tailored to enhance your experience:
 **Post-Activation:**
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
-
 == Changelog ==
+
+= 2.9.2 - 28/06/2024 =
+* Dev - Email - Email template - `%product_url%` placeholder added.
+* Dev - Actions - Reject/Accept/Counter - Email content - `%product_url%` placeholder added.
+* WC tested up to: 9.0
+* WooCommerce added to the "Requires Plugins" (plugin header).
 
 = 2.9.1 - 25/05/2024 =
 * WC tested up to: 8.8.
-* Update readme content.
+* Readme.txt - Content updated.
 
 = 2.9.0 - 25/04/2024 =
 * Dev - Advanced - "REST API" option added (defaults to `no`).

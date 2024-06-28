@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 2.8.0
+ * @version 2.9.2
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -234,7 +234,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * offer_price.
 	 *
-	 * @version 2.5.0
+	 * @version 2.9.2
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) start with "Create price offer"
@@ -274,9 +274,17 @@ class Alg_WC_PO_Actions {
 			if ( '' == $email_options['address'] ) {
 				$email_options['address'] = $admin_email;
 			} else {
-				$product_author_email = ( ( $author_id = get_post_field( 'post_author', $product_id ) ) && ( $user_info = get_userdata( $author_id ) ) && isset( $user_info->user_email ) ?
-					$user_info->user_email : $admin_email );
-				$email_options['address'] = str_replace( array( '%admin_email%', '%product_author_email%' ), array( $admin_email, $product_author_email ), $email_options['address'] );
+				$product_author_email = (
+					( $author_id = get_post_field( 'post_author', $product_id ) ) &&
+					( $user_info = get_userdata( $author_id ) ) &&
+					isset( $user_info->user_email ) ?
+						$user_info->user_email : $admin_email
+				);
+				$email_options['address'] = str_replace(
+					array( '%admin_email%', '%product_author_email%' ),
+					array( $admin_email, $product_author_email ),
+					$email_options['address']
+				);
 			}
 
 			// Price offer array
@@ -284,6 +292,7 @@ class Alg_WC_PO_Actions {
 				'offer_timestamp'  => current_time( 'timestamp' ),
 				'product_title'    => $product->get_title(),
 				'product_sku'      => $product->get_sku(),
+				'product_url'      => $product->get_permalink(),
 				'currency_code'    => get_woocommerce_currency(),
 				'customer_id'      => wc_clean( $_POST['alg-wc-price-offerings-customer-id'] ),
 				'user_ip'          => wc_clean( $_SERVER['REMOTE_ADDR'] ),
@@ -299,9 +308,10 @@ class Alg_WC_PO_Actions {
 			);
 
 			// Email content
-			$replaced_values = array(
+			$placeholders = array(
 				'%product_title%'    => $price_offer['product_title'],
 				'%product_sku%'      => $price_offer['product_sku'],
+				'%product_url%'      => $price_offer['product_url'],
 				'%offered_price%'    => wc_price( $price_offer['offered_price'] ),
 				'%quantity%'         => $price_offer['quantity'],
 				'%customer_message%' => $price_offer['customer_message'],
@@ -311,7 +321,7 @@ class Alg_WC_PO_Actions {
 				'%user_ip%'          => $price_offer['user_ip'],
 				'%user_agent%'       => $price_offer['user_agent'],
 			);
-			$email_content = str_replace( array_keys( $replaced_values ), array_values( $replaced_values ), $email_options['template'] );
+			$email_content = str_replace( array_keys( $placeholders ), $placeholders, $email_options['template'] );
 
 			// Send email
 			Alg_WC_PO_Emails::send_email(
