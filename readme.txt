@@ -163,7 +163,7 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 == Changelog ==
 
 = 2.9.3 - 29/06/2024 =
-* Dev - Advanced - "Prevent duplicate offers" options added (defaults to `no`).
+* Dev - General - "Prevent Duplicate Offers" options added (defaults to `no`).
 
 = 2.9.2 - 28/06/2024 =
 * Dev - Email - Email template - `%product_url%` placeholder added.
