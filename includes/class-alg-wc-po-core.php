@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.9.0
+ * @version 2.9.3
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -584,6 +584,66 @@ class Alg_WC_PO_Core {
 		}
 
 		return $offers;
+	}
+
+	/**
+	 * is_duplicate.
+	 *
+	 * @version 2.9.3
+	 * @since   2.9.3
+	 *
+	 * @todo    (dev) `offer_timestamp`, e.g., check 30-day old statuses only
+	 */
+	static function is_duplicate( $price_offer ) {
+
+		// Statuses
+		$post_status = get_option( 'alg_wc_po_prevent_duplicate_offers_post_status', array(
+			'alg_wc_po_open',
+		) );
+		if ( empty( $post_status ) ) {
+			$post_status = array( 'alg_wc_po_open' );
+		}
+
+		// Meta query
+		$keys = get_option( 'alg_wc_po_prevent_duplicate_offers_keys', array(
+			'product_id',
+			'customer_id',
+			'user_ip',
+			'offered_price',
+			'currency_code',
+			'quantity',
+		) );
+		$meta_query = array();
+		foreach ( $keys as $key ) {
+			if ( isset( $price_offer[ $key ] ) ) {
+				$meta_query[] = array(
+					'key'   => $key,
+					'value' => $price_offer[ $key ],
+				);
+			}
+		}
+		if ( count( $meta_query ) > 1 ) {
+			$meta_query['relation'] = 'AND';
+		}
+
+		// Query args
+		$query_args = array(
+			'post_type'      => 'alg_wc_price_offer',
+			'post_status'    => $post_status,
+			'posts_per_page' => 1,
+			'fields'         => 'ids',
+		);
+		if ( ! empty( $meta_query ) ) {
+			$query_args['meta_query'] = $meta_query;
+		}
+		$query_args = apply_filters( 'alg_wc_po_duplicate_query_args', $query_args );
+
+		// Query
+		$query = new WP_Query( $query_args );
+
+		// Result
+		return $query->have_posts();
+
 	}
 
 }

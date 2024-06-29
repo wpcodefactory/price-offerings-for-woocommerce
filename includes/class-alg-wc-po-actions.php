@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 2.9.2
+ * @version 2.9.3
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -234,7 +234,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * offer_price.
 	 *
-	 * @version 2.9.2
+	 * @version 2.9.3
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) start with "Create price offer"
@@ -290,6 +290,7 @@ class Alg_WC_PO_Actions {
 			// Price offer array
 			$price_offer = array(
 				'offer_timestamp'  => current_time( 'timestamp' ),
+				'product_id'       => $product_id,
 				'product_title'    => $product->get_title(),
 				'product_sku'      => $product->get_sku(),
 				'product_url'      => $product->get_permalink(),
@@ -306,6 +307,17 @@ class Alg_WC_PO_Actions {
 				'customer_email'   => ( isset( $_POST['alg-wc-price-offerings-customer-email'] ) ? wc_clean( $_POST['alg-wc-price-offerings-customer-email'] ) : '' ),
 				'copy_to_customer' => ( isset( $_POST['alg-wc-price-offerings-customer-copy'] )  ? wc_clean( $_POST['alg-wc-price-offerings-customer-copy'] )  : 'no' ),
 			);
+
+			// Prevent duplicate offers
+			if (
+				'yes' === get_option( 'alg_wc_po_prevent_duplicate_offers', 'no' ) &&
+				Alg_WC_PO_Core::is_duplicate( $price_offer )
+			) {
+				$message = get_option( 'alg_wc_po_prevent_duplicate_offers_notice',
+					__( 'You have already sent this offer.', 'price-offerings-for-woocommerce' ) );
+				wc_add_notice( $message, 'error' );
+				return;
+			}
 
 			// Email content
 			$placeholders = array(
@@ -346,12 +358,11 @@ class Alg_WC_PO_Actions {
 			// Notice
 			$notice_options = get_option( 'alg_wc_price_offerings_customer_notice', array() );
 			$notice_options = array_merge( array(
-				'message'  => __( 'Your price offer has been sent.', 'price-offerings-for-woocommerce' ),
+				'message' => __( 'Your price offer has been sent.', 'price-offerings-for-woocommerce' ),
 			), $notice_options );
 			wc_add_notice( $notice_options['message'], 'notice' );
 
 			// Create price offer
-			$price_offer['product_id'] = $product_id;
 			Alg_WC_PO_Core::create_price_offer( false, false, $price_offer );
 
 		}
