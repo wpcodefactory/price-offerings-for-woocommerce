@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Email Section Settings
  *
- * @version 2.9.2
+ * @version 2.9.4
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_Email extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.2
+	 * @version 2.9.4
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -75,6 +75,7 @@ class Alg_WC_PO_Settings_Email extends Alg_WC_PO_Settings_Section {
 					'%product_sku%',
 					'%product_url%',
 					'%offered_price%',
+					'%currency_code%',
 					'%quantity%',
 					'%customer_name%',
 					'%customer_phone%',

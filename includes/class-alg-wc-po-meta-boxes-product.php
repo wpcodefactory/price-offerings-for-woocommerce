@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Product
  *
- * @version 2.9.0
+ * @version 2.9.4
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -68,7 +68,7 @@ class Alg_WC_PO_Meta_Boxes_Product {
 	/**
 	 * create_offer_price_history_meta_box.
 	 *
-	 * @version 2.5.0
+	 * @version 2.9.4
 	 * @since   1.0.0
 	 */
 	function create_offer_price_history_meta_box() {
@@ -77,15 +77,16 @@ class Alg_WC_PO_Meta_Boxes_Product {
 			echo __( 'No price offers yet.', 'price-offerings-for-woocommerce' );
 		} else {
 
-			$average_offers       = array();
-			$all_columns          = Alg_WC_PO_Core::get_product_meta_box_columns();
-			$table_data           = array();
-			$header               = array();
-			$meta_box_columns     = $this->get_admin_option( 'meta_box_cols', array( 'title', 'customer_email', 'date', 'status', 'offered_price' ) );
+			$average_offers   = array();
+			$all_columns      = Alg_WC_PO_Core::get_product_meta_box_columns();
+			$table_data       = array();
+			$header           = array();
+			$meta_box_columns = $this->get_admin_option( 'meta_box_cols',
+				array( 'title', 'customer_email', 'date', 'status', 'offered_price' ) );
 			foreach ( $meta_box_columns as $selected_column ) {
 				$header[] = $all_columns[ $selected_column ];
 			}
-			$table_data[]         = $header;
+			$table_data[]     = $header;
 
 			foreach ( $price_offers as $offer_id => $price_offer ) {
 				$row = array();
@@ -156,8 +157,18 @@ class Alg_WC_PO_Meta_Boxes_Product {
 			foreach ( $average_offers as $average_offer_currency_code => $average_offer_data ) {
 				if ( ! empty( $average_offer_data['total_offers'] ) ) {
 					$average_offer = $average_offer_data['offers_sum'] / $average_offer_data['total_offers'];
-					echo '<p>' . sprintf( _n( 'Average offer: %s (from %s offer)', 'Average offer: %s (from %s offers)', $average_offer_data['total_offers'], 'price-offerings-for-woocommerce' ),
-						wc_price( $average_offer, array( 'currency' => $average_offer_currency_code ) ),
+					$average_offer = wc_price( $average_offer, array( 'currency' => $average_offer_currency_code ) );
+					if ( 'yes' === get_option( 'alg_wc_price_offerings_admin_currency_code', 'no' ) ) {
+						$average_offer .= " ({$average_offer_currency_code})";
+					}
+					$average_offer_template = _n(
+						'Average offer: %s (from %s offer)',
+						'Average offer: %s (from %s offers)',
+						$average_offer_data['total_offers'],
+						'price-offerings-for-woocommerce'
+					);
+					echo '<p>' . sprintf( $average_offer_template,
+						$average_offer,
 						$average_offer_data['total_offers']
 					) . '</p>';
 				}

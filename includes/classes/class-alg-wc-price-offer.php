@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Price Offer Class
  *
- * @version 2.9.2
+ * @version 2.9.4
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -305,7 +305,7 @@ class Alg_WC_Price_Offer {
 	/**
 	 * get_price_summary.
 	 *
-	 * @version 2.0.0
+	 * @version 2.9.4
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) better styling
@@ -314,6 +314,9 @@ class Alg_WC_Price_Offer {
 		$summary = $this->get_price_html();
 		if ( $this->get_accepted_price() && $this->get_accepted_price() != $this->get_price() ) {
 			$summary .= ' > ' . $this->get_accepted_price_html();
+		}
+		if ( 'yes' === get_option( 'alg_wc_price_offerings_admin_currency_code', 'no' ) ) {
+			$summary .= ' (' . $this->get_currency() . ')';
 		}
 		return $summary;
 	}
@@ -600,7 +603,7 @@ class Alg_WC_Price_Offer {
 	/**
 	 * process_action.
 	 *
-	 * @version 2.9.2
+	 * @version 2.9.4
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) `customer_phone`: `<a href="tel:...">...</a>`
@@ -645,6 +648,7 @@ class Alg_WC_Price_Offer {
 					''
 				),
 				'%offered_price%'   => $this->get_price_html(),
+				'%currency_code%'   => $this->get_currency(),
 				'%quantity%'        => $this->get_quantity(),
 				'%product_title%'   => $this->get_product_name( false ),
 				'%product_url%'     => $this->get_product_url(),

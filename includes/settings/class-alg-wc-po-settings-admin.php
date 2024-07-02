@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Section Settings
  *
- * @version 2.0.0
+ * @version 2.9.4
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_Admin extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.0.0
+	 * @version 2.9.4
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -41,7 +41,7 @@ class Alg_WC_PO_Settings_Admin extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Product meta box', 'price-offerings-for-woocommerce' ),
-				'desc'     => '<strong>' . __( 'Enable', 'price-offerings-for-woocommerce' ) . '</strong>',
+				'desc'     => __( 'Enable', 'price-offerings-for-woocommerce' ),
 				'desc_tip' => __( 'Adds an offers meta box to each product\'s admin edit page.', 'price-offerings-for-woocommerce' ),
 				'id'       => 'alg_wc_price_offerings_admin[meta_box_enabled]',
 				'type'     => 'checkbox',
@@ -60,6 +60,15 @@ class Alg_WC_PO_Settings_Admin extends Alg_WC_PO_Settings_Section {
 				'class'    => 'chosen_select',
 				'default'  => array( 'title', 'customer_email', 'date', 'status', 'offered_price' ),
 				'options'  => Alg_WC_PO_Core::get_product_meta_box_columns(),
+			),
+			array(
+				'title'    => __( 'Currency code', 'price-offerings-for-woocommerce' ),
+				'desc'     => __( 'Enable', 'price-offerings-for-woocommerce' ),
+				'desc_tip' => __( 'Adds currency code to the admin columns and meta boxes.', 'price-offerings-for-woocommerce' ) . ' ' .
+					__( 'Useful for the multi-currency stores.', 'price-offerings-for-woocommerce' ),
+				'id'       => 'alg_wc_price_offerings_admin_currency_code',
+				'type'     => 'checkbox',
+				'default'  => 'no',
 			),
 			array(
 				'id'       => 'alg_wc_price_offerings_admin_options',

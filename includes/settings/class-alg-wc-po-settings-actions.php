@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions Section Settings
  *
- * @version 2.9.2
+ * @version 2.9.4
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_Actions extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.2
+	 * @version 2.9.4
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) better default values
@@ -65,6 +65,7 @@ class Alg_WC_PO_Settings_Actions extends Alg_WC_PO_Settings_Section {
 					'%product_title%',
 					'%product_url%',
 					'%offered_price%',
+					'%currency_code%',
 					'%quantity%',
 					'%customer_name%',
 					'%customer_phone%',
@@ -106,6 +107,7 @@ class Alg_WC_PO_Settings_Actions extends Alg_WC_PO_Settings_Section {
 					'%product_title%',
 					'%product_url%',
 					'%offered_price%',
+					'%currency_code%',
 					'%quantity%',
 					'%customer_name%',
 					'%customer_phone%',
@@ -148,6 +150,7 @@ class Alg_WC_PO_Settings_Actions extends Alg_WC_PO_Settings_Section {
 					'%product_title%',
 					'%product_url%',
 					'%offered_price%',
+					'%currency_code%',
 					'%quantity%',
 					'%customer_name%',
 					'%customer_phone%',

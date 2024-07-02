@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 2.9.3
+ * @version 2.9.4
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -60,8 +60,14 @@ class Alg_WC_PO_Actions {
 	 */
 	function apply_product_price( $cart_object ) {
 		foreach ( $cart_object->get_cart() as $item_key => $item ) {
-			if ( isset( $item['alg_wc_price_offer'], $item['alg_wc_price_offer_id'] ) ) {
-				if ( ( $offer = new Alg_WC_Price_Offer( $item['alg_wc_price_offer_id'] ) ) && $offer->is_valid() ) {
+			if ( isset(
+				$item['alg_wc_price_offer'],
+				$item['alg_wc_price_offer_id'] )
+			) {
+				if (
+					( $offer = new Alg_WC_Price_Offer( $item['alg_wc_price_offer_id'] ) ) &&
+					$offer->is_valid()
+				) {
 					$item['data']->set_price( $item[ 'alg_wc_price_offer' ] );
 					$item['data']->set_sold_individually( true );
 				}
@@ -132,12 +138,19 @@ class Alg_WC_PO_Actions {
 	 * @todo    (dev) better (and maybe customizable) notices
 	 */
 	function add_to_cart() {
-		if ( ! empty( $_GET['alg_wc_price_offer_id'] ) && ! empty( $_GET['alg_wc_price_offer_token'] ) ) {
+		if (
+			! empty( $_GET['alg_wc_price_offer_id'] ) &&
+			! empty( $_GET['alg_wc_price_offer_token'] )
+		) {
 
 			$offer_id    = wc_clean( $_GET['alg_wc_price_offer_id'] );
 			$offer_token = wc_clean( $_GET['alg_wc_price_offer_token'] );
 
-			if ( ( $offer = new Alg_WC_Price_Offer( $offer_id ) ) && $offer_token === $offer->get_token() && $offer->is_valid() ) {
+			if (
+				( $offer = new Alg_WC_Price_Offer( $offer_id ) ) &&
+				$offer_token === $offer->get_token() &&
+				$offer->is_valid()
+			) {
 
 				$product_id = $offer->get_product_id();
 				$product    = wc_get_product( $product_id );
@@ -234,7 +247,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * offer_price.
 	 *
-	 * @version 2.9.3
+	 * @version 2.9.4
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) start with "Create price offer"
@@ -324,6 +337,7 @@ class Alg_WC_PO_Actions {
 				'%product_title%'    => $price_offer['product_title'],
 				'%product_sku%'      => $price_offer['product_sku'],
 				'%product_url%'      => $price_offer['product_url'],
+				'%currency_code%'    => $price_offer['currency_code'],
 				'%offered_price%'    => wc_price( $price_offer['offered_price'] ),
 				'%quantity%'         => $price_offer['quantity'],
 				'%customer_message%' => $price_offer['customer_message'],

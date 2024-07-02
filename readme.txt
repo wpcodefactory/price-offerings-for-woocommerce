@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmu
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 2.9.3
+Stable tag: 2.9.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -161,6 +161,11 @@ WPFactory has a diverse range of plugins tailored to enhance your experience:
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 2.9.4 - 02/07/2024 =
+* Dev - Email - Email template - `%currency_code%` placeholder added.
+* Dev - Actions - Reject/Accept/Counter - Email content - `%currency_code%` placeholder added.
+* Dev - Admin - "Currency code" option added (defaults to `no`).
 
 = 2.9.3 - 29/06/2024 =
 * Dev - General - "Prevent Duplicate Offers" options added (defaults to `no`).
