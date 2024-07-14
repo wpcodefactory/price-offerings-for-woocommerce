@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmu
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 2.9.4
+Stable tag: 2.9.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -162,6 +162,10 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 
 == Changelog ==
 
+= 2.9.5 - 14/07/2024 =
+* Dev - Developers - `alg_wc_po_price_offer` filter added.
+* WC tested up to: 9.1.
+
 = 2.9.4 - 02/07/2024 =
 * Dev - Email - Email template - `%currency_code%` placeholder added.
 * Dev - Actions - Reject/Accept/Counter - Email content - `%currency_code%` placeholder added.
@@ -173,7 +177,7 @@ Once activated, access the plugin's settings by navigating to “WooCommerce > S
 = 2.9.2 - 28/06/2024 =
 * Dev - Email - Email template - `%product_url%` placeholder added.
 * Dev - Actions - Reject/Accept/Counter - Email content - `%product_url%` placeholder added.
-* WC tested up to: 9.0
+* WC tested up to: 9.0.
 * WooCommerce added to the "Requires Plugins" (plugin header).
 
 = 2.9.1 - 25/05/2024 =

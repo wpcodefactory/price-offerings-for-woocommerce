@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 2.9.4
+ * @version 2.9.5
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -247,7 +247,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * offer_price.
 	 *
-	 * @version 2.9.4
+	 * @version 2.9.5
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) start with "Create price offer"
@@ -301,7 +301,7 @@ class Alg_WC_PO_Actions {
 			}
 
 			// Price offer array
-			$price_offer = array(
+			$price_offer = apply_filters( 'alg_wc_po_price_offer', array(
 				'offer_timestamp'  => current_time( 'timestamp' ),
 				'product_id'       => $product_id,
 				'product_title'    => $product->get_title(),
@@ -319,7 +319,7 @@ class Alg_WC_PO_Actions {
 				'customer_phone'   => ( isset( $_POST['alg-wc-price-offerings-customer-phone'] ) ? wc_clean( $_POST['alg-wc-price-offerings-customer-phone'] ) : '' ),
 				'customer_email'   => ( isset( $_POST['alg-wc-price-offerings-customer-email'] ) ? wc_clean( $_POST['alg-wc-price-offerings-customer-email'] ) : '' ),
 				'copy_to_customer' => ( isset( $_POST['alg-wc-price-offerings-customer-copy'] )  ? wc_clean( $_POST['alg-wc-price-offerings-customer-copy'] )  : 'no' ),
-			);
+			), $product );
 
 			// Prevent duplicate offers
 			if (
