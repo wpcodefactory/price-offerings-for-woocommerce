@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 2.9.5
+ * @version 2.9.6
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -247,7 +247,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * offer_price.
 	 *
-	 * @version 2.9.5
+	 * @version 2.9.6
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) start with "Create price offer"
@@ -338,7 +338,7 @@ class Alg_WC_PO_Actions {
 				'%product_sku%'      => $price_offer['product_sku'],
 				'%product_url%'      => $price_offer['product_url'],
 				'%currency_code%'    => $price_offer['currency_code'],
-				'%offered_price%'    => wc_price( $price_offer['offered_price'] ),
+				'%offered_price%'    => wc_price( $price_offer['offered_price'], array( 'currency' => $price_offer['currency_code'] ) ),
 				'%quantity%'         => $price_offer['quantity'],
 				'%customer_message%' => $price_offer['customer_message'],
 				'%customer_name%'    => $price_offer['customer_name'],
