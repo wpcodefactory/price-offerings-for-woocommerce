@@ -33,6 +33,7 @@ class Alg_WC_PO_Settings extends WC_Settings_Page {
 		require_once( 'class-alg-wc-po-settings-email.php' );
 		require_once( 'class-alg-wc-po-settings-actions.php' );
 		require_once( 'class-alg-wc-po-settings-admin.php' );
+		require_once( 'class-alg-wc-po-settings-advance.php' );
 	}
 
 	/**

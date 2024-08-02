@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmu
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
 Tested up to: 6.6
-Stable tag: 2.9.6
+Stable tag: 2.9.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -161,6 +161,9 @@ WPFactory has a diverse range of plugins tailored to enhance your experience:
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 2.9.7 - 02/08/2024 =
+* Dev - Advanced >  Exclude Payment Gateways.
 
 = 2.9.6 - 27/07/2024 =
 * Dev - Email - Email template - `%offered_price%` - Explicitly adding the currency code (for the `alg_wc_po_price_offer` filter).

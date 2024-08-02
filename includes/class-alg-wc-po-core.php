@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.9.3
+ * @version 2.9.7
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -33,7 +33,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.9.0
+	 * @version 2.9.7
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) list placeholders in the Actions meta box
@@ -47,6 +47,8 @@ class Alg_WC_PO_Core {
 		// Classes
 		require_once( 'classes/class-alg-wc-price-offer.php' );
 		require_once( 'classes/class-alg-wc-po-emails.php' );
+		
+		require_once( 'classes/class-alg-wc-po-advanced.php' );
 
 		// Send emails in background
 		add_action( 'alg_wc_price_offers_send_email', array( 'Alg_WC_PO_Emails', 'send_email' ), 10, 7 );
@@ -383,6 +385,27 @@ class Alg_WC_PO_Core {
 			'user_agent'       => esc_html__( 'User Agent', 'price-offerings-for-woocommerce' ),
 			'sent_to'          => esc_html__( 'Sent to', 'price-offerings-for-woocommerce' ),
 		);
+	}
+	
+	
+	/**
+	 * get_all_payment_gateways.
+	 *
+	 * @version 2.9.7
+	 * @since   2.9.7
+	 *
+	 * @todo    (dev) move to another class/file?
+	 */
+	static function get_all_payment_gateways() {
+		$available_gateways = WC()->payment_gateways->payment_gateways();
+		
+		$gateways_settings  = array();
+		
+		foreach ( $available_gateways as $gateway_id => $gateway ) {
+			$gateways_settings[$gateway_id] = $gateway->title;
+		}
+		
+		return $gateways_settings;
 	}
 
 	/**
