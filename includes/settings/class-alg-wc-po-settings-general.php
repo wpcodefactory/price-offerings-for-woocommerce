@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - General Section Settings
  *
- * @version 2.9.3
+ * @version 2.9.8
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.3
+	 * @version 2.9.8
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -162,6 +162,27 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 				'title'             => __( 'Advanced Options', 'price-offerings-for-woocommerce' ),
 				'id'                => 'alg_wc_price_offerings_advanced_options',
 				'type'              => 'title',
+			),
+			array(
+				'title'             => __( 'Payment gateways', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => __( 'Exclude (or restrict) select payment gateways from the accepted price offers.', 'price-offerings-for-woocommerce' ) . ' ' .
+					__( 'Ignored if empty.', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_po_payment_gateways',
+				'type'              => 'multiselect',
+				'class'             => 'chosen_select',
+				'default'           => array(),
+				'options'           => wp_list_pluck( WC()->payment_gateways->payment_gateways(), 'title' ),
+			),
+			array(
+				'desc_tip'          => __( 'Exclude or restrict?', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_po_payment_gateways_action',
+				'type'              => 'select',
+				'class'             => 'chosen_select',
+				'default'           => 'exclude',
+				'options'           => array(
+					'exclude' => __( 'Exclude', 'price-offerings-for-woocommerce' ),
+					'require' => __( 'Restrict', 'price-offerings-for-woocommerce' ),
+				),
 			),
 			array(
 				'title'             => __( 'Exclude price offers from coupons', 'price-offerings-for-woocommerce' ),

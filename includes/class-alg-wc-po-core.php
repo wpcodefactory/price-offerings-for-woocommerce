@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.9.7
+ * @version 2.9.8
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -33,7 +33,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.9.7
+	 * @version 2.9.8
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) list placeholders in the Actions meta box
@@ -47,8 +47,6 @@ class Alg_WC_PO_Core {
 		// Classes
 		require_once( 'classes/class-alg-wc-price-offer.php' );
 		require_once( 'classes/class-alg-wc-po-emails.php' );
-		
-		require_once( 'classes/class-alg-wc-po-advanced.php' );
 
 		// Send emails in background
 		add_action( 'alg_wc_price_offers_send_email', array( 'Alg_WC_PO_Emails', 'send_email' ), 10, 7 );
@@ -62,6 +60,9 @@ class Alg_WC_PO_Core {
 
 		// Actions
 		$this->actions = require_once( 'class-alg-wc-po-actions.php' );
+
+		// Payment gateways
+		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'payment_gateways' ) );
 
 		// REST API
 		$this->maybe_init_rest_api();
@@ -99,6 +100,41 @@ class Alg_WC_PO_Core {
 		// Core loaded
 		do_action( 'alg_wc_price_offerings_core_loaded', $this );
 
+	}
+
+	/**
+	 * payment_gateways.
+	 *
+	 * @version 2.9.8
+	 * @since   2.9.8
+	 */
+	function payment_gateways( $gateways ) {
+		$selected_gateways = get_option( 'alg_wc_po_payment_gateways', array() );
+		if (
+			! empty( $selected_gateways ) &&
+			isset( WC()->cart )
+		) {
+
+			// Check if there are any "price offer" items in the cart
+			$is_price_offer_in_cart = false;
+			foreach ( WC()->cart->get_cart() as $item_key => $item ) {
+				if ( isset( $item['alg_wc_price_offer_id'] ) ) {
+					$is_price_offer_in_cart = true;
+					break;
+				}
+			}
+
+			// Disable payment gateways
+			if ( $is_price_offer_in_cart ) {
+				$action   = get_option( 'alg_wc_po_payment_gateways_action', 'exclude' );
+				$gateways = ( 'exclude' === $action ?
+					array_diff_key(      $gateways, array_flip( $selected_gateways ) ) :
+					array_intersect_key( $gateways, array_flip( $selected_gateways ) )
+				);
+			}
+
+		}
+		return $gateways;
 	}
 
 	/**
@@ -385,27 +421,6 @@ class Alg_WC_PO_Core {
 			'user_agent'       => esc_html__( 'User Agent', 'price-offerings-for-woocommerce' ),
 			'sent_to'          => esc_html__( 'Sent to', 'price-offerings-for-woocommerce' ),
 		);
-	}
-	
-	
-	/**
-	 * get_all_payment_gateways.
-	 *
-	 * @version 2.9.7
-	 * @since   2.9.7
-	 *
-	 * @todo    (dev) move to another class/file?
-	 */
-	static function get_all_payment_gateways() {
-		$available_gateways = WC()->payment_gateways->payment_gateways();
-		
-		$gateways_settings  = array();
-		
-		foreach ( $available_gateways as $gateway_id => $gateway ) {
-			$gateways_settings[$gateway_id] = $gateway->title;
-		}
-		
-		return $gateways_settings;
 	}
 
 	/**
