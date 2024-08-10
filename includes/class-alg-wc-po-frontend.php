@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 2.8.0
+ * @version 2.9.9
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -79,12 +79,12 @@ class Alg_WC_PO_Frontend {
 	 * @since   1.0.0
 	 */
 	function language_shortcode( $atts, $content = '' ) {
-		// E.g.: `[alg_wc_cpt_translate lang="EN,DE" lang_text="Text for EN & DE" not_lang_text="Text for other languages"]`
+		// E.g.: `[alg_wc_price_offers_translate lang="EN,DE" lang_text="Text for EN & DE" not_lang_text="Text for other languages"]`
 		if ( isset( $atts['lang_text'] ) && isset( $atts['not_lang_text'] ) && ! empty( $atts['lang'] ) ) {
 			return ( ! defined( 'ICL_LANGUAGE_CODE' ) || ! in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['lang'] ) ) ) ) ) ?
 				$atts['not_lang_text'] : $atts['lang_text'];
 		}
-		// E.g.: `[alg_wc_cpt_translate lang="EN,DE"]Text for EN & DE[/alg_wc_cpt_translate][alg_wc_cpt_translate not_lang="EN,DE"]Text for other languages[/alg_wc_cpt_translate]`
+		// E.g.: `[alg_wc_price_offers_translate lang="EN,DE"]Text for EN & DE[/alg_wc_price_offers_translate][alg_wc_price_offers_translate not_lang="EN,DE"]Text for other languages[/alg_wc_price_offers_translate]`
 		return (
 			( ! empty( $atts['lang'] )     && ( ! defined( 'ICL_LANGUAGE_CODE' ) || ! in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['lang'] ) ) ) ) ) ) ||
 			( ! empty( $atts['not_lang'] ) &&     defined( 'ICL_LANGUAGE_CODE' ) &&   in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['not_lang'] ) ) ) ) )
@@ -142,7 +142,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * enqueue_scripts.
 	 *
-	 * @version 2.0.0
+	 * @version 2.9.9
 	 * @since   1.0.0
 	 *
 	 * @see     https://www.w3schools.com/howto/howto_css_modals.asp
@@ -150,13 +150,16 @@ class Alg_WC_PO_Frontend {
 	 * @todo    (dev) enqueue only if really needed
 	 */
 	function enqueue_scripts() {
+
 		$min_suffix = ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ? '' : '.min' );
+
 		wp_enqueue_style(
 			'alg-wc-price-offerings',
 			alg_wc_po()->plugin_url() . '/includes/css/alg-wc-po' . $min_suffix . '.css',
 			array(),
 			alg_wc_po()->version
 		);
+
 		wp_enqueue_script(
 			'alg-wc-price-offerings',
 			alg_wc_po()->plugin_url() . '/includes/js/alg-wc-po' . $min_suffix . '.js',
@@ -164,14 +167,47 @@ class Alg_WC_PO_Frontend {
 			alg_wc_po()->version,
 			true
 		);
+
+		// reCAPTCHA
+		if ( alg_wc_po()->core->is_recaptcha_enabled() ) {
+
+			wp_enqueue_script(
+				'alg-wc-price-offerings-google-recaptcha-v2',
+				'https://www.google.com/recaptcha/api.js'
+			);
+
+			wp_enqueue_script(
+				'alg-wc-price-offerings-recaptcha',
+				alg_wc_po()->plugin_url() . '/includes/js/alg-wc-po-recaptcha' . $min_suffix . '.js',
+				array( 'jquery' ),
+				alg_wc_po()->version,
+				true
+			);
+
+			$form_options = get_option( 'alg_wc_price_offerings_form', array() );
+			$form_options = array_merge( array(
+				'recaptcha_error_msg' => __( 'reCAPTCHA check failed.', 'price-offerings-for-woocommerce' ),
+			), $form_options );
+			wp_localize_script(
+				'alg-wc-price-offerings-recaptcha',
+				'alg_wc_po_recaptcha_object',
+				array(
+					'ajax_url'  => admin_url( 'admin-ajax.php' ),
+					'error_msg' => esc_html( $form_options['recaptcha_error_msg'] ),
+				)
+			);
+
+		}
+
 	}
 
 	/**
 	 * add_offer_price_form.
 	 *
-	 * @version 2.5.0
+	 * @version 2.9.9
 	 * @since   1.0.0
 	 *
+	 * @todo    (dev) `recaptcha`: remove `wrapper`?
 	 * @todo    (dev) code refactoring: fields (quantity, customer_email, customer_name, etc.): add `Alg_WC_PO_Fields` class?
 	 * @todo    (feature) `do_shortcode()`
 	 * @todo    (feature) style options for input fields (class, style)
@@ -186,24 +222,27 @@ class Alg_WC_PO_Frontend {
 		// Form options
 		$form_options = get_option( 'alg_wc_price_offerings_form', array() );
 		$form_options = array_merge( array(
-			'enabled_fields'   => array( 'customer_name', 'customer_message', 'customer_copy' ),
-			'required_fields'  => array(),
-			'quantity'         => __( 'Quantity', 'price-offerings-for-woocommerce' ),
-			'customer_email'   => __( 'Your email', 'price-offerings-for-woocommerce' ),
-			'customer_name'    => __( 'Your name', 'price-offerings-for-woocommerce' ),
-			'customer_phone'   => __( 'Your phone', 'price-offerings-for-woocommerce' ),
-			'customer_message' => __( 'Your message', 'price-offerings-for-woocommerce' ),
-			'customer_copy'    => __( 'Send a copy to your email', 'price-offerings-for-woocommerce' ),
-			'button_label'     => __( 'Send', 'price-offerings-for-woocommerce' ),
-			'button_style'     => '',
-			'footer_template'  => '',
-			'required_html'    => ' <abbr class="required" title="required">*</abbr>',
+			'enabled_fields'     => array( 'customer_name', 'customer_message', 'customer_copy' ),
+			'required_fields'    => array(),
+			'quantity'           => __( 'Quantity', 'price-offerings-for-woocommerce' ),
+			'customer_email'     => __( 'Your email', 'price-offerings-for-woocommerce' ),
+			'customer_name'      => __( 'Your name', 'price-offerings-for-woocommerce' ),
+			'customer_phone'     => __( 'Your phone', 'price-offerings-for-woocommerce' ),
+			'customer_message'   => __( 'Your message', 'price-offerings-for-woocommerce' ),
+			'customer_copy'      => __( 'Send a copy to your email', 'price-offerings-for-woocommerce' ),
+			'button_label'       => __( 'Send', 'price-offerings-for-woocommerce' ),
+			'button_style'       => '',
+			'footer_template'    => '',
+			'required_html'      => ' <abbr class="required" title="required">*</abbr>',
+			'recaptcha_site_key' => '',
 		), $form_options );
+
 		// Form options: Enabled fields
 		$form_options['enabled_fields'] = array_intersect(
-			array( 'price', 'quantity', 'customer_email', 'customer_name', 'customer_phone', 'customer_message', 'button', 'customer_copy' ),
+			array( 'price', 'quantity', 'customer_email', 'customer_name', 'customer_phone', 'customer_message', 'recaptcha', 'button', 'customer_copy' ),
 			array_merge( array( 'price', 'customer_email', 'button' ), $form_options['enabled_fields'] )
 		);
+
 		// Form options: Required fields
 		$form_options['required_fields'] = array_merge( array( 'price', 'customer_email' ), $form_options['required_fields'] );
 
@@ -277,6 +316,13 @@ class Alg_WC_PO_Frontend {
 						'type'        => 'textarea',
 					);
 					break;
+				case 'recaptcha':
+					$data = array(
+						'type'        => 'recaptcha',
+						'is_label'    => false,
+						'site_key'    => $form_options['recaptcha_site_key'],
+					);
+					break;
 				case 'button':
 					$data = array(
 						'id'          => 'alg-wc-price-offerings-submit',
@@ -295,15 +341,44 @@ class Alg_WC_PO_Frontend {
 					break;
 			}
 
-			// Field HTML
-			$data  = array_merge( $default_data, $data );
+			// Final data
+			$data = array_merge( $default_data, $data );
+
+			// Field label
 			$label = ( $data['is_label'] ?
-				'<label for="' . $data['id'] . '">' . $data['label'] . ( $data['is_required'] ? $form_options['required_html'] : '' ) . '</label>' . $data['glue'] : '' );
-			$input = ( 'textarea' === $data['type'] ?
-				'<textarea' . ( $data['is_required'] ? ' required' : '' ) . ' id="' . $data['id'] . '" name="' . $data['id'] . '">' . $data['value'] . '</textarea>' :
-				'<input type="' . $data['type'] . '"' . ( $data['is_required'] ? ' required' : '' ) . ' id="' . $data['id'] . '" name="' . $data['id'] . '"' .
-					( isset( $data['min'] ) ? ' min="' . $data['min'] . '"' : '' ) .
-					( isset( $data['style'] ) ? ' style="' . $data['style'] . '"' : '' ) . ( '' !== $data['value'] ? ' value="' . $data['value'] . '"' : '' ) . '>' );
+				'<label for="' . $data['id'] . '">' .
+					$data['label'] . ( $data['is_required'] ? $form_options['required_html'] : '' ) .
+				'</label>' . $data['glue'] :
+				''
+			);
+
+			// Field input
+			switch ( $data['type'] ) {
+				case 'recaptcha':
+					$input = '<div class="g-recaptcha" data-sitekey="' . $data['site_key'] . '"></div>' .
+						'<div class="alg-wc-price-offerings-recaptcha-msg" style="color:red;"></div>';
+					break;
+				case 'textarea':
+					$input = '<textarea' .
+						( $data['is_required'] ? ' required' : '' ) .
+						' id="' . $data['id'] . '"' .
+						' name="' . $data['id'] . '">' .
+							$data['value'] .
+					'</textarea>';
+					break;
+				default:
+					$input = '<input' .
+						' type="' . $data['type'] . '"' .
+						( $data['is_required'] ? ' required' : '' ) .
+						' id="' . $data['id'] . '"' .
+						' name="' . $data['id'] . '"' .
+						( isset( $data['min'] ) ? ' min="' . $data['min'] . '"' : '' ) .
+						( isset( $data['style'] ) ? ' style="' . $data['style'] . '"' : '' ) .
+						( '' !== $data['value'] ? ' value="' . $data['value'] . '"' : '' ) .
+					'>';
+			}
+
+			// Final field
 			$fields[] = '<p class="' . $data['id'] . '-wrapper">' . $label . $input . '</p>';
 
 		}

@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.9.8
+ * @version 2.9.9
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -33,7 +33,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.9.8
+	 * @version 2.9.9
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) list placeholders in the Actions meta box
@@ -63,6 +63,12 @@ class Alg_WC_PO_Core {
 
 		// Payment gateways
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'payment_gateways' ) );
+
+		// reCAPTCHA
+		if ( $this->is_recaptcha_enabled() ) {
+			add_action( 'wp_ajax_'        . 'alg_wc_price_offerings_recaptcha', array( $this, 'recaptcha' ) );
+			add_action( 'wp_ajax_nopriv_' . 'alg_wc_price_offerings_recaptcha', array( $this, 'recaptcha' ) );
+		}
 
 		// REST API
 		$this->maybe_init_rest_api();
@@ -100,6 +106,53 @@ class Alg_WC_PO_Core {
 		// Core loaded
 		do_action( 'alg_wc_price_offerings_core_loaded', $this );
 
+	}
+
+	/**
+	 * is_recaptcha_enabled.
+	 *
+	 * @version 2.9.9
+	 * @since   2.9.9
+	 */
+	function is_recaptcha_enabled() {
+		$form_options = get_option( 'alg_wc_price_offerings_form', array() );
+		$form_options = array_merge( array(
+			'enabled_fields' => array( 'customer_name', 'customer_message', 'customer_copy' ),
+		), $form_options );
+		return ( in_array( 'recaptcha', $form_options['enabled_fields'] ) );
+	}
+
+	/**
+	 * reCAPTCHA.
+	 *
+	 * @version 2.9.9
+	 * @since   2.9.9
+	 *
+	 * @todo    (dev) fallback for the `file_get_contents()`
+	 */
+	function recaptcha() {
+		$res = 0;
+		if ( isset( $_POST['recaptcha_response'] ) ) {
+
+			$form_options = get_option( 'alg_wc_price_offerings_form', array() );
+			$form_options = array_merge( array( 'recaptcha_secret_key' => '' ), $form_options );
+			$secret       = $form_options['recaptcha_secret_key'];
+
+			$response = wc_clean( $_POST['recaptcha_response'] );
+
+			$url = 'https://www.google.com/recaptcha/api/siteverify';
+			$url = add_query_arg( array( 'secret' => $secret, 'response' => $response ), $url );
+
+			$verify = file_get_contents( $url );
+			$verify = json_decode( $verify );
+
+			if ( $verify->success ) {
+				$res = 1;
+			}
+
+		}
+		echo $res;
+		die();
 	}
 
 	/**

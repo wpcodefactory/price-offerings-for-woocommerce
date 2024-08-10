@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Form Section Settings
  *
- * @version 2.5.0
+ * @version 2.9.9
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_fields.
 	 *
-	 * @version 2.5.0
+	 * @version 2.9.9
 	 * @since   2.5.0
 	 */
 	function get_fields() {
@@ -38,14 +38,42 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 			'customer_name'    => __( 'Customer name', 'price-offerings-for-woocommerce' ),
 			'customer_phone'   => __( 'Customer phone', 'price-offerings-for-woocommerce' ),
 			'customer_message' => __( 'Customer message', 'price-offerings-for-woocommerce' ),
+			'recaptcha'        => __( 'reCAPTCHA', 'price-offerings-for-woocommerce' ),
 			'customer_copy'    => __( 'Send a copy to customer checkbox', 'price-offerings-for-woocommerce' ),
 		);
 	}
 
 	/**
+	 * get_recaptcha_site_key_instructions.
+	 *
+	 * @version 2.9.9
+	 * @since   2.9.9
+	 */
+	function get_recaptcha_site_key_instructions() {
+		return '<details style="cursor:pointer;">' .
+			'<summary>' .
+				esc_html__( 'Site key', 'price-offerings-for-woocommerce' ) .
+			'</summary>' .
+			'<p>' .
+				sprintf(
+					esc_html__( 'Visit the %s site and select "%s" for the "%s" option.', 'price-offerings-for-woocommerce' ),
+					'<a href="https://www.google.com/recaptcha/admin/create" target="_blank">' .
+						esc_html__( 'Google reCAPTCHA', 'price-offerings-for-woocommerce' ) .
+					'</a>',
+					'<em>' .
+						esc_html__( 'Challenge (v2)', 'price-offerings-for-woocommerce' ) . ' > ' .
+						esc_html__( '"I\'m not a robot" Checkbox', 'price-offerings-for-woocommerce' ) .
+					'</em>',
+					esc_html__( 'reCAPTCHA type', 'price-offerings-for-woocommerce' ),
+				) .
+			'</p>' .
+		'</details>';
+	}
+
+	/**
 	 * get_settings.
 	 *
-	 * @version 2.5.0
+	 * @version 2.9.9
 	 * @since   1.0.0
 	 *
 	 * @todo    (feature) make it optional - "When the user clicks anywhere outside of the modal, close it"
@@ -168,6 +196,26 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 				'type'              => 'textarea',
 				'default'           => __( 'Your message', 'price-offerings-for-woocommerce' ),
 				'css'               => 'width:100%;',
+			),
+			array(
+				'title'             => __( 'reCAPTCHA', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => __( 'reCAPTCHA v2', 'price-offerings-for-woocommerce' ),
+				'desc'              => $this->get_recaptcha_site_key_instructions(),
+				'id'                => 'alg_wc_price_offerings_form[recaptcha_site_key]',
+				'type'              => 'text',
+				'default'           => '',
+			),
+			array(
+				'desc'              => __( 'Secret key', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_price_offerings_form[recaptcha_secret_key]',
+				'type'              => 'text',
+				'default'           => '',
+			),
+			array(
+				'desc'              => __( 'Error message', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_price_offerings_form[recaptcha_error_msg]',
+				'type'              => 'text',
+				'default'           => __( 'reCAPTCHA check failed.', 'price-offerings-for-woocommerce' ),
 			),
 			array(
 				'title'             => __( 'Send a copy to customer checkbox', 'price-offerings-for-woocommerce' ),
