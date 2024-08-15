@@ -475,12 +475,12 @@ msgstr ""
 msgid "Status updated from %s to %s."
 msgstr ""
 
-#: includes/pro/class-alg-wc-po-pro.php:412
+#: includes/pro/class-alg-wc-po-pro.php:413
 #: includes/settings/class-alg-wc-po-settings-general.php:318
 msgid "Your price offer has been accepted."
 msgstr ""
 
-#: includes/pro/class-alg-wc-po-pro.php:430
+#: includes/pro/class-alg-wc-po-pro.php:431
 msgid "Reason: auto-accepted."
 msgstr ""
 
