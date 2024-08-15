@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - General Section Settings
  *
- * @version 2.9.8
+ * @version 3.0.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.8
+	 * @version 3.0.0
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -292,6 +292,35 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 			array(
 				'id'       => 'alg_wc_po_prevent_duplicate_offers_options',
 				'type'     => 'sectionend',
+			),
+
+			array(
+				'title'             => __( 'Auto-Accept Options', 'price-offerings-for-woocommerce' ),
+				'desc'              => apply_filters( 'alg_wc_price_offerings_settings',
+					'You will need <a href="https://wpfactory.com/item/price-offerings-for-woocommerce/" target="_blank">Price Offers for WooCommerce Pro</a> to auto-accept offers.' ),
+				'id'                => 'alg_wc_po_auto_accept_options',
+				'type'              => 'title',
+			),
+			array(
+				'title'             => __( 'Minimum price', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => __( 'Minimum price to auto-accept offers.', 'price-offerings-for-woocommerce' ) . ' ' .
+					__( 'You can change this option on per product basis.', 'price-offerings-for-woocommerce' ) . ' ' .
+					__( 'Set to zero to disable.', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_po_auto_accept[min_price]',
+				'type'              => 'number',
+				'default'           => 0,
+				'custom_attributes' => apply_filters( 'alg_wc_price_offerings_settings', array( 'readonly' => 'readonly' ) ),
+			),
+			array(
+				'title'             => __( 'Customer notice', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_po_auto_accept[notice]',
+				'type'              => 'textarea',
+				'default'           => __( 'Your price offer has been accepted.', 'price-offerings-for-woocommerce' ),
+				'custom_attributes' => apply_filters( 'alg_wc_price_offerings_settings', array( 'readonly' => 'readonly' ) ),
+			),
+			array(
+				'id'                => 'alg_wc_po_auto_accept_options',
+				'type'              => 'sectionend',
 			),
 
 		);

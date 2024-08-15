@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 2.9.9
+ * @version 3.0.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -332,14 +332,14 @@ class Alg_WC_PO_Core {
 	/**
 	 * filter_row_actions.
 	 *
-	 * @version 2.0.0
+	 * @version 3.0.0
 	 * @since   2.0.0
 	 */
 	function filter_row_actions( $actions, $post ) {
 		if ( 'alg_wc_price_offer' === $post->post_type ) {
 			$_actions = array();
-			$_actions['edit']  = ( isset( $actions['edit'] )  ? $actions['edit']  : null );
-			$_actions['trash'] = ( isset( $actions['trash'] ) ? $actions['trash'] : null );
+			$_actions['edit']  = ( $actions['edit']  ?? null );
+			$_actions['trash'] = ( $actions['trash'] ?? null );
 			return $_actions;
 		}
 		return $actions;

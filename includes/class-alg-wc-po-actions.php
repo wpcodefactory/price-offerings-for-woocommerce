@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 2.9.6
+ * @version 3.0.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -247,7 +247,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * offer_price.
 	 *
-	 * @version 2.9.6
+	 * @version 3.0.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) start with "Create price offer"
@@ -291,7 +291,8 @@ class Alg_WC_PO_Actions {
 					( $author_id = get_post_field( 'post_author', $product_id ) ) &&
 					( $user_info = get_userdata( $author_id ) ) &&
 					isset( $user_info->user_email ) ?
-						$user_info->user_email : $admin_email
+						$user_info->user_email :
+						$admin_email
 				);
 				$email_options['address'] = str_replace(
 					array( '%admin_email%', '%product_author_email%' ),
@@ -377,7 +378,10 @@ class Alg_WC_PO_Actions {
 			wc_add_notice( $notice_options['message'], 'notice' );
 
 			// Create price offer
-			Alg_WC_PO_Core::create_price_offer( false, false, $price_offer );
+			$offer_id = Alg_WC_PO_Core::create_price_offer( false, false, $price_offer );
+
+			// Action
+			do_action( 'alg_wc_po_price_offer_created', $offer_id );
 
 		}
 	}

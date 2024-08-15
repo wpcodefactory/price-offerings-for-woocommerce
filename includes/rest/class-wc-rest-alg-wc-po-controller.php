@@ -4,7 +4,7 @@
  *
  * Handles requests to the /alg_wc_price_offers endpoint.
  *
- * @version 2.9.0
+ * @version 3.0.0
  * @since   2.9.0
  *
  * @author  Algoritmika Ltd
@@ -213,7 +213,7 @@ class WC_REST_Alg_WC_PO_Controller extends WC_REST_CRUD_Controller {
 	/**
 	 * Prepare a single offer for create or update.
 	 *
-	 * @version 2.9.0
+	 * @version 3.0.0
 	 * @since   2.9.0
 	 *
 	 * @param   WP_REST_Request  $request Request object.
@@ -240,7 +240,7 @@ class WC_REST_Alg_WC_PO_Controller extends WC_REST_CRUD_Controller {
 					case 'meta_data':
 						if ( is_array( $value ) ) {
 							foreach ( $value as $meta ) {
-								$rest_offer->update_meta_data( $meta['key'], $meta['value'], isset( $meta['id'] ) ? $meta['id'] : '' );
+								$rest_offer->update_meta_data( $meta['key'], $meta['value'], ( $meta['id'] ?? '' ) );
 							}
 						}
 						break;

@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Product
  *
- * @version 2.9.4
+ * @version 3.0.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -36,14 +36,14 @@ class Alg_WC_PO_Meta_Boxes_Product {
 	/**
 	 * get_admin_option.
 	 *
-	 * @version 1.2.0
+	 * @version 3.0.0
 	 * @since   1.2.0
 	 */
 	function get_admin_option( $option, $default = false ) {
 		if ( ! isset( $this->admin_options ) ) {
 			$this->admin_options = get_option( 'alg_wc_price_offerings_admin', array() );
 		}
-		return ( isset( $this->admin_options[ $option ] ) ? $this->admin_options[ $option ] : $default );
+		return ( $this->admin_options[ $option ] ?? $default );
 	}
 
 	/**

@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Price Offer Class
  *
- * @version 2.9.4
+ * @version 3.0.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -603,7 +603,7 @@ class Alg_WC_Price_Offer {
 	/**
 	 * process_action.
 	 *
-	 * @version 2.9.4
+	 * @version 3.0.0
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) `customer_phone`: `<a href="tel:...">...</a>`
@@ -619,7 +619,7 @@ class Alg_WC_Price_Offer {
 
 			$accepted_price = ( 'accept' === $action ?
 				$this->get_price() :
-				( isset( $args['counter_price'] ) ? $args['counter_price'] : false )
+				( $args['counter_price'] ?? false )
 			);
 
 			if ( $accepted_price ) {
@@ -642,7 +642,7 @@ class Alg_WC_Price_Offer {
 
 			// Content
 			$placeholders = array(
-				'%add_to_cart_url%' => ( isset( $token_url ) ? $token_url : '' ),
+				'%add_to_cart_url%' => ( $token_url ?? '' ),
 				'%counter_price%'   => ( isset( $args['counter_price'] ) ?
 					wc_price( $args['counter_price'], array( 'currency' => $this->get_currency() ) ) :
 					''

@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 2.9.9
+ * @version 3.0.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -75,12 +75,12 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * language_shortcode.
 	 *
-	 * @version 1.0.0
+	 * @version 3.0.0
 	 * @since   1.0.0
 	 */
 	function language_shortcode( $atts, $content = '' ) {
 		// E.g.: `[alg_wc_price_offers_translate lang="EN,DE" lang_text="Text for EN & DE" not_lang_text="Text for other languages"]`
-		if ( isset( $atts['lang_text'] ) && isset( $atts['not_lang_text'] ) && ! empty( $atts['lang'] ) ) {
+		if ( isset( $atts['lang_text'], $atts['not_lang_text'] ) && ! empty( $atts['lang'] ) ) {
 			return ( ! defined( 'ICL_LANGUAGE_CODE' ) || ! in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['lang'] ) ) ) ) ) ?
 				$atts['not_lang_text'] : $atts['lang_text'];
 		}
@@ -204,7 +204,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * add_offer_price_form.
 	 *
-	 * @version 2.9.9
+	 * @version 3.0.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) `recaptcha`: remove `wrapper`?
@@ -276,7 +276,7 @@ class Alg_WC_PO_Frontend {
 				'type'        => 'text',
 				'is_required' => in_array( $field, $form_options['required_fields'] ),
 				'is_label'    => true,
-				'label'       => ( isset( $form_options[ $field ] ) ? $form_options[ $field ] : '' ),
+				'label'       => ( $form_options[ $field ] ?? '' ),
 				'glue'        => '<br>',
 				'value'       => '',
 			);
