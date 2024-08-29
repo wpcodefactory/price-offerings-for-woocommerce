@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 3.0.0
+ * @version 3.1.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -31,9 +31,17 @@ class Alg_WC_PO_Core {
 	public $actions;
 
 	/**
+	 * offer_meta_boxes.
+	 *
+	 * @version 3.1.0
+	 * @since   3.1.0
+	 */
+	public $offer_meta_boxes;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 2.9.9
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) list placeholders in the Actions meta box
@@ -73,11 +81,13 @@ class Alg_WC_PO_Core {
 		// REST API
 		$this->maybe_init_rest_api();
 
+		// Offer meta boxes
+		$this->offer_meta_boxes = require_once( 'class-alg-wc-po-meta-boxes-offer.php' );
+
 		// Admin
 		if ( is_admin() ) {
 
-			// Meta boxes
-			require_once( 'class-alg-wc-po-meta-boxes-offer.php' );
+			// Product meta boxes
 			require_once( 'class-alg-wc-po-meta-boxes-product.php' );
 
 			// CSS

@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - General Section Settings
  *
- * @version 3.0.0
+ * @version 3.1.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.0.0
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -320,6 +320,32 @@ class Alg_WC_PO_Settings_General extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'id'                => 'alg_wc_po_auto_accept_options',
+				'type'              => 'sectionend',
+			),
+
+			array(
+				'title'             => __( 'Compatibility Options', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_po_compatibility_options',
+				'type'              => 'title',
+			),
+			array(
+				'title'             => __( 'Dokan multi-vendor', 'price-offerings-for-woocommerce' ),
+				'desc'              => __( 'Enable', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          =>
+					sprintf( __( '%s plugin compatibility.', 'price-offerings-for-woocommerce' ),
+						'<a href="https://wordpress.org/plugins/dokan-lite/" target="_blank">' .
+							__( 'Dokan', 'price-offerings-for-woocommerce' ) .
+						'</a>'
+					) .
+					apply_filters( 'alg_wc_price_offerings_settings',
+						'<br>You will need the <a href="https://wpfactory.com/item/price-offerings-for-woocommerce/" target="_blank">Price Offers for WooCommerce Pro</a> plugin to enable this option.' ),
+				'id'                => 'alg_wc_po_dokan_enabled',
+				'type'              => 'checkbox',
+				'default'           => 'no',
+				'custom_attributes' => apply_filters( 'alg_wc_price_offerings_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'id'                => 'alg_wc_po_compatibility_options',
 				'type'              => 'sectionend',
 			),
 

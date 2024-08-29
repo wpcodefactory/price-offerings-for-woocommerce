@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Main Class
  *
- * @version 2.9.0
+ * @version 3.1.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -31,6 +31,14 @@ final class Alg_WC_PO {
 	public $core;
 
 	/**
+	 * pro.
+	 *
+	 * @version 3.1.0
+	 * @since   3.1.0
+	 */
+	public $pro;
+
+	/**
 	 * @var     Alg_WC_PO The single instance of the class
 	 * @since   1.0.0
 	 */
@@ -57,7 +65,7 @@ final class Alg_WC_PO {
 	/**
 	 * Alg_WC_PO Constructor.
 	 *
-	 * @version 2.2.0
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 *
 	 * @access  public
@@ -77,7 +85,7 @@ final class Alg_WC_PO {
 
 		// Pro
 		if ( 'price-offerings-for-woocommerce-pro.php' === basename( ALG_WC_PO_FILE ) ) {
-			require_once( 'pro/class-alg-wc-po-pro.php' );
+			$this->pro = require_once( 'pro/class-alg-wc-po-pro.php' );
 		}
 
 		// Include required files
@@ -210,6 +218,16 @@ final class Alg_WC_PO {
 	 */
 	function plugin_path() {
 		return untrailingslashit( plugin_dir_path( ALG_WC_PO_FILE ) );
+	}
+
+	/**
+	 * Handles plugin activation tasks.
+	 *
+	 * @version 3.1.0
+	 * @since   3.1.0
+	 */
+	static function activate() {
+		update_option( 'alg_wc_po_permalinks_flushed', 0 );
 	}
 
 }

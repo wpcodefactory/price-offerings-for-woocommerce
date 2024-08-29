@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Custom Post
  *
- * @version 2.5.0
+ * @version 3.1.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -17,10 +17,13 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.0
+	 * @version 3.1.0
 	 * @since   2.0.0
 	 */
 	function __construct() {
+		if ( ! is_admin() ) {
+			return;
+		}
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_action( 'save_post_alg_wc_price_offer', array( $this, 'save_meta_boxes' ) );
 		add_action( 'admin_menu', array( $this, 'remove_publish_meta_box' ) );

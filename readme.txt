@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, kousikmu
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
 Tested up to: 6.6
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -161,6 +161,12 @@ WPFactory has a diverse range of plugins tailored to enhance your experience:
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 3.1.0 - 29/08/2024 =
+* Fix - reCAPTCHA - JS error fixed.
+* Dev - Pro - Dokan multi-vendor plugin support added.
+* Dev - Code refactoring.
+* WC tested up to: 9.2.
 
 = 3.0.0 - 15/08/2024 =
 * Fix - reCAPTCHA - JS error fixed.
