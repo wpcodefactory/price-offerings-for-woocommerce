@@ -1,7 +1,7 @@
 /**
  * recaptcha.js
  *
- * @version 3.1.0
+ * @version 3.1.1
  * @since   2.9.9
  *
  * @author  Algoritmika Ltd
@@ -12,7 +12,7 @@ jQuery( document ).ready( function () {
 	/**
 	 * Form submit.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.1
 	 * @since   2.9.9
 	 *
 	 * @todo    (dev) clear error message on the reCAPTCHA checkbox click?
@@ -25,6 +25,7 @@ jQuery( document ).ready( function () {
 		// Force submit (success)
 		if ( jQuery( this ).attr( 'alg-wc-price-offerings-force-submit' ) ) {
 			jQuery( this ).attr( 'alg-wc-price-offerings-force-submit', false );
+			jQuery( this ).append( '<input type="hidden" name="alg-wc-price-offerings-submit" value="true">' );
 			return true;
 		}
 

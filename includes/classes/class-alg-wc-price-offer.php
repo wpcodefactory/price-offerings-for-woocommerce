@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Price Offer Class
  *
- * @version 3.0.0
+ * @version 3.1.1
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -603,7 +603,7 @@ class Alg_WC_Price_Offer {
 	/**
 	 * process_action.
 	 *
-	 * @version 3.0.0
+	 * @version 3.1.1
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) `customer_phone`: `<a href="tel:...">...</a>`
@@ -621,6 +621,9 @@ class Alg_WC_Price_Offer {
 				$this->get_price() :
 				( $args['counter_price'] ?? false )
 			);
+
+			// Apply filter
+			$accepted_price = apply_filters( 'alg_wc_po_accepted_price', $accepted_price, $action, $args, $this );
 
 			if ( $accepted_price ) {
 

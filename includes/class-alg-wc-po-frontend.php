@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 3.0.0
+ * @version 3.1.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -204,7 +204,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * add_offer_price_form.
 	 *
-	 * @version 3.0.0
+	 * @version 3.1.1
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) `recaptcha`: remove `wrapper`?
@@ -343,6 +343,14 @@ class Alg_WC_PO_Frontend {
 
 			// Final data
 			$data = array_merge( $default_data, $data );
+
+			// Apply filter
+			$data = apply_filters( 'alg_wc_po_form_field_' . $field, $data );
+
+			// Maybe skip the field
+			if ( empty( $data ) ) {
+				continue;
+			}
 
 			// Field label
 			$label = ( $data['is_label'] ?
