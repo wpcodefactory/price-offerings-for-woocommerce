@@ -359,7 +359,7 @@ msgstr ""
 
 #: includes/class-alg-wc-po-meta-boxes-offer.php:154
 #: includes/pro/dokan/templates/offers-edit.php:118
-#: includes/settings/class-alg-wc-po-settings-general.php:356
+#: includes/settings/class-alg-wc-po-settings-general.php:385
 msgid "Notes"
 msgstr ""
 
@@ -445,7 +445,7 @@ msgid "No messages yet."
 msgstr ""
 
 #: includes/class-alg-wc-po-meta-boxes-product.php:59
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:171
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:175
 #: includes/settings/class-alg-wc-po-settings-admin.php:54
 msgid "Price offers"
 msgstr ""
@@ -484,18 +484,27 @@ msgstr ""
 msgid "Status updated from %s to %s."
 msgstr ""
 
-#: includes/pro/class-alg-wc-po-pro.php:429
+#: includes/pro/class-alg-wc-po-pro.php:445
 #: includes/settings/class-alg-wc-po-settings-general.php:318
 msgid "Your price offer has been accepted."
 msgstr ""
 
-#: includes/pro/class-alg-wc-po-pro.php:449
+#: includes/pro/class-alg-wc-po-pro.php:464
 msgid "Reason: auto-accepted."
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro.php:516
+#: includes/settings/class-alg-wc-po-settings-general.php:347
+msgid "Your price offer has been rejected."
+msgstr ""
+
+#: includes/pro/class-alg-wc-po-pro.php:535
+msgid "Reason: auto-rejected."
 msgstr ""
 
 #: includes/pro/dokan/class-alg-wc-po-pro-dokan.php:128
 #: includes/pro/dokan/templates/offers.php:37
-#: includes/settings/class-alg-wc-po-settings-general.php:359
+#: includes/settings/class-alg-wc-po-settings-general.php:388
 msgid "Offers"
 msgstr ""
 
@@ -559,66 +568,78 @@ msgstr ""
 msgid "Not found"
 msgstr ""
 
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:176
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:180
 msgid "Yes"
 msgstr ""
 
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:177
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:181
 msgid "No"
 msgstr ""
 
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:181
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:185
 #: includes/settings/class-alg-wc-po-settings-form.php:128
 msgid "Price step"
 msgstr ""
 
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:182
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:190
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:199
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:208
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:217
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:227
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:186
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:194
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:203
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:212
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:221
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:231
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:241
 msgid "Leave blank to use global value."
 msgstr ""
 
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:189
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:193
 #: includes/settings/class-alg-wc-po-settings-form.php:135
 msgid "Minimal price"
 msgstr ""
 
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:197
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:201
 #: includes/settings/class-alg-wc-po-settings-form.php:142
 msgid "Maximal price"
 msgstr ""
 
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:198
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:207
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:216
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:226
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:202
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:211
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:220
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:230
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:240
 #: includes/settings/class-alg-wc-po-settings-form.php:143
 #: includes/settings/class-alg-wc-po-settings-form.php:151
 #: includes/settings/class-alg-wc-po-settings-form.php:166
 #: includes/settings/class-alg-wc-po-settings-general.php:308
+#: includes/settings/class-alg-wc-po-settings-general.php:337
 msgid "Set to zero to disable."
 msgstr ""
 
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:206
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:210
 #: includes/settings/class-alg-wc-po-settings-form.php:150
 msgid "Default price"
 msgstr ""
 
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:215
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:219
 #: includes/settings/class-alg-wc-po-settings-form.php:165
 msgid "Default quantity"
 msgstr ""
 
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:224
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:228
 msgid "Auto-accept price"
 msgstr ""
 
-#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:225
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:229
 #: includes/settings/class-alg-wc-po-settings-general.php:306
 msgid "Minimum price to auto-accept offers."
+msgstr ""
+
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:238
+msgid "Auto-reject price"
+msgstr ""
+
+#: includes/pro/settings/class-alg-wc-po-pro-settings-per-product.php:239
+#: includes/settings/class-alg-wc-po-settings-general.php:335
+msgid "Maximum price to auto-reject offers."
 msgstr ""
 
 #: includes/rest/class-wc-rest-alg-wc-po-controller.php:94
@@ -721,7 +742,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-po-settings-general.php:196
 #: includes/settings/class-alg-wc-po-settings-general.php:207
 #: includes/settings/class-alg-wc-po-settings-general.php:245
-#: includes/settings/class-alg-wc-po-settings-general.php:333
+#: includes/settings/class-alg-wc-po-settings-general.php:362
 msgid "Enable"
 msgstr ""
 
@@ -1030,6 +1051,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-po-settings-form.php:274
 #: includes/settings/class-alg-wc-po-settings-general.php:287
 #: includes/settings/class-alg-wc-po-settings-general.php:315
+#: includes/settings/class-alg-wc-po-settings-general.php:344
 msgid "Customer notice"
 msgstr ""
 
@@ -1279,27 +1301,36 @@ msgid "Minimum price"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-general.php:307
+#: includes/settings/class-alg-wc-po-settings-general.php:336
 msgid "You can change this option on per product basis."
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-general.php:327
+msgid "Auto-Reject Options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:334
+msgid "Maximum price"
+msgstr ""
+
+#: includes/settings/class-alg-wc-po-settings-general.php:356
 msgid "Compatibility Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:332
+#: includes/settings/class-alg-wc-po-settings-general.php:361
 msgid "Dokan multi-vendor"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:335
+#: includes/settings/class-alg-wc-po-settings-general.php:364
 #, php-format
 msgid "%s plugin compatibility."
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:337
+#: includes/settings/class-alg-wc-po-settings-general.php:366
 msgid "Dokan"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings-general.php:358
+#: includes/settings/class-alg-wc-po-settings-general.php:387
 #, php-format
 msgid "You can see and manage all price offers in the %s dashboard."
 msgstr ""
