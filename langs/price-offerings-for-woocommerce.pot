@@ -461,12 +461,17 @@ msgid_plural "Average offer: %s (from %s offers)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-po.php:167
+#: includes/class-alg-wc-po.php:190
 msgid "Settings"
 msgstr ""
 
-#: includes/class-alg-wc-po.php:170
+#: includes/class-alg-wc-po.php:194
 msgid "Go Pro"
+msgstr ""
+
+#: includes/class-alg-wc-po.php:238 includes/class-alg-wc-po.php:239
+#: includes/settings/class-alg-wc-po-settings.php:25
+msgid "Price Offers"
 msgstr ""
 
 #: includes/classes/class-alg-wc-price-offer.php:185
@@ -1368,10 +1373,6 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings-styling.php:72
 msgid "Footer text color"
-msgstr ""
-
-#: includes/settings/class-alg-wc-po-settings.php:25
-msgid "Price Offers"
 msgstr ""
 
 #: includes/settings/class-alg-wc-po-settings.php:48
