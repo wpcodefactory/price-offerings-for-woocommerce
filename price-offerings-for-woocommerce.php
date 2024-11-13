@@ -1,15 +1,17 @@
 <?php
 /*
-Plugin Name: Price Offers for WooCommerce
+Plugin Name: Name Your Price: Make Your Own Offer for WooCommerce
 Plugin URI: https://wpfactory.com/item/price-offerings-for-woocommerce/
 Description: Allows your customers to start product price negotiations with you.
-Version: 3.3.0
+Version: 3.3.1
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: price-offerings-for-woocommerce
 Domain Path: /langs
-WC tested up to: 9.3
+WC tested up to: 9.4
 Requires Plugins: woocommerce
+License: GNU General Public License v3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
@@ -31,7 +33,7 @@ if ( 'price-offerings-for-woocommerce.php' === basename( __FILE__ ) ) {
 	}
 }
 
-defined( 'ALG_WC_PO_VERSION' ) || define( 'ALG_WC_PO_VERSION', '3.3.0' );
+defined( 'ALG_WC_PO_VERSION' ) || define( 'ALG_WC_PO_VERSION', '3.3.1' );
 
 defined( 'ALG_WC_PO_FILE' ) || define( 'ALG_WC_PO_FILE', __FILE__ );
 

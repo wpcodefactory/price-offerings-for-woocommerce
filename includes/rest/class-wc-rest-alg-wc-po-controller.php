@@ -91,7 +91,7 @@ class WC_REST_Alg_WC_PO_Controller extends WC_REST_CRUD_Controller {
 			$this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
 				'args'   => array(
 					'id' => array(
-						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ),
+						'description' => __( 'Unique identifier for the resource.', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 						'type'        => 'integer',
 					),
 				),
@@ -284,7 +284,7 @@ class WC_REST_Alg_WC_PO_Controller extends WC_REST_CRUD_Controller {
 			'type'       => 'object',
 			'properties' => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the object.', 'woocommerce' ),
+					'description' => __( 'Unique identifier for the object.', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
@@ -300,25 +300,25 @@ class WC_REST_Alg_WC_PO_Controller extends WC_REST_CRUD_Controller {
 					'context'     => array( 'view', 'edit' ),
 				),
 				'meta_data' => array(
-					'description' => __( 'Meta data.', 'woocommerce' ),
+					'description' => __( 'Meta data.', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 					'type'        => 'array',
 					'context'     => array( 'view', 'edit' ),
 					'items'       => array(
 						'type'       => 'object',
 						'properties' => array(
 							'id'    => array(
-								'description' => __( 'Meta ID.', 'woocommerce' ),
+								'description' => __( 'Meta ID.', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 								'type'        => 'integer',
 								'context'     => array( 'view', 'edit' ),
 								'readonly'    => true,
 							),
 							'key'   => array(
-								'description' => __( 'Meta key.', 'woocommerce' ),
+								'description' => __( 'Meta key.', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 								'type'        => 'string',
 								'context'     => array( 'view', 'edit' ),
 							),
 							'value' => array(
-								'description' => __( 'Meta value.', 'woocommerce' ),
+								'description' => __( 'Meta value.', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 								'type'        => 'mixed',
 								'context'     => array( 'view', 'edit' ),
 							),

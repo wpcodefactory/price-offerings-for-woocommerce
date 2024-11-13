@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 3.1.1
+ * @version 3.3.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -142,7 +142,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * enqueue_scripts.
 	 *
-	 * @version 2.9.9
+	 * @version 3.3.1
 	 * @since   1.0.0
 	 *
 	 * @see     https://www.w3schools.com/howto/howto_css_modals.asp
@@ -173,7 +173,10 @@ class Alg_WC_PO_Frontend {
 
 			wp_enqueue_script(
 				'alg-wc-price-offerings-google-recaptcha-v2',
-				'https://www.google.com/recaptcha/api.js'
+				'https://www.google.com/recaptcha/api.js',
+				array(),
+				alg_wc_po()->version,
+				false
 			);
 
 			wp_enqueue_script(
@@ -204,7 +207,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * add_offer_price_form.
 	 *
-	 * @version 3.1.1
+	 * @version 3.3.1
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) `recaptcha`: remove `wrapper`?
@@ -401,7 +404,7 @@ class Alg_WC_PO_Frontend {
 					'<form method="post" id="alg-wc-price-offerings-form">' .
 						implode( '', $fields ) .
 						'<input type="hidden" id="alg-wc-price-offerings-product-id" name="alg-wc-price-offerings-product-id">' .
-						'<input type="hidden" name="alg-wc-price-offerings-customer-id" value="' . $customer_id . '">' .
+						'<input type="hidden" name="alg-wc-price-offerings-customer-id" value="' . (int) $customer_id . '">' .
 					'</form>' .
 				'</div>' .
 				( '' != $form_options['footer_template'] ? '<div class="alg-wc-price-offerings-modal-footer">' . $form_options['footer_template'] . '</div>' : '' ) .
@@ -467,13 +470,21 @@ class Alg_WC_PO_Frontend {
 
 		$form_options = get_option( 'alg_wc_price_offerings_form', array() );
 		$form_options = array_merge( array(
-			'price_label'      => sprintf( __( 'Your price (%s)', 'price-offerings-for-woocommerce' ), '%currency_symbol%' ),
+			'price_label'      => sprintf(
+				/* Translators: %s: Currency symbol. */
+				__( 'Your price (%s)', 'price-offerings-for-woocommerce' ),
+				'%currency_symbol%'
+			),
 			'price_step'       => 0.01,
 			'price_min'        => 0,
 			'price_max'        => 0,
 			'price_default'    => 0,
 			'quantity_default' => 1,
-			'header_template'  => '<h3>' . sprintf( __( 'Suggest your price for %s', 'price-offerings-for-woocommerce' ), '%product_title%' ) . '</h3>',
+			'header_template'  => '<h3>' . sprintf(
+				/* Translators: %s: Product title. */
+				__( 'Suggest your price for %s', 'price-offerings-for-woocommerce' ),
+				'%product_title%'
+			) . '</h3>',
 		), $form_options );
 
 		$is_pp            = apply_filters( 'alg_wc_price_offerings_is_enabled_per_product', false );

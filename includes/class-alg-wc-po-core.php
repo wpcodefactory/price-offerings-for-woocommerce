@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 3.1.0
+ * @version 3.3.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -41,7 +41,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.1.0
+	 * @version 3.3.1
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) list placeholders in the Actions meta box
@@ -74,8 +74,8 @@ class Alg_WC_PO_Core {
 
 		// reCAPTCHA
 		if ( $this->is_recaptcha_enabled() ) {
-			add_action( 'wp_ajax_'        . 'alg_wc_price_offerings_recaptcha', array( $this, 'recaptcha' ) );
-			add_action( 'wp_ajax_nopriv_' . 'alg_wc_price_offerings_recaptcha', array( $this, 'recaptcha' ) );
+			add_action( 'wp_ajax_'        . 'alg_wc_price_offerings_recaptcha', array( $this, 'recaptcha_ajax' ) );
+			add_action( 'wp_ajax_nopriv_' . 'alg_wc_price_offerings_recaptcha', array( $this, 'recaptcha_ajax' ) );
 		}
 
 		// REST API
@@ -133,14 +133,14 @@ class Alg_WC_PO_Core {
 	}
 
 	/**
-	 * reCAPTCHA.
+	 * reCAPTCHA AJAX.
 	 *
-	 * @version 2.9.9
+	 * @version 3.3.1
 	 * @since   2.9.9
 	 *
 	 * @todo    (dev) fallback for the `file_get_contents()`
 	 */
-	function recaptcha() {
+	function recaptcha_ajax() {
 		$res = 0;
 		if ( isset( $_POST['recaptcha_response'] ) ) {
 
@@ -161,7 +161,7 @@ class Alg_WC_PO_Core {
 			}
 
 		}
-		echo $res;
+		echo (int) $res;
 		die();
 	}
 
@@ -378,7 +378,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * render_columns.
 	 *
-	 * @version 2.1.0
+	 * @version 3.3.1
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) links?
@@ -388,27 +388,30 @@ class Alg_WC_PO_Core {
 			switch ( $column ) {
 
 				case 'date_created':
-					echo $offer->get_human_time_diff_date_label();
+					echo wp_kses(
+						$offer->get_human_time_diff_date_label(),
+						array( 'time' => array( 'datetime' => array(), 'title' => array() ) )
+					);
 					break;
 
 				case 'customer':
-					echo $offer->get_customer_email();
+					echo esc_html( $offer->get_customer_email() );
 					break;
 
 				case 'product':
-					echo $offer->get_product_name_admin_link();
+					echo wp_kses_post( $offer->get_product_name_admin_link() );
 					break;
 
 				case 'product_sku':
-					echo $offer->get_product_sku();
+					echo esc_html( $offer->get_product_sku() );
 					break;
 
 				case 'price':
-					echo $offer->get_price_summary();
+					echo wp_kses_post( $offer->get_price_summary() );
 					break;
 
 				case 'status':
-					echo $offer->get_status_label();
+					echo wp_kses_post( $offer->get_status_label() );
 					break;
 
 			}
@@ -498,6 +501,7 @@ class Alg_WC_PO_Core {
 	static function get_default_action_option_values() {
 
 		$signature = __( 'Regards,', 'price-offerings-for-woocommerce' ) . PHP_EOL .
+			/* Translators: %s: Site title. */
 			sprintf( __( 'All at %s', 'price-offerings-for-woocommerce' ), '{site_title}' ) . PHP_EOL .
 			'{site_url}';
 
@@ -505,20 +509,20 @@ class Alg_WC_PO_Core {
 
 			'reject_default_email_subject' => '[{site_title}]: ' . __( 'Offer rejected', 'price-offerings-for-woocommerce' ),
 			'reject_default_email_heading' => __( 'Offer rejected', 'price-offerings-for-woocommerce' ),
-			'reject_default_email_content' => __( 'Hi, %customer_name%,', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL .
-				__( 'We are sorry to inform you, but your offer to buy "%product_title%" for %offered_price% has been rejected.', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL .
+			'reject_default_email_content' => __( 'Hi, %customer_name%,', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL . // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+				__( 'We are sorry to inform you, but your offer to buy "%product_title%" for %offered_price% has been rejected.', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL . // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 				$signature,
 
 			'accept_default_email_subject' => '[{site_title}]: ' . __( 'Offer accepted', 'price-offerings-for-woocommerce' ),
 			'accept_default_email_heading' => __( 'Offer accepted', 'price-offerings-for-woocommerce' ),
-			'accept_default_email_content' => __( 'Hi, %customer_name%,', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL .
-				__( 'We are happy to inform you that your offer has been accepted. You can buy "%product_title%" for %offered_price% by clicking <a href="%add_to_cart_url%">this link</a>.', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL .
+			'accept_default_email_content' => __( 'Hi, %customer_name%,', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL . // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+				__( 'We are happy to inform you that your offer has been accepted. You can buy "%product_title%" for %offered_price% by clicking <a href="%add_to_cart_url%">this link</a>.', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL . // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 				$signature,
 
 			'counter_default_email_subject' => '[{site_title}]: ' . __( 'Counter offer', 'price-offerings-for-woocommerce' ),
 			'counter_default_email_heading' => __( 'Counter offer', 'price-offerings-for-woocommerce' ),
-			'counter_default_email_content' => __( 'Hi, %customer_name%,', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL .
-				__( 'Unfortunately, we can\'t go that low, but we can offer it to you for %counter_price%. You can buy "%product_title%" for %counter_price% by clicking <a href="%add_to_cart_url%">this link</a>.', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL .
+			'counter_default_email_content' => __( 'Hi, %customer_name%,', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL . // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+				__( 'Unfortunately, we can\'t go that low, but we can offer it to you for %counter_price%. You can buy "%product_title%" for %counter_price% by clicking <a href="%add_to_cart_url%">this link</a>.', 'price-offerings-for-woocommerce' ) . PHP_EOL . PHP_EOL . // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment, WordPress.WP.I18n.UnorderedPlaceholdersText
 				$signature,
 
 		);
@@ -577,7 +581,10 @@ class Alg_WC_PO_Core {
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( $title . ' <span class="count">(%s)</span>', $title . ' <span class="count">(%s)</span>' ),
+				'label_count'               => _n_noop( // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+					$title . ' <span class="count">(%s)</span>', // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralSingular
+					$title . ' <span class="count">(%s)</span>'  // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralPlural
+				),
 			) );
 		}
 	}
@@ -659,6 +666,8 @@ class Alg_WC_PO_Core {
 	 *
 	 * @version 2.0.0
 	 * @since   2.0.0
+	 *
+	 * @todo    (dev) `meta_query`: replace with `meta_key` and `meta_value`?
 	 */
 	static function get_product_offers( $product_id = false ) {
 		$offers = array();
@@ -667,7 +676,7 @@ class Alg_WC_PO_Core {
 			'post_type'      => 'alg_wc_price_offer',
 			'posts_per_page' => -1,
 			'fields'         => 'ids',
-			'meta_query'     => array(
+			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				array(
 					'key'   => 'product_id',
 					'value' => ( $product_id ? $product_id : get_the_ID() ),
@@ -735,7 +744,7 @@ class Alg_WC_PO_Core {
 			'fields'         => 'ids',
 		);
 		if ( ! empty( $meta_query ) ) {
-			$query_args['meta_query'] = $meta_query;
+			$query_args['meta_query'] = $meta_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		}
 		$query_args = apply_filters( 'alg_wc_po_duplicate_query_args', $query_args );
 

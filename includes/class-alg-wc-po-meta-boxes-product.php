@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Product
  *
- * @version 3.0.0
+ * @version 3.3.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -68,13 +68,13 @@ class Alg_WC_PO_Meta_Boxes_Product {
 	/**
 	 * create_offer_price_history_meta_box.
 	 *
-	 * @version 2.9.4
+	 * @version 3.3.1
 	 * @since   1.0.0
 	 */
 	function create_offer_price_history_meta_box() {
 		$price_offers = Alg_WC_PO_Core::get_product_offers();
 		if ( empty( $price_offers ) ) {
-			echo __( 'No price offers yet.', 'price-offerings-for-woocommerce' );
+			echo esc_html__( 'No price offers yet.', 'price-offerings-for-woocommerce' );
 		} else {
 
 			$average_offers   = array();
@@ -168,8 +168,8 @@ class Alg_WC_PO_Meta_Boxes_Product {
 						'price-offerings-for-woocommerce'
 					);
 					echo '<p>' . sprintf( $average_offer_template,
-						$average_offer,
-						$average_offer_data['total_offers']
+						wp_kses_post( $average_offer ),
+						(int) $average_offer_data['total_offers']
 					) . '</p>';
 				}
 			}

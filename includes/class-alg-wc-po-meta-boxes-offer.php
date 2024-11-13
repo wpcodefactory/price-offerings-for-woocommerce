@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Custom Post
  *
- * @version 3.1.0
+ * @version 3.3.1
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -178,7 +178,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_update.
 	 *
-	 * @version 2.0.0
+	 * @version 3.3.1
 	 * @since   2.0.0
 	 *
 	 * @see     https://developer.wordpress.org/reference/functions/post_submit_meta_box/
@@ -193,35 +193,43 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 		?>
 		<div class="submitbox" id="submitpost">
 			<div id="misc-publishing-actions">
-				<div class="misc-pub-section misc-pub-post-status"><?php _e( 'Status:' ); ?>
-					<span id="post-status-display"><?php echo $offer->get_status_name(); ?></span>
+				<div class="misc-pub-section misc-pub-post-status"><?php esc_html_e( 'Status:' ); /* phpcs:ignore WordPress.WP.I18n.MissingArgDomain */ ?>
+					<span id="post-status-display"><?php echo esc_html( $offer->get_status_name() ); ?></span>
 				</div>
 			</div>
 			<div class="misc-pub-section curtime misc-pub-curtime">
-				<span id="timestamp"><?php printf( __( 'Created: %s', 'price-offerings-for-woocommerce' ), '<b>' . $offer->get_formatted_date() . '</b>' ); ?></span>
+				<span id="timestamp"><?php printf(
+					/* Translators: %s: Date. */
+					wp_kses_post( __( 'Created: %s', 'price-offerings-for-woocommerce' ) ),
+					'<b>' . esc_html( $offer->get_formatted_date() ) . '</b>'
+				); ?></span>
 			</div>
 			<div class="misc-pub-section curtime misc-pub-curtime">
-				<span id="timestamp"><?php printf( __( 'Modified: %s', 'price-offerings-for-woocommerce' ), '<b>' . $offer->get_formatted_modified_date() . '</b>' ); ?></span>
+				<span id="timestamp"><?php printf(
+					/* Translators: %s: Date. */
+					wp_kses_post( __( 'Modified: %s', 'price-offerings-for-woocommerce' ) ),
+					'<b>' . esc_html( $offer->get_formatted_modified_date() ) . '</b>'
+				); ?></span>
 			</div>
 			<div id="major-publishing-actions">
 				<div id="delete-action">
 					<?php
 					if ( current_user_can( 'delete_post', $post_id ) ) {
 						if ( ! EMPTY_TRASH_DAYS ) {
-							$delete_text = __( 'Delete permanently' );
+							$delete_text = __( 'Delete permanently' ); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 						} else {
-							$delete_text = __( 'Move to Trash' );
+							$delete_text = __( 'Move to Trash' ); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
 						}
 						?>
-						<a class="submitdelete deletion" href="<?php echo get_delete_post_link( $post_id ); ?>"><?php echo $delete_text; ?></a>
+						<a class="submitdelete deletion" href="<?php echo esc_url( get_delete_post_link( $post_id ) ); ?>"><?php echo esc_html( $delete_text ); ?></a>
 						<?php
 					}
 					?>
 				</div>
 				<div id="publishing-action">
 					<span class="spinner"></span>
-					<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ); ?>" />
-					<?php submit_button( __( 'Update' ), 'primary large', 'save', false, array( 'id' => 'publish' ) ); ?>
+					<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ); /* phpcs:ignore WordPress.WP.I18n.MissingArgDomain */ ?>" />
+					<?php submit_button( __( 'Update' ), 'primary large', 'save', false, array( 'id' => 'publish' ) ); /* phpcs:ignore WordPress.WP.I18n.MissingArgDomain */ ?>
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -232,7 +240,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_data.
 	 *
-	 * @version 2.5.0
+	 * @version 3.3.1
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) add `get_user_agent()`?
@@ -242,7 +250,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 			?>
 			<table class="widefat striped">
 				<tr><th><?php echo esc_html__( 'Product', 'price-offerings-for-woocommerce' ); ?></th><td><?php
-					echo $offer->get_product_name_admin_link( false );
+					echo wp_kses_post( $offer->get_product_name_admin_link( false ) );
 					?></td></tr>
 				<tr><th><?php echo esc_html__( 'Price', 'price-offerings-for-woocommerce' ); ?></th><td><?php echo $offer->get_price_summary(); ?></td></tr>
 				<?php if ( false !== ( $quantity = $offer->get_quantity() ) && '' !== $quantity ) { ?>
@@ -316,54 +324,106 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 			?>
 
 			<div>
-				<h2 style="font-size: 21px; font-weight: 400; padding: 0; margin-bottom: 10px;"><?php printf( esc_html__( 'Offer %s', 'price-offerings-for-woocommerce' ),  $offer->get_title() ); ?></h2>
+				<h2 style="font-size: 21px; font-weight: 400; padding: 0; margin-bottom: 10px;"><?php
+					printf(
+						/* Translators: %s: Offer title. */
+						esc_html__( 'Offer %s', 'price-offerings-for-woocommerce' ),
+						$offer->get_title()
+					);
+				?></h2>
 				<select id="alg-wc-price-offer-action" name="alg_wc_price_offer_action">
-					<option value=""><?php echo esc_html__( 'Choose an action...', 'price-offerings-for-woocommerce' ); ?></option>
+					<option value=""><?php
+						echo esc_html__( 'Choose an action...', 'price-offerings-for-woocommerce' );
+					?></option>
 					<?php foreach ( Alg_WC_PO_Core::get_actions() as $action_id => $action_title ) { ?>
-						<option value="<?php echo esc_attr( $action_id ); ?>"><?php echo esc_html( $action_title ); ?></option>
+						<option value="<?php echo esc_attr( $action_id ); ?>"><?php
+							echo esc_html( $action_title );
+						?></option>
 					<?php } ?>
 				</select>
 			</div>
 
 			<div class="alg-wc-price-offer-show-for-reject alg-wc-price-offer-actions-data">
 
-				<label for="alg-wc-price-offer-email-subject-reject" class="alg-wc-price-offer-action-label"><?php echo esc_html__( 'Email subject:', 'price-offerings-for-woocommerce' ); ?></label>
-				<input id="alg-wc-price-offer-email-subject-reject" name="alg_wc_price_offer_email_subject_reject" class="widefat" type="text" value="<?php echo esc_html( $options['reject_default_email_subject'] ); ?>">
+				<label for="alg-wc-price-offer-email-subject-reject" class="alg-wc-price-offer-action-label"><?php
+					echo esc_html__( 'Email subject:', 'price-offerings-for-woocommerce' );
+				?></label>
+				<input id="alg-wc-price-offer-email-subject-reject" name="alg_wc_price_offer_email_subject_reject" class="widefat" type="text" value="<?php
+					echo esc_html( $options['reject_default_email_subject'] );
+				?>">
 
-				<label for="alg-wc-price-offer-email-heading-reject" class="alg-wc-price-offer-action-label"><?php echo esc_html__( 'Email heading:', 'price-offerings-for-woocommerce' ); ?></label>
-				<input id="alg-wc-price-offer-email-heading-reject" name="alg_wc_price_offer_email_heading_reject" class="widefat" type="text" value="<?php echo esc_html( $options['reject_default_email_heading'] ); ?>">
+				<label for="alg-wc-price-offer-email-heading-reject" class="alg-wc-price-offer-action-label"><?php
+					echo esc_html__( 'Email heading:', 'price-offerings-for-woocommerce' );
+				?></label>
+				<input id="alg-wc-price-offer-email-heading-reject" name="alg_wc_price_offer_email_heading_reject" class="widefat" type="text" value="<?php
+					echo esc_html( $options['reject_default_email_heading'] );
+				?>">
 
-				<label for="alg-wc-price-offer-email-content-reject" class="alg-wc-price-offer-action-label"><?php echo esc_html__( 'Email content:', 'price-offerings-for-woocommerce' ); ?></label>
-				<textarea id="alg-wc-price-offer-email-content-reject" name="alg_wc_price_offer_email_content_reject" class="widefat alg-wc-price-offer-action-email-content"><?php echo wp_kses_post( trim( $options['reject_default_email_content'] ) ); ?></textarea>
+				<label for="alg-wc-price-offer-email-content-reject" class="alg-wc-price-offer-action-label"><?php
+					echo esc_html__( 'Email content:', 'price-offerings-for-woocommerce' );
+				?></label>
+				<textarea id="alg-wc-price-offer-email-content-reject" name="alg_wc_price_offer_email_content_reject" class="widefat alg-wc-price-offer-action-email-content"><?php
+					echo wp_kses_post( trim( $options['reject_default_email_content'] ) );
+				?></textarea>
 
 			</div>
 
 			<div class="alg-wc-price-offer-show-for-accept alg-wc-price-offer-actions-data">
 
-				<label for="alg-wc-price-offer-email-subject-accept" class="alg-wc-price-offer-action-label"><?php echo esc_html__( 'Email subject:', 'price-offerings-for-woocommerce' ); ?></label>
-				<input id="alg-wc-price-offer-email-subject-accept" name="alg_wc_price_offer_email_subject_accept" class="widefat" type="text" value="<?php echo esc_html( $options['accept_default_email_subject'] ); ?>">
+				<label for="alg-wc-price-offer-email-subject-accept" class="alg-wc-price-offer-action-label"><?php
+					echo esc_html__( 'Email subject:', 'price-offerings-for-woocommerce' );
+				?></label>
+				<input id="alg-wc-price-offer-email-subject-accept" name="alg_wc_price_offer_email_subject_accept" class="widefat" type="text" value="<?php
+					echo esc_html( $options['accept_default_email_subject'] );
+				?>">
 
-				<label for="alg-wc-price-offer-email-heading-accept" class="alg-wc-price-offer-action-label"><?php echo esc_html__( 'Email heading:', 'price-offerings-for-woocommerce' ); ?></label>
-				<input id="alg-wc-price-offer-email-heading-accept" name="alg_wc_price_offer_email_heading_accept" class="widefat" type="text" value="<?php echo esc_html( $options['accept_default_email_heading'] ); ?>">
+				<label for="alg-wc-price-offer-email-heading-accept" class="alg-wc-price-offer-action-label"><?php echo
+					esc_html__( 'Email heading:', 'price-offerings-for-woocommerce' );
+				?></label>
+				<input id="alg-wc-price-offer-email-heading-accept" name="alg_wc_price_offer_email_heading_accept" class="widefat" type="text" value="<?php
+					echo esc_html( $options['accept_default_email_heading'] );
+				?>">
 
-				<label for="alg-wc-price-offer-email-content-accept" class="alg-wc-price-offer-action-label"><?php echo esc_html__( 'Email content:', 'price-offerings-for-woocommerce' ); ?></label>
-				<textarea id="alg-wc-price-offer-email-content-accept" name="alg_wc_price_offer_email_content_accept" class="widefat alg-wc-price-offer-action-email-content"><?php echo wp_kses_post( trim( $options['accept_default_email_content'] ) ); ?></textarea>
+				<label for="alg-wc-price-offer-email-content-accept" class="alg-wc-price-offer-action-label"><?php
+					echo esc_html__( 'Email content:', 'price-offerings-for-woocommerce' );
+				?></label>
+				<textarea id="alg-wc-price-offer-email-content-accept" name="alg_wc_price_offer_email_content_accept" class="widefat alg-wc-price-offer-action-email-content"><?php
+					echo wp_kses_post( trim( $options['accept_default_email_content'] ) );
+				?></textarea>
 
 			</div>
 
 			<div class="alg-wc-price-offer-show-for-counter alg-wc-price-offer-actions-data">
 
-				<label for="alg-wc-price-offer-price-counter" class="alg-wc-price-offer-action-label"><?php printf( esc_html__( 'Counter price (%s):', 'price-offerings-for-woocommerce' ), $offer->get_currency() ); ?></label>
+				<label for="alg-wc-price-offer-price-counter" class="alg-wc-price-offer-action-label"><?php
+					printf(
+						/* Translators: %s: Offer currency. */
+						esc_html__( 'Counter price (%s):', 'price-offerings-for-woocommerce' ),
+						$offer->get_currency()
+					);
+				?></label>
 				<input id="alg-wc-price-offer-price-counter" name="alg_wc_price_offer_price_counter" type="number" step="0.0001" value="">
 
-				<label for="alg-wc-price-offer-email-subject-counter" class="alg-wc-price-offer-action-label"><?php echo esc_html__( 'Email subject:', 'price-offerings-for-woocommerce' ); ?></label>
-				<input id="alg-wc-price-offer-email-subject-counter" name="alg_wc_price_offer_email_subject_counter" class="widefat" type="text" value="<?php echo esc_html( $options['counter_default_email_subject'] ); ?>">
+				<label for="alg-wc-price-offer-email-subject-counter" class="alg-wc-price-offer-action-label"><?php
+					echo esc_html__( 'Email subject:', 'price-offerings-for-woocommerce' );
+				?></label>
+				<input id="alg-wc-price-offer-email-subject-counter" name="alg_wc_price_offer_email_subject_counter" class="widefat" type="text" value="<?php
+					echo esc_html( $options['counter_default_email_subject'] );
+				?>">
 
-				<label for="alg-wc-price-offer-email-heading-counter" class="alg-wc-price-offer-action-label"><?php echo esc_html__( 'Email heading:', 'price-offerings-for-woocommerce' ); ?></label>
-				<input id="alg-wc-price-offer-email-heading-counter" name="alg_wc_price_offer_email_heading_counter" class="widefat" type="text" value="<?php echo esc_html( $options['counter_default_email_heading'] ); ?>">
+				<label for="alg-wc-price-offer-email-heading-counter" class="alg-wc-price-offer-action-label"><?php
+					echo esc_html__( 'Email heading:', 'price-offerings-for-woocommerce' );
+				?></label>
+				<input id="alg-wc-price-offer-email-heading-counter" name="alg_wc_price_offer_email_heading_counter" class="widefat" type="text" value="<?php
+					echo esc_html( $options['counter_default_email_heading'] );
+				?>">
 
-				<label for="alg-wc-price-offer-email-content-counter" class="alg-wc-price-offer-action-label"><?php echo esc_html__( 'Email content:', 'price-offerings-for-woocommerce' ); ?></label>
-				<textarea id="alg-wc-price-offer-email-content-counter" name="alg_wc_price_offer_email_content_counter" class="widefat alg-wc-price-offer-action-email-content"><?php echo wp_kses_post( trim( $options['counter_default_email_content'] ) ); ?></textarea>
+				<label for="alg-wc-price-offer-email-content-counter" class="alg-wc-price-offer-action-label"><?php
+					echo esc_html__( 'Email content:', 'price-offerings-for-woocommerce' );
+				?></label>
+				<textarea id="alg-wc-price-offer-email-content-counter" name="alg_wc_price_offer_email_content_counter" class="widefat alg-wc-price-offer-action-email-content"><?php
+					echo wp_kses_post( trim( $options['counter_default_email_content'] ) );
+				?></textarea>
 
 			</div>
 

@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 3.0.0
+ * @version 3.3.1
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -237,7 +237,7 @@ class Alg_WC_PO_Actions {
 			return sprintf(
 				'<label class="screen-reader-text" for="%1$s">%2$s</label><span id="%1$s">%3$s</span>',
 				esc_attr( uniqid( 'quantity_' ) ),
-				esc_html__( 'Quantity', 'woocommerce' ),
+				esc_html__( 'Quantity', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
 				$cart_item['quantity']
 			);
 		}
@@ -247,7 +247,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * offer_price.
 	 *
-	 * @version 3.0.0
+	 * @version 3.3.1
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) start with "Create price offer"
@@ -276,10 +276,30 @@ class Alg_WC_PO_Actions {
 				'subject'  => '[{site_title}]: ' . __( 'Price offer', 'price-offerings-for-woocommerce' ),
 				'heading'  => __( 'Price offer', 'price-offerings-for-woocommerce' ),
 				'template' =>
-					sprintf( __( 'Product: %s', 'price-offerings-for-woocommerce' ),       '%product_title%' ) . '<br>' . PHP_EOL .
-					sprintf( __( 'Offered price: %s', 'price-offerings-for-woocommerce' ), '%offered_price%' ) . '<br>' . PHP_EOL .
-					sprintf( __( 'From: %s %s', 'price-offerings-for-woocommerce' ),       '%customer_name%', '%customer_email%' ) . '<br>' . PHP_EOL .
-					sprintf( __( 'Message: %s', 'price-offerings-for-woocommerce' ),       '%customer_message%' )
+					sprintf(
+						/* Translators: %s: Product title. */
+						__( 'Product: %s', 'price-offerings-for-woocommerce' ),
+						'%product_title%'
+					) .
+					'<br>' . PHP_EOL .
+					sprintf(
+						/* Translators: %s: Offered price. */
+						__( 'Offered price: %s', 'price-offerings-for-woocommerce' ),
+						'%offered_price%'
+					) .
+					'<br>' . PHP_EOL .
+					sprintf(
+						/* Translators: %1$s: Customer name, %2$s: Customer email. */
+						__( 'From: %1$s %2$s', 'price-offerings-for-woocommerce' ),
+						'%customer_name%',
+						'%customer_email%'
+					) .
+					'<br>' . PHP_EOL .
+					sprintf(
+						/* Translators: %s: Customer message. */
+						__( 'Message: %s', 'price-offerings-for-woocommerce' ),
+						'%customer_message%'
+					)
 			), $email_options );
 
 			// Email address

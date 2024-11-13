@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Settings
  *
- * @version 2.9.8
+ * @version 3.3.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -17,22 +17,25 @@ class Alg_WC_PO_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.9.8
+	 * @version 3.3.1
 	 * @since   1.0.0
 	 */
 	function __construct() {
+
 		$this->id    = 'alg_wc_price_offerings';
 		$this->label = __( 'Price Offers', 'price-offerings-for-woocommerce' );
 		parent::__construct();
+
 		// Sections
-		require_once( 'class-alg-wc-po-settings-section.php' );
-		require_once( 'class-alg-wc-po-settings-general.php' );
-		require_once( 'class-alg-wc-po-settings-button.php' );
-		require_once( 'class-alg-wc-po-settings-form.php' );
-		require_once( 'class-alg-wc-po-settings-styling.php' );
-		require_once( 'class-alg-wc-po-settings-email.php' );
-		require_once( 'class-alg-wc-po-settings-actions.php' );
-		require_once( 'class-alg-wc-po-settings-admin.php' );
+		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-section.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-general.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-button.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-form.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-styling.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-email.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-actions.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-admin.php';
+
 	}
 
 	/**
@@ -86,12 +89,12 @@ class Alg_WC_PO_Settings extends WC_Settings_Page {
 	/**
 	 * admin_notices_settings_reset_success.
 	 *
-	 * @version 1.0.0
+	 * @version 3.3.1
 	 * @since   1.0.0
 	 */
 	function admin_notices_settings_reset_success() {
 		echo '<div class="notice notice-success is-dismissible"><p><strong>' .
-			__( 'Your settings have been reset.', 'price-offerings-for-woocommerce' ) . '</strong></p></div>';
+			esc_html__( 'Your settings have been reset.', 'price-offerings-for-woocommerce' ) . '</strong></p></div>';
 	}
 
 	/**
