@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Email Section Settings
  *
- * @version 2.9.4
+ * @version 3.3.2
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_Email extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.9.4
+	 * @version 3.3.2
 	 * @since   1.0.0
 	 */
 	function get_settings() {
@@ -41,9 +41,14 @@ class Alg_WC_PO_Settings_Email extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Email recipient', 'price-offerings-for-woocommerce' ),
-				'desc'     => __( 'Can be comma separated list.', 'price-offerings-for-woocommerce' ) . ' ' .
-					sprintf( __( 'Use %s to send to administrator email: %s.', 'price-offerings-for-woocommerce' ),
-						'<code>' . '%admin_email%' . '</code>', '<code>' . get_option( 'admin_email' ) . '</code>' ) . ' ' .
+				'desc'     =>
+					__( 'Can be comma separated list.', 'price-offerings-for-woocommerce' ) . ' ' .
+					sprintf(
+						/* Translators: %1$s: Administrator email placeholder, %2$s: Administrator email address. */
+						__( 'Use %1$s to send to administrator email (%2$s).', 'price-offerings-for-woocommerce' ),
+						'<code>' . '%admin_email%' . '</code>',
+						'<code>' . get_option( 'admin_email' ) . '</code>'
+					) . ' ' .
 					$this->placeholders_msg( array( '%admin_email%', '%product_author_email%' ) ),
 				'id'       => 'alg_wc_price_offerings_email[address]',
 				'type'     => 'textarea',
@@ -87,10 +92,27 @@ class Alg_WC_PO_Settings_Email extends Alg_WC_PO_Settings_Section {
 				'id'       => 'alg_wc_price_offerings_email[template]',
 				'type'     => 'textarea',
 				'default'  =>
-					sprintf( __( 'Product: %s', 'price-offerings-for-woocommerce' ),       '%product_title%' ) . '<br>' . PHP_EOL .
-					sprintf( __( 'Offered price: %s', 'price-offerings-for-woocommerce' ), '%offered_price%' ) . '<br>' . PHP_EOL .
-					sprintf( __( 'From: %s %s', 'price-offerings-for-woocommerce' ),       '%customer_name%', '%customer_email%' ) . '<br>' . PHP_EOL .
-					sprintf( __( 'Message: %s', 'price-offerings-for-woocommerce' ),       '%customer_message%' ),
+					sprintf(
+						/* Translators: %s: Product title placeholder. */
+						__( 'Product: %s', 'price-offerings-for-woocommerce' ),
+						'%product_title%'
+					) . '<br>' . PHP_EOL .
+					sprintf(
+						/* Translators: %s: Offered price placeholder. */
+						__( 'Offered price: %s', 'price-offerings-for-woocommerce' ),
+						'%offered_price%'
+					) . '<br>' . PHP_EOL .
+					sprintf(
+						/* Translators: %1$s: Customer name placeholder, %2$s: Customer email address placeholder. */
+						__( 'From: %1$s %2$s', 'price-offerings-for-woocommerce' ),
+						'%customer_name%',
+						'%customer_email%'
+					) . '<br>' . PHP_EOL .
+					sprintf(
+						/* Translators: %s: Customer message placeholder. */
+						__( 'Message: %s', 'price-offerings-for-woocommerce' ),
+						'%customer_message%'
+					),
 				'css'      => 'width:100%;height:200px;',
 			),
 			array(

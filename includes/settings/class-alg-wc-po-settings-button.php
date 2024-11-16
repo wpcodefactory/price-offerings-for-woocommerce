@@ -62,13 +62,19 @@ class Alg_WC_PO_Settings_Button extends Alg_WC_PO_Settings_Section {
 				'type'              => 'text',
 				'default'           => '',
 				'css'               => 'width:100%;',
-				'desc'              => sprintf( __( 'E.g.: %s', 'price-offerings-for-woocommerce' ),
-					'<code>background-color: #333333; border-color: #333333; color: #ffffff;</code>' ),
+				'desc'              => sprintf(
+					/* Translators: %s: Style example. */
+					__( 'E.g.: %s', 'price-offerings-for-woocommerce' ),
+					'<code>background-color: #333333; border-color: #333333; color: #ffffff;</code>'
+				),
 			),
 			array(
 				'title'             => __( 'Position on single product page', 'price-offerings-for-woocommerce' ),
-				'desc'              => sprintf( __( 'Alternatively, you can use the %s shortcode.', 'price-offerings-for-woocommerce' ),
-					'<code>[alg_wc_price_offers_button]</code>' ),
+				'desc'              => sprintf(
+					/* Translators: %s: Shortcode name. */
+					__( 'Alternatively, you can use the %s shortcode.', 'price-offerings-for-woocommerce' ),
+					'<code>[alg_wc_price_offers_button]</code>'
+				),
 				'id'                => 'alg_wc_price_offerings_button[position_single_hook]',
 				'type'              => 'select',
 				'class'             => 'chosen_select',

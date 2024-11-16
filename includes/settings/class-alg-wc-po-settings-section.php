@@ -59,8 +59,18 @@ class Alg_WC_PO_Settings_Section {
 	 * @since   1.0.0
 	 */
 	function placeholders_msg( $values ) {
-		return sprintf( _n( 'Available placeholder: %s.', 'Available placeholders: %s.', count( $values ), 'price-offerings-for-woocommerce' ),
-			'<code>' . implode( '</code>, <code>', $values ) . '</code>' );
+		return sprintf(
+			/* Translators: %s: Placeholder name(s). */
+			_n(
+				'Available placeholder: %s.',
+				'Available placeholders: %s.',
+				count( $values ),
+				'price-offerings-for-woocommerce'
+			),
+			'<code>' .
+				implode( '</code>, <code>', $values ) .
+			'</code>'
+		);
 	}
 
 	/**
@@ -84,7 +94,7 @@ class Alg_WC_PO_Settings_Section {
 		} else {
 			$_taxonomy = $args['taxonomy'];
 			unset( $args['taxonomy'] );
-			$_terms = get_terms( $_taxonomy, $args );
+			$_terms = get_terms( $_taxonomy, $args ); // phpcs:ignore WordPress.WP.DeprecatedParameters.Get_termsParam2Found
 		}
 		$_terms_options = array();
 		if ( ! empty( $_terms ) && ! is_wp_error( $_terms ) ) {

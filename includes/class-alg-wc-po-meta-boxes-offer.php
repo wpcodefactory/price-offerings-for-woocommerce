@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Custom Post
  *
- * @version 3.3.1
+ * @version 3.3.2
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -43,7 +43,6 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 		if ( ( $id = get_the_ID() ) && 'alg_wc_price_offer' === get_post_type( $id ) ) {
 			?>
 			<script>
-
 				/* "Actions" meta box */
 				jQuery( document ).ready( function() {
 					jQuery( '#alg-wc-price-offer-action' ).on( 'change' , function() {
@@ -56,7 +55,6 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 						}
 					} );
 				} );
-
 			</script>
 			<?php
 		}
@@ -240,7 +238,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_data.
 	 *
-	 * @version 3.3.1
+	 * @version 3.3.2
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) add `get_user_agent()`?
@@ -249,26 +247,63 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 		if ( ( $offer = new Alg_WC_Price_Offer( $post->ID ) ) ) {
 			?>
 			<table class="widefat striped">
-				<tr><th><?php echo esc_html__( 'Product', 'price-offerings-for-woocommerce' ); ?></th><td><?php
-					echo wp_kses_post( $offer->get_product_name_admin_link( false ) );
-					?></td></tr>
-				<tr><th><?php echo esc_html__( 'Price', 'price-offerings-for-woocommerce' ); ?></th><td><?php echo $offer->get_price_summary(); ?></td></tr>
-				<?php if ( false !== ( $quantity = $offer->get_quantity() ) && '' !== $quantity ) { ?>
-					<tr><th><?php echo esc_html__( 'Quantity', 'price-offerings-for-woocommerce' ); ?></th><td><?php echo $quantity; ?></td></tr>
+				<tr>
+					<th><?php echo esc_html__( 'Product', 'price-offerings-for-woocommerce' ); ?></th>
+					<td><?php
+						echo wp_kses_post( $offer->get_product_name_admin_link( false ) );
+					?></td>
+				</tr>
+				<tr>
+					<th><?php echo esc_html__( 'Price', 'price-offerings-for-woocommerce' ); ?></th>
+					<td><?php echo wp_kses_post( $offer->get_price_summary() ); ?></td>
+				</tr>
+				<?php if (
+					false !== ( $quantity = $offer->get_quantity() ) &&
+					'' !== $quantity
+				) { ?>
+					<tr>
+						<th><?php echo esc_html__( 'Quantity', 'price-offerings-for-woocommerce' ); ?></th>
+						<td><?php echo (int) $quantity; ?></td>
+					</tr>
 				<?php } ?>
-				<tr><th><?php echo esc_html__( 'Customer', 'price-offerings-for-woocommerce' ); ?></th><td><?php
-					$customer_id = $offer->get_customer_id();
-					if ( ! empty( $customer_id ) && false !== get_userdata( $customer_id ) ) {
-						echo '<a href="' . admin_url( 'user-edit.php?user_id=' . $customer_id ) . '">' . $offer->get_customer_name() . '</a>';
-					} else {
-						echo $offer->get_customer_name();
-					}
-					?> (<?php echo esc_html__( 'IP address', 'price-offerings-for-woocommerce' ); ?>: <?php echo $offer->get_user_ip(); ?>)</td></tr>
-				<?php if ( false !== ( $customer_phone = $offer->get_customer_phone() ) && '' !== $customer_phone ) { ?>
-					<tr><th><?php echo esc_html__( 'Phone', 'price-offerings-for-woocommerce' ); ?></th><td><a href="tel:<?php echo $customer_phone; ?>"><?php echo $customer_phone; ?></a></td></tr>
+				<tr>
+					<th><?php echo esc_html__( 'Customer', 'price-offerings-for-woocommerce' ); ?></th>
+					<td><?php
+						$customer_id = $offer->get_customer_id();
+						if (
+							! empty( $customer_id ) &&
+							false !== get_userdata( $customer_id )
+						) {
+							echo '<a href="' . esc_url( admin_url( 'user-edit.php?user_id=' . $customer_id ) ) . '">' .
+								esc_html( $offer->get_customer_name() ) .
+							'</a>';
+						} else {
+							echo esc_html( $offer->get_customer_name() );
+						}
+						?> (<?php
+							echo esc_html__( 'IP address', 'price-offerings-for-woocommerce' );
+						?>: <?php
+							echo esc_html( $offer->get_user_ip() );
+						?>)<?php
+					?></td>
+				</tr>
+				<?php if (
+					false !== ( $customer_phone = $offer->get_customer_phone() ) &&
+					'' !== $customer_phone
+				) { ?>
+					<tr>
+						<th><?php echo esc_html__( 'Phone', 'price-offerings-for-woocommerce' ); ?></th>
+						<td><a href="tel:<?php echo esc_attr( $customer_phone ); ?>"><?php echo esc_html( $customer_phone ); ?></a></td>
+					</tr>
 				<?php } ?>
-				<tr><th><?php echo esc_html__( 'Email', 'price-offerings-for-woocommerce' ); ?></th><td><?php echo make_clickable( $offer->get_customer_email() ); ?></td></tr>
-				<tr><th><?php echo esc_html__( 'Sent to', 'price-offerings-for-woocommerce' ); ?></th><td><?php echo make_clickable( implode( ', ', $offer->get_sent_to() ) ); ?></td></tr>
+				<tr>
+					<th><?php echo esc_html__( 'Email', 'price-offerings-for-woocommerce' ); ?></th>
+					<td><?php echo wp_kses_post( make_clickable( $offer->get_customer_email() ) ); ?></td>
+				</tr>
+				<tr>
+					<th><?php echo esc_html__( 'Sent to', 'price-offerings-for-woocommerce' ); ?></th>
+					<td><?php echo wp_kses_post( make_clickable( implode( ', ', $offer->get_sent_to() ) ) ); ?></td>
+				</tr>
 			</table>
 			<?php
 		}
@@ -277,7 +312,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_notes.
 	 *
-	 * @version 2.0.0
+	 * @version 3.3.2
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) better styling
@@ -295,8 +330,15 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 					?>
 					<tr>
 						<td>
-							<?php echo $note['content']; ?><br>
-							<small style="float:right;"><?php echo date_i18n( Alg_WC_PO_Core::get_date_format(), ( $note['time'] + (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ) ); ?></small>
+							<?php echo wp_kses_post( $note['content'] ); ?><br>
+							<small style="float:right;"><?php
+								echo esc_html(
+									date_i18n(
+										Alg_WC_PO_Core::get_date_format(),
+										( $note['time'] + (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) )
+									)
+								);
+							?></small>
 						</td>
 					</tr>
 					<?php
@@ -311,7 +353,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_actions.
 	 *
-	 * @version 2.0.0
+	 * @version 3.3.2
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) "Send email" checkboxes
@@ -328,7 +370,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 					printf(
 						/* Translators: %s: Offer title. */
 						esc_html__( 'Offer %s', 'price-offerings-for-woocommerce' ),
-						$offer->get_title()
+						esc_html( $offer->get_title() )
 					);
 				?></h2>
 				<select id="alg-wc-price-offer-action" name="alg_wc_price_offer_action">
@@ -399,7 +441,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 					printf(
 						/* Translators: %s: Offer currency. */
 						esc_html__( 'Counter price (%s):', 'price-offerings-for-woocommerce' ),
-						$offer->get_currency()
+						esc_html( $offer->get_currency() )
 					);
 				?></label>
 				<input id="alg-wc-price-offer-price-counter" name="alg_wc_price_offer_price_counter" type="number" step="0.0001" value="">
@@ -434,7 +476,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_messages.
 	 *
-	 * @version 2.0.0
+	 * @version 3.3.2
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) better styling
@@ -443,26 +485,39 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 		if ( ( $offer = new Alg_WC_Price_Offer( $post->ID ) ) ) {
 			$messages = $offer->get_messages();
 			if ( empty( $messages ) ) {
-				?><p><?php echo esc_html__( 'No messages yet.', 'price-offerings-for-woocommerce' ); ?></p><?php
+
+				?><p><?php
+					echo esc_html__( 'No messages yet.', 'price-offerings-for-woocommerce' );
+				?></p><?php
+
 			} else {
-				?>
-				<table class="widefat striped comments">
-				<?php
+
+				?><table class="widefat striped comments"><?php
 				foreach ( array_reverse( $messages ) as $message ) {
 					?>
 					<tr>
 						<td class="author column-author" style="width:25%;">
-							<strong><?php echo get_avatar( $message['author_email'], 32 ); ?><?php echo $message['author']; ?></strong><br>
-							<?php echo make_clickable( $message['author_email'] ); ?><br>
-							<small><?php echo date_i18n( Alg_WC_PO_Core::get_date_format(), ( $message['time'] + (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ) ); ?></small>
+							<strong><?php
+								echo get_avatar( $message['author_email'], 32 ) . esc_html( $message['author'] );
+							?></strong><br>
+							<?php echo wp_kses_post( make_clickable( $message['author_email'] ) ); ?><br>
+							<small><?php
+								echo esc_html(
+									date_i18n(
+										Alg_WC_PO_Core::get_date_format(),
+										( $message['time'] + (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) )
+									)
+								);
+							?></small>
 						</td>
-						<td class="comment column-comment column-primary"><?php echo make_clickable( $message['content'] ); ?></td>
+						<td class="comment column-comment column-primary"><?php
+							echo wp_kses_post( make_clickable( $message['content'] ) );
+						?></td>
 					</tr>
 					<?php
 				}
-				?>
-				</table>
-				<?php
+				?></table><?php
+
 			}
 		}
 	}

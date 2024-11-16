@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Price Offer Class
  *
- * @version 3.3.1
+ * @version 3.3.2
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -545,7 +545,10 @@ class Alg_WC_Price_Offer {
 	 * @since   2.0.0
 	 */
 	function add_message( $message ) {
-		if ( isset( $message['content'] ) && '' !== $message['content'] ) {
+		if (
+			isset( $message['content'] ) &&
+			'' !== $message['content']
+		) {
 			$messages = $this->get( 'messages', array() );
 			if ( ! isset( $message['time'] ) ) {
 				$message['time'] = time();
@@ -585,7 +588,7 @@ class Alg_WC_Price_Offer {
 	/**
 	 * update_status.
 	 *
-	 * @version 2.7.0
+	 * @version 3.3.2
 	 * @since   2.0.0
 	 *
 	 * @see     https://developer.wordpress.org/reference/functions/wp_update_post/
@@ -596,8 +599,12 @@ class Alg_WC_Price_Offer {
 			( $result = wp_update_post( array( 'ID' => $this->id, 'post_status' => $status ) ) ) &&
 			$prev_status !== $this->get_status_name()
 		) {
-			$note = sprintf( esc_html__( 'Status updated from %s to %s.', 'price-offerings-for-woocommerce' ),
-				'<strong>' . $prev_status . '</strong>', '<strong>' . $this->get_status_name() . '</strong>' );
+			$note = sprintf(
+				/* Translators: %1$s: Old status name, %2$s: New status name. */
+				esc_html__( 'Status updated from %1$s to %2$s.', 'price-offerings-for-woocommerce' ),
+				'<strong>' . $prev_status . '</strong>',
+				'<strong>' . $this->get_status_name() . '</strong>'
+			);
 			$this->add_note( ( '' !== $extra_note ? $note . ' ' . $extra_note : $note ) );
 		}
 		return $result;

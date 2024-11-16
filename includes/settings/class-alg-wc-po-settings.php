@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Settings
  *
- * @version 3.3.1
+ * @version 3.3.2
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -17,7 +17,7 @@ class Alg_WC_PO_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.3.1
+	 * @version 3.3.2
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -35,6 +35,9 @@ class Alg_WC_PO_Settings extends WC_Settings_Page {
 		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-email.php';
 		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-actions.php';
 		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-admin.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-automation.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-advanced.php';
+		require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-settings-compatibility.php';
 
 	}
 

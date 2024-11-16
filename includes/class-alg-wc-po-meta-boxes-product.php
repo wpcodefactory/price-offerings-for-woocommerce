@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Product
  *
- * @version 3.3.1
+ * @version 3.3.2
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -68,7 +68,7 @@ class Alg_WC_PO_Meta_Boxes_Product {
 	/**
 	 * create_offer_price_history_meta_box.
 	 *
-	 * @version 3.3.1
+	 * @version 3.3.2
 	 * @since   1.0.0
 	 */
 	function create_offer_price_history_meta_box() {
@@ -161,13 +161,15 @@ class Alg_WC_PO_Meta_Boxes_Product {
 					if ( 'yes' === get_option( 'alg_wc_price_offerings_admin_currency_code', 'no' ) ) {
 						$average_offer .= " ({$average_offer_currency_code})";
 					}
+					/* Translators: %1$s: Price, %2$d: Total number. */
 					$average_offer_template = _n(
-						'Average offer: %s (from %s offer)',
-						'Average offer: %s (from %s offers)',
+						'Average offer: %1$s (from %2$d offer)',
+						'Average offer: %1$s (from %2$d offers)',
 						$average_offer_data['total_offers'],
 						'price-offerings-for-woocommerce'
 					);
-					echo '<p>' . sprintf( $average_offer_template,
+					echo '<p>' . sprintf(
+						esc_html( $average_offer_template ),
 						wp_kses_post( $average_offer ),
 						(int) $average_offer_data['total_offers']
 					) . '</p>';

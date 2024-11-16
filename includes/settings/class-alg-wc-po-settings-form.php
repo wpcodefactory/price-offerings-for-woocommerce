@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Form Section Settings
  *
- * @version 2.9.9
+ * @version 3.3.2
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -46,7 +46,7 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_recaptcha_site_key_instructions.
 	 *
-	 * @version 2.9.9
+	 * @version 3.3.2
 	 * @since   2.9.9
 	 */
 	function get_recaptcha_site_key_instructions() {
@@ -56,7 +56,8 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 			'</summary>' .
 			'<p>' .
 				sprintf(
-					esc_html__( 'Visit the %s site and select "%s" for the "%s" option.', 'price-offerings-for-woocommerce' ),
+					/* Translators: %1$s: Site link, %2$s: Option value, %3$s: Option name. */
+					esc_html__( 'Visit the %1$s site and select "%2$s" for the "%3$s" option.', 'price-offerings-for-woocommerce' ),
 					'<a href="https://www.google.com/recaptcha/admin/create" target="_blank">' .
 						esc_html__( 'Google reCAPTCHA', 'price-offerings-for-woocommerce' ) .
 					'</a>',
@@ -88,12 +89,15 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'title'             => __( 'Enabled fields', 'price-offerings-for-woocommerce' ),
-				'desc'              => sprintf( __( '%s are always enabled.', 'price-offerings-for-woocommerce' ),
+				'desc'              => sprintf(
+					/* Translators: %s: Field names. */
+					__( '%s are always enabled.', 'price-offerings-for-woocommerce' ),
 					'"' . implode( '", "', array(
 						__( 'Price input', 'price-offerings-for-woocommerce' ),
 						__( 'Customer email', 'price-offerings-for-woocommerce' ),
 						__( 'Send button', 'price-offerings-for-woocommerce' ),
-					) ) . '"' ),
+					) ) . '"'
+				),
 				'id'                => 'alg_wc_price_offerings_form[enabled_fields]',
 				'type'              => 'multiselect',
 				'class'             => 'chosen_select',
@@ -102,14 +106,20 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 			),
 			array(
 				'title'             => __( 'Required fields', 'price-offerings-for-woocommerce' ),
-				'desc_tip'          => sprintf( __( 'Field must be included in the "%s" option as well.', 'price-offerings-for-woocommerce' ),
-					__( 'Enabled fields', 'price-offerings-for-woocommerce' ) ),
-				'desc'              => sprintf( __( '%s are always required.', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => sprintf(
+					/* Translators: %s: Option name. */
+					__( 'Field must be included in the "%s" option as well.', 'price-offerings-for-woocommerce' ),
+					__( 'Enabled fields', 'price-offerings-for-woocommerce' )
+				),
+				'desc'              => sprintf(
+					/* Translators: %s: Field names. */
+					__( '%s are always required.', 'price-offerings-for-woocommerce' ),
 					'"' . implode( '", "', array(
 						__( 'Price input', 'price-offerings-for-woocommerce' ),
 						__( 'Customer email', 'price-offerings-for-woocommerce' ),
 						__( 'Send button', 'price-offerings-for-woocommerce' ),
-					) ) . '"' ),
+					) ) . '"'
+				),
 				'id'                => 'alg_wc_price_offerings_form[required_fields]',
 				'type'              => 'multiselect',
 				'class'             => 'chosen_select',
@@ -121,7 +131,11 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 				'desc'              => $this->placeholders_msg( array( '%currency_symbol%' ) ),
 				'id'                => 'alg_wc_price_offerings_form[price_label]',
 				'type'              => 'textarea',
-				'default'           => sprintf( __( 'Your price (%s)', 'price-offerings-for-woocommerce' ), '%currency_symbol%' ),
+				'default'           => sprintf(
+					/* Translators: %s: Currency symbol placeholder. */
+					__( 'Your price (%s)', 'price-offerings-for-woocommerce' ),
+					'%currency_symbol%'
+				),
 				'css'               => 'width:100%;',
 			),
 			array(
@@ -238,7 +252,11 @@ class Alg_WC_PO_Settings_Form extends Alg_WC_PO_Settings_Section {
 				'desc'              => $this->placeholders_msg( array( '%product_title%' ) ),
 				'id'                => 'alg_wc_price_offerings_form[header_template]',
 				'type'              => 'textarea',
-				'default'           => '<h3>' . sprintf( __( 'Suggest your price for %s', 'price-offerings-for-woocommerce' ), '%product_title%' ) . '</h3>',
+				'default'           => '<h3>' . sprintf(
+					/* Translators: %s: Product title placeholder. */
+					__( 'Suggest your price for %s', 'price-offerings-for-woocommerce' ),
+					'%product_title%'
+				) . '</h3>',
 				'css'               => 'width:100%;',
 			),
 			array(

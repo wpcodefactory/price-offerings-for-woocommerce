@@ -277,26 +277,26 @@ class Alg_WC_PO_Actions {
 				'heading'  => __( 'Price offer', 'price-offerings-for-woocommerce' ),
 				'template' =>
 					sprintf(
-						/* Translators: %s: Product title. */
+						/* Translators: %s: Product title placeholder. */
 						__( 'Product: %s', 'price-offerings-for-woocommerce' ),
 						'%product_title%'
 					) .
 					'<br>' . PHP_EOL .
 					sprintf(
-						/* Translators: %s: Offered price. */
+						/* Translators: %s: Offered price placeholder. */
 						__( 'Offered price: %s', 'price-offerings-for-woocommerce' ),
 						'%offered_price%'
 					) .
 					'<br>' . PHP_EOL .
 					sprintf(
-						/* Translators: %1$s: Customer name, %2$s: Customer email. */
+						/* Translators: %1$s: Customer name placeholder, %2$s: Customer email placeholder. */
 						__( 'From: %1$s %2$s', 'price-offerings-for-woocommerce' ),
 						'%customer_name%',
 						'%customer_email%'
 					) .
 					'<br>' . PHP_EOL .
 					sprintf(
-						/* Translators: %s: Customer message. */
+						/* Translators: %s: Customer message placeholder. */
 						__( 'Message: %s', 'price-offerings-for-woocommerce' ),
 						'%customer_message%'
 					)

@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 3.3.1
+ * @version 3.3.2
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -94,10 +94,11 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * add_styling.
 	 *
-	 * @version 1.0.0
+	 * @version 3.3.2
 	 * @since   1.0.0
 	 */
 	function add_styling() {
+
 		$styling_options = get_option( 'alg_wc_price_offerings_styling', array() );
 		$styling_options = array_merge( array(
 			'form_content_width'     => '80%',
@@ -106,37 +107,39 @@ class Alg_WC_PO_Frontend {
 			'form_footer_back_color' => '#3d9cd2',
 			'form_footer_text_color' => '#ffffff',
 		), $styling_options );
-		echo "
-			<style type=\"text/css\">
-				.alg-wc-price-offerings-modal-content {
-					width: {$styling_options['form_content_width']};
-				}
-				.alg-wc-price-offerings-modal-header {
-					background-color: {$styling_options['form_header_back_color']};
-					color: {$styling_options['form_header_text_color']};
-				}
-				.alg-wc-price-offerings-modal-header h1,
-				.alg-wc-price-offerings-modal-header h2,
-				.alg-wc-price-offerings-modal-header h3,
-				.alg-wc-price-offerings-modal-header h4,
-				.alg-wc-price-offerings-modal-header h5,
-				.alg-wc-price-offerings-modal-header h6 {
-					color: {$styling_options['form_header_text_color']};
-				}
-				.alg-wc-price-offerings-modal-footer {
-					background-color: {$styling_options['form_footer_back_color']};
-					color: {$styling_options['form_footer_text_color']};
-				}
-				.alg-wc-price-offerings-modal-footer h1,
-				.alg-wc-price-offerings-modal-footer h2,
-				.alg-wc-price-offerings-modal-footer h3,
-				.alg-wc-price-offerings-modal-footer h4,
-				.alg-wc-price-offerings-modal-footer h5,
-				.alg-wc-price-offerings-modal-footer h6 {
-					color: {$styling_options['form_footer_text_color']};
-				}
-			</style>
-		";
+
+		?>
+		<style type="text/css">
+			.alg-wc-price-offerings-modal-content {
+				width: <?php echo esc_attr( $styling_options['form_content_width'] ); ?>;
+			}
+			.alg-wc-price-offerings-modal-header {
+				background-color: <?php echo esc_attr( $styling_options['form_header_back_color'] ); ?>;
+				color: <?php echo esc_attr( $styling_options['form_header_text_color'] ); ?>;
+			}
+			.alg-wc-price-offerings-modal-header h1,
+			.alg-wc-price-offerings-modal-header h2,
+			.alg-wc-price-offerings-modal-header h3,
+			.alg-wc-price-offerings-modal-header h4,
+			.alg-wc-price-offerings-modal-header h5,
+			.alg-wc-price-offerings-modal-header h6 {
+				color: <?php echo esc_attr( $styling_options['form_header_text_color'] ); ?>;
+			}
+			.alg-wc-price-offerings-modal-footer {
+				background-color: <?php echo esc_attr( $styling_options['form_footer_back_color'] ); ?>;
+				color: <?php echo esc_attr( $styling_options['form_footer_text_color'] ); ?>;
+			}
+			.alg-wc-price-offerings-modal-footer h1,
+			.alg-wc-price-offerings-modal-footer h2,
+			.alg-wc-price-offerings-modal-footer h3,
+			.alg-wc-price-offerings-modal-footer h4,
+			.alg-wc-price-offerings-modal-footer h5,
+			.alg-wc-price-offerings-modal-footer h6 {
+				color: <?php echo esc_attr( $styling_options['form_footer_text_color'] ); ?>;
+			}
+		</style>
+		<?php
+
 	}
 
 	/**
@@ -471,7 +474,7 @@ class Alg_WC_PO_Frontend {
 		$form_options = get_option( 'alg_wc_price_offerings_form', array() );
 		$form_options = array_merge( array(
 			'price_label'      => sprintf(
-				/* Translators: %s: Currency symbol. */
+				/* Translators: %s: Currency symbol placeholder. */
 				__( 'Your price (%s)', 'price-offerings-for-woocommerce' ),
 				'%currency_symbol%'
 			),
@@ -481,7 +484,7 @@ class Alg_WC_PO_Frontend {
 			'price_default'    => 0,
 			'quantity_default' => 1,
 			'header_template'  => '<h3>' . sprintf(
-				/* Translators: %s: Product title. */
+				/* Translators: %s: Product title placeholder. */
 				__( 'Suggest your price for %s', 'price-offerings-for-woocommerce' ),
 				'%product_title%'
 			) . '</h3>',
@@ -550,7 +553,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * get_offer_price_button.
 	 *
-	 * @version 2.3.0
+	 * @version 3.3.2
 	 * @since   2.3.0
 	 *
 	 * @see     https://www.php.net/manual/en/function.htmlspecialchars.php
@@ -572,7 +575,7 @@ class Alg_WC_PO_Frontend {
 				' class="alg-wc-price-offerings-button' . ' ' . $button_options['class'] . '"' .
 				' value="' . $product_id . '"' .
 				' style="' . ( $do_hide ? 'display:none;' : '' ) . $button_options['style'] . '"' .
-				' alg_wc_price_offerings_data=\'' . htmlspecialchars( json_encode( $this->get_data_array( $product_id ) ), ENT_QUOTES, 'UTF-8' ) . '\'' .
+				' alg_wc_price_offerings_data=\'' . htmlspecialchars( wp_json_encode( $this->get_data_array( $product_id ) ), ENT_QUOTES, 'UTF-8' ) . '\'' .
 			'>' .
 				$button_options['label'] .
 			'</button>' .
