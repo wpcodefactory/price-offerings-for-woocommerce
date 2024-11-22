@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 3.3.1
+ * @version 3.3.3
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -132,7 +132,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * add_to_cart.
 	 *
-	 * @version 2.6.0
+	 * @version 3.3.3
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) better (and maybe customizable) notices
@@ -143,8 +143,8 @@ class Alg_WC_PO_Actions {
 			! empty( $_GET['alg_wc_price_offer_token'] )
 		) {
 
-			$offer_id    = wc_clean( $_GET['alg_wc_price_offer_id'] );
-			$offer_token = wc_clean( $_GET['alg_wc_price_offer_token'] );
+			$offer_id    = sanitize_text_field( wp_unslash( $_GET['alg_wc_price_offer_id'] ) );
+			$offer_token = sanitize_text_field( wp_unslash( $_GET['alg_wc_price_offer_token'] ) );
 
 			if (
 				( $offer = new Alg_WC_Price_Offer( $offer_id ) ) &&
@@ -247,7 +247,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * offer_price.
 	 *
-	 * @version 3.3.1
+	 * @version 3.3.3
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) start with "Create price offer"
@@ -260,7 +260,11 @@ class Alg_WC_PO_Actions {
 	 * @todo    (dev) recheck "From" header
 	 */
 	function offer_price() {
-		if ( isset( $_POST['alg-wc-price-offerings-submit'] ) ) {
+		if ( isset(
+			$_POST['alg-wc-price-offerings-submit'],
+			$_POST['alg-wc-price-offerings-product-id'],
+			$_POST['alg-wc-price-offerings-customer-id']
+		) ) {
 
 			// Product
 			$product_id = intval( $_POST['alg-wc-price-offerings-product-id'] );
@@ -329,17 +333,17 @@ class Alg_WC_PO_Actions {
 				'product_sku'      => $product->get_sku(),
 				'product_url'      => $product->get_permalink(),
 				'currency_code'    => get_woocommerce_currency(),
-				'customer_id'      => wc_clean( $_POST['alg-wc-price-offerings-customer-id'] ),
-				'user_ip'          => wc_clean( $_SERVER['REMOTE_ADDR'] ),
-				'user_agent'       => wc_clean( $_SERVER['HTTP_USER_AGENT'] ),
+				'customer_id'      => sanitize_text_field( wp_unslash( $_POST['alg-wc-price-offerings-customer-id'] ) ),
+				'user_ip'          => ( isset( $_SERVER['REMOTE_ADDR'] )     ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )     : '' ),
+				'user_agent'       => ( isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '' ),
 				'sent_to'          => $email_options['address'],
-				'offered_price'    => ( isset( $_POST['alg-wc-price-offerings-price'] )          ? wc_clean( $_POST['alg-wc-price-offerings-price'] )          : '' ),
-				'quantity'         => ( isset( $_POST['alg-wc-price-offerings-quantity'] )       ? wc_clean( $_POST['alg-wc-price-offerings-quantity'] )       : '' ),
-				'customer_message' => ( isset( $_POST['alg-wc-price-offerings-message'] )        ? wc_clean( $_POST['alg-wc-price-offerings-message'] )        : '' ),
-				'customer_name'    => ( isset( $_POST['alg-wc-price-offerings-customer-name'] )  ? wc_clean( $_POST['alg-wc-price-offerings-customer-name'] )  : '' ),
-				'customer_phone'   => ( isset( $_POST['alg-wc-price-offerings-customer-phone'] ) ? wc_clean( $_POST['alg-wc-price-offerings-customer-phone'] ) : '' ),
-				'customer_email'   => ( isset( $_POST['alg-wc-price-offerings-customer-email'] ) ? wc_clean( $_POST['alg-wc-price-offerings-customer-email'] ) : '' ),
-				'copy_to_customer' => ( isset( $_POST['alg-wc-price-offerings-customer-copy'] )  ? wc_clean( $_POST['alg-wc-price-offerings-customer-copy'] )  : 'no' ),
+				'offered_price'    => ( isset( $_POST['alg-wc-price-offerings-price'] )          ? sanitize_text_field( wp_unslash( $_POST['alg-wc-price-offerings-price'] ) )          : '' ),
+				'quantity'         => ( isset( $_POST['alg-wc-price-offerings-quantity'] )       ? sanitize_text_field( wp_unslash( $_POST['alg-wc-price-offerings-quantity'] ) )       : '' ),
+				'customer_message' => ( isset( $_POST['alg-wc-price-offerings-message'] )        ? sanitize_text_field( wp_unslash( $_POST['alg-wc-price-offerings-message'] ) )        : '' ),
+				'customer_name'    => ( isset( $_POST['alg-wc-price-offerings-customer-name'] )  ? sanitize_text_field( wp_unslash( $_POST['alg-wc-price-offerings-customer-name'] ) )  : '' ),
+				'customer_phone'   => ( isset( $_POST['alg-wc-price-offerings-customer-phone'] ) ? sanitize_text_field( wp_unslash( $_POST['alg-wc-price-offerings-customer-phone'] ) ) : '' ),
+				'customer_email'   => ( isset( $_POST['alg-wc-price-offerings-customer-email'] ) ? sanitize_text_field( wp_unslash( $_POST['alg-wc-price-offerings-customer-email'] ) ) : '' ),
+				'copy_to_customer' => ( isset( $_POST['alg-wc-price-offerings-customer-copy'] )  ? sanitize_text_field( wp_unslash( $_POST['alg-wc-price-offerings-customer-copy'] ) )  : 'no' ),
 			), $product );
 
 			// Prevent duplicate offers

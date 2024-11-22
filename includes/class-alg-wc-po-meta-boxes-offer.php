@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Custom Post
  *
- * @version 3.3.2
+ * @version 3.3.3
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -525,10 +525,9 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * save_meta_boxes.
 	 *
-	 * @version 2.0.0
+	 * @version 3.3.3
 	 * @since   2.0.0
 	 *
-	 * @todo    (dev) `isset`: `alg_wc_price_offer_email_content_reject`, `alg_wc_price_offer_email_content_accept`, etc.?
 	 * @todo    (dev) notices?
 	 * @todo    (dev) nonce?
 	 */
@@ -537,39 +536,43 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 			if ( ! empty( $_POST['alg_wc_price_offer_action'] ) ) {
 				remove_action( 'save_post_alg_wc_price_offer', array( $this, 'save_meta_boxes' ) );
 
-				$action = wc_clean( $_POST['alg_wc_price_offer_action'] );
+				// Get action
+				$action = sanitize_text_field( wp_unslash( $_POST['alg_wc_price_offer_action'] ) );
 
 				// Update status
 				$offer->update_status( 'alg_wc_po_' . $action );
 
-				// Process action
+				// Action args
 				$action_args = array();
-				switch ( $action ) {
-
-					case 'reject':
-						$action_args['do_send_email'] = true;
-						$action_args['email_subject'] = wc_clean( $_POST['alg_wc_price_offer_email_subject_reject'] );
-						$action_args['email_heading'] = wc_clean( $_POST['alg_wc_price_offer_email_heading_reject'] );
-						$action_args['email_content'] = wp_kses_post( trim( $_POST['alg_wc_price_offer_email_content_reject'] ) );
-						break;
-
-					case 'accept':
-						$action_args['do_send_email'] = true;
-						$action_args['email_subject'] = wc_clean( $_POST['alg_wc_price_offer_email_subject_accept'] );
-						$action_args['email_heading'] = wc_clean( $_POST['alg_wc_price_offer_email_heading_accept'] );
-						$action_args['email_content'] = wp_kses_post( trim( $_POST['alg_wc_price_offer_email_content_accept'] ) );
-						break;
-
-					case 'counter':
-						$action_args['do_send_email'] = true;
-						$action_args['counter_price'] = wc_clean( $_POST['alg_wc_price_offer_price_counter'] );
-						$action_args['email_subject'] = wc_clean( $_POST['alg_wc_price_offer_email_subject_counter'] );
-						$action_args['email_heading'] = wc_clean( $_POST['alg_wc_price_offer_email_heading_counter'] );
-						$action_args['email_content'] = wp_kses_post( trim( $_POST['alg_wc_price_offer_email_content_counter'] ) );
-						break;
-
+				if ( in_array( $action, array( 'reject', 'accept', 'counter' ) ) ) {
+					$action_args = array(
+						'do_send_email' => true,
+						'email_subject' => (
+							isset( $_POST[ "alg_wc_price_offer_email_subject_{$action}" ] ) ?
+							sanitize_text_field( wp_unslash( $_POST[ "alg_wc_price_offer_email_subject_{$action}" ] ) ) :
+							''
+						),
+						'email_heading' => (
+							isset( $_POST[ "alg_wc_price_offer_email_heading_{$action}" ] ) ?
+							sanitize_text_field( wp_unslash( $_POST[ "alg_wc_price_offer_email_heading_{$action}" ] ) ) :
+							''
+						),
+						'email_content' => (
+							isset( $_POST[ "alg_wc_price_offer_email_content_{$action}" ] ) ?
+							trim( wp_kses_post( wp_unslash( $_POST[ "alg_wc_price_offer_email_content_{$action}" ] ) ) ) :
+							''
+						),
+					);
+					if ( 'counter' === $action ) {
+						$action_args['counter_price'] = (
+							isset( $_POST['alg_wc_price_offer_price_counter'] ) ?
+							sanitize_text_field( wp_unslash( $_POST['alg_wc_price_offer_price_counter'] ) ) :
+							''
+						);
+					}
 				}
 
+				// Process action
 				$offer->process_action( $action, $action_args );
 
 				add_action( 'save_post_alg_wc_price_offer', array( $this, 'save_meta_boxes' ) );

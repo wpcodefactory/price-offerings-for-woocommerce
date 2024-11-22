@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 3.3.1
+ * @version 3.3.3
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -41,7 +41,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.3.1
+	 * @version 3.3.3
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) list placeholders in the Actions meta box
@@ -107,6 +107,7 @@ class Alg_WC_PO_Core {
 			// Disable "Add new"
 			add_action( 'admin_menu', array( $this, 'disable_new_posts_submenu' ) );
 			add_action( 'admin_head', array( $this, 'disable_new_posts_buttons' ) );
+			add_action( 'admin_bar_menu', array( $this, 'disable_new_posts_admin_bar' ), PHP_INT_MAX );
 
 			// Admin loaded
 			do_action( 'alg_wc_price_offerings_admin_loaded', $this );
@@ -135,7 +136,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * reCAPTCHA AJAX.
 	 *
-	 * @version 3.3.1
+	 * @version 3.3.3
 	 * @since   2.9.9
 	 *
 	 * @todo    (dev) fallback for the `file_get_contents()`
@@ -148,7 +149,7 @@ class Alg_WC_PO_Core {
 			$form_options = array_merge( array( 'recaptcha_secret_key' => '' ), $form_options );
 			$secret       = $form_options['recaptcha_secret_key'];
 
-			$response = wc_clean( $_POST['recaptcha_response'] );
+			$response = sanitize_text_field( wp_unslash( $_POST['recaptcha_response'] ) );
 
 			$url = 'https://www.google.com/recaptcha/api/siteverify';
 			$url = add_query_arg( array( 'secret' => $secret, 'response' => $response ), $url );
@@ -285,7 +286,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * disable_new_posts_buttons.
 	 *
-	 * @version 2.0.0
+	 * @version 3.3.3
 	 * @since   2.0.0
 	 */
 	function disable_new_posts_buttons() {
@@ -293,8 +294,22 @@ class Alg_WC_PO_Core {
 			( isset( $_GET['post_type'] ) && 'alg_wc_price_offer' === $_GET['post_type'] ) ||
 			( ( $id = get_the_ID() ) && 'alg_wc_price_offer' === get_post_type( $id ) )
 		) {
-			echo '<style>a.page-title-action { display:none; }</style>';
+			?><style>
+				a.page-title-action {
+					display: none !important;
+				}
+			</style><?php
 		}
+	}
+
+	/**
+	 * disable_new_posts_admin_bar.
+	 *
+	 * @version 3.3.3
+	 * @since   3.3.3
+	 */
+	function disable_new_posts_admin_bar( $wp_admin_bar ) {
+		$wp_admin_bar->remove_node( 'new-alg_wc_price_offer' );
 	}
 
 	/**
