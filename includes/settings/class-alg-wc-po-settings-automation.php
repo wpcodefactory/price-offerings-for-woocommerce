@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Automation Section Settings
  *
- * @version 3.3.2
+ * @version 3.4.0
  * @since   3.3.2
  *
  * @author  Algoritmika Ltd
@@ -29,12 +29,13 @@ class Alg_WC_PO_Settings_Automation extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.3.2
+	 * @version 3.4.0
 	 * @since   3.3.2
 	 */
 	function get_settings() {
 		return array(
 
+			// Prevent Duplicate Offers
 			array(
 				'title'    => __( 'Prevent Duplicate Offers', 'price-offerings-for-woocommerce' ),
 				'desc'     => __( 'Checks for duplicated offers, e.g., "Open" offers with the same product ID, customer ID, user IP, offered price, currency code, and quantity.', 'price-offerings-for-woocommerce' ),
@@ -95,6 +96,7 @@ class Alg_WC_PO_Settings_Automation extends Alg_WC_PO_Settings_Section {
 				'type'     => 'sectionend',
 			),
 
+			// Auto-Accept
 			array(
 				'title'             => __( 'Auto-Accept Options', 'price-offerings-for-woocommerce' ),
 				'desc'              => apply_filters( 'alg_wc_price_offerings_settings',
@@ -125,6 +127,7 @@ class Alg_WC_PO_Settings_Automation extends Alg_WC_PO_Settings_Section {
 				'type'              => 'sectionend',
 			),
 
+			// Auto-Reject
 			array(
 				'title'             => __( 'Auto-Reject Options', 'price-offerings-for-woocommerce' ),
 				'desc'              => apply_filters( 'alg_wc_price_offerings_settings',
@@ -154,6 +157,53 @@ class Alg_WC_PO_Settings_Automation extends Alg_WC_PO_Settings_Section {
 				'id'                => 'alg_wc_po_auto_reject_options',
 				'type'              => 'sectionend',
 			),
+
+			// Auto-Complete
+			array(
+				'title'    => __( 'Auto-Complete Options', 'price-offerings-for-woocommerce' ),
+				'id'       => 'alg_wc_po_auto_complete_options',
+				'type'     => 'title',
+			),
+			array(
+				'title'    => __( 'Triggers', 'price-offerings-for-woocommerce' ),
+				'desc_tip' => __( 'Please note that "Order status completed" and "Payment complete" triggers will work only for orders created starting from the plugin v3.4.0.', 'price-offerings-for-woocommerce' ),
+				'id'       => 'alg_wc_po_auto_complete',
+				'type'     => 'multiselect',
+				'class'    => 'wc-enhanced-select',
+				'default'  => array( 'woocommerce_checkout_order_processed' ),
+				'options'  => array(
+					'woocommerce_checkout_order_processed' => __( 'Checkout order processed', 'price-offerings-for-woocommerce' ),
+					'woocommerce_payment_complete'         => __( 'Payment complete', 'price-offerings-for-woocommerce' ),
+					'woocommerce_order_status_completed'   => __( 'Order status completed', 'price-offerings-for-woocommerce' ),
+				),
+			),
+			array(
+				'id'       => 'alg_wc_po_auto_complete_options',
+				'type'     => 'sectionend',
+			),
+
+			// Auto-Uncomplete
+			array(
+				'title'   => __( 'Auto-Uncomplete Options', 'price-offerings-for-woocommerce' ),
+				'id'      => 'alg_wc_po_auto_uncomplete_options',
+				'type'    => 'title',
+			),
+			array(
+				'title'   => __( 'Triggers', 'price-offerings-for-woocommerce' ),
+				'id'      => 'alg_wc_po_auto_uncomplete',
+				'type'    => 'multiselect',
+				'class'   => 'wc-enhanced-select',
+				'default' => array( 'woocommerce_cancelled_order' ),
+				'options' => array(
+					'woocommerce_cancelled_order'        => __( 'Cancelled order', 'price-offerings-for-woocommerce' ),
+					'woocommerce_order_status_cancelled' => __( 'Order status cancelled', 'price-offerings-for-woocommerce' ),
+				),
+			),
+			array(
+				'id'      => 'alg_wc_po_auto_uncomplete_options',
+				'type'    => 'sectionend',
+			),
+
 		);
 	}
 

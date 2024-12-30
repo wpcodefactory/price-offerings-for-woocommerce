@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 3.3.3
+ * @version 3.4.0
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -17,7 +17,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.8.0
+	 * @version 3.4.0
 	 * @since   2.0.0
 	 */
 	function __construct() {
@@ -26,14 +26,61 @@ class Alg_WC_PO_Actions {
 		add_action( 'wp_loaded', array( $this, 'add_to_cart' ), PHP_INT_MAX );
 		add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'exclude_cart_item_from_coupons' ), PHP_INT_MAX, 5 );
 		add_action( 'woocommerce_before_calculate_totals', array( $this, 'apply_product_price' ) );
-		add_action( 'woocommerce_checkout_order_processed', array( $this, 'complete_offer' ), PHP_INT_MAX, 3 );
-		add_action( 'woocommerce_cancelled_order', array( $this, 'uncomplete_offer' ) );
 		add_filter( 'woocommerce_cart_item_is_purchasable', array( $this, 'force_cart_item_is_purchasable' ), PHP_INT_MAX, 3 );
 		add_filter( 'woocommerce_cart_item_quantity', array( $this, 'cart_item_quantity' ), PHP_INT_MAX, 3 );
+
+		// Order item meta
+		add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'add_offer_id_to_order_item_meta' ), 10, 3 );
+		add_filter( 'woocommerce_order_item_display_meta_key', array( $this, 'order_item_meta_display' ), 10, 2 );
+
+		// Auto-Complete
+		$hooks = get_option( 'alg_wc_po_auto_complete', array( 'woocommerce_checkout_order_processed' ) );
+		foreach ( $hooks as $hook ) {
+			if ( 'woocommerce_checkout_order_processed' === $hook ) {
+				add_action( $hook, array( $this, 'complete_offer_from_cart' ), PHP_INT_MAX, 3 );
+			} else {
+				add_action( $hook, array( $this, 'complete_offer_from_order' ), PHP_INT_MAX );
+			}
+		}
+
+		// Auto-Uncomplete
+		$hooks = get_option( 'alg_wc_po_auto_uncomplete', array( 'woocommerce_cancelled_order' ) );
+		foreach ( $hooks as $hook ) {
+			add_action( $hook, array( $this, 'uncomplete_offer' ) );
+		}
 
 		// "Create offer" action
 		add_action( 'init', array( $this, 'offer_price' ) );
 
+	}
+
+	/**
+	 * add_offer_id_to_order_item_meta.
+	 *
+	 * @version 3.4.0
+	 * @since   3.4.0
+	 */
+	function add_offer_id_to_order_item_meta( $item, $cart_item_key, $cart_item ) {
+		if ( isset( $cart_item['alg_wc_price_offer_id'] ) ) {
+			$item->add_meta_data(
+				'_alg_wc_price_offer_id',
+				wc_clean( $cart_item['alg_wc_price_offer_id'] )
+			);
+		}
+	}
+
+	/**
+	 * order_item_meta_display.
+	 *
+	 * @version 3.4.0
+	 * @since   3.4.0
+	 */
+	function order_item_meta_display( $display_key, $meta ) {
+		return (
+			'_alg_wc_price_offer_id' === $meta->key ?
+			__( 'Offer ID', 'price-offerings-for-woocommerce' ) :
+			$display_key
+		);
 	}
 
 	/**
@@ -81,7 +128,7 @@ class Alg_WC_PO_Actions {
 	 * @version 2.7.0
 	 * @since   2.7.0
 	 *
-	 * @todo    (dev) run on other hooks as well, e.g., `woocommerce_order_status_cancelled`?
+	 * @todo    (feature) add more hooks?
 	 */
 	function uncomplete_offer( $order_id ) {
 		if (
@@ -102,17 +149,49 @@ class Alg_WC_PO_Actions {
 	}
 
 	/**
-	 * complete_offer.
+	 * complete_offer_from_order.
 	 *
-	 * @version 2.7.0
-	 * @since   2.0.0
+	 * @version 3.4.0
+	 * @since   3.4.0
 	 *
-	 * @todo    (feature) admin order meta box: "Related offers" (use `$order->get_meta( '_alg_wc_price_offer_ids' )`)
-	 * @todo    (dev) use another hook, e.g., `woocommerce_payment_complete`?
+	 * @todo    (feature) add more hooks?
 	 * @todo    (dev) `update_status`: check for `'alg_wc_po_complete' !== $offer->get_status()` before updating the status?
 	 * @todo    (dev) `$offer->delete_token()`?
 	 */
-	function complete_offer( $order_id, $posted_data, $order ) {
+	function complete_offer_from_order( $order_id ) {
+		if ( ( $order = wc_get_order( $order_id ) ) ) {
+			$offer_ids = array();
+			foreach ( $order->get_items() as $item_key => $item ) {
+				if ( $item->get_meta( '_alg_wc_price_offer_id' ) ) {
+					$offer_id = wc_clean( $item->get_meta( '_alg_wc_price_offer_id' ) );
+					if ( ( $offer = new Alg_WC_Price_Offer( $offer_id ) ) ) {
+						$offer->update_status( 'alg_wc_po_complete' );
+						$offer_ids[] = $offer_id;
+					}
+				}
+			}
+			if ( ! empty( $offer_ids ) ) {
+				if ( '' === ( $_offer_ids = $order->get_meta( '_alg_wc_price_offer_ids' ) ) ) {
+					$_offer_ids = array();
+				}
+				$order->update_meta_data( '_alg_wc_price_offer_ids', array_unique( array_merge( $_offer_ids, $offer_ids ) ) );
+				$order->save();
+			}
+		}
+	}
+
+	/**
+	 * complete_offer_from_cart.
+	 *
+	 * @version 3.4.0
+	 * @since   2.0.0
+	 *
+	 * @todo    (feature) admin order meta box: "Related offers" (use `$order->get_meta( '_alg_wc_price_offer_ids' )`)
+	 * @todo    (feature) add more hooks?
+	 * @todo    (dev) `update_status`: check for `'alg_wc_po_complete' !== $offer->get_status()` before updating the status?
+	 * @todo    (dev) `$offer->delete_token()`?
+	 */
+	function complete_offer_from_cart( $order_id, $posted_data, $order ) {
 		$offer_ids = array();
 		foreach ( WC()->cart->get_cart() as $item_key => $item ) {
 			if ( isset( $item['alg_wc_price_offer_id'] ) ) {

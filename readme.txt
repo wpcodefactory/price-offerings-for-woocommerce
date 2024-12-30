@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, aegkr
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
 Tested up to: 6.7
-Stable tag: 3.3.3
+Stable tag: 3.4.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -161,6 +161,14 @@ WPFactory has a diverse range of plugins tailored to enhance your experience:
 Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
 
 == Changelog ==
+
+= 3.4.0 - 30/12/2024 =
+* Dev - Automation - "Auto-Complete" section added.
+* Dev - Automation - "Auto-Uncomplete" section added.
+* Dev - Saving offer ID in order item meta.
+* Dev - Key Manager - Library updated.
+* Dev - Composer - `autoloader-suffix` param added.
+* WC tested up to: 9.5.
 
 = 3.3.3 - 22/11/2024 =
 * Fix - "Add New Offer" button hidden.
