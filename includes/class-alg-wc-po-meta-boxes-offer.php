@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Custom Post
  *
- * @version 3.3.3
+ * @version 3.4.1
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -238,72 +238,100 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_data.
 	 *
-	 * @version 3.3.2
+	 * @version 3.4.1
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) add `get_user_agent()`?
 	 */
 	function meta_box_data( $post ) {
 		if ( ( $offer = new Alg_WC_Price_Offer( $post->ID ) ) ) {
+
+			$allowed_fields = get_option( 'alg_wc_po_vendor_allowed_fields', array(
+				'product',
+				'price',
+				'quantity',
+				'customer',
+				'phone',
+				'email',
+				'send_to',
+			) );
+
 			?>
 			<table class="widefat striped">
-				<tr>
-					<th><?php echo esc_html__( 'Product', 'price-offerings-for-woocommerce' ); ?></th>
-					<td><?php
-						echo wp_kses_post( $offer->get_product_name_admin_link( false ) );
-					?></td>
-				</tr>
-				<tr>
-					<th><?php echo esc_html__( 'Price', 'price-offerings-for-woocommerce' ); ?></th>
-					<td><?php echo wp_kses_post( $offer->get_price_summary() ); ?></td>
-				</tr>
-				<?php if (
-					false !== ( $quantity = $offer->get_quantity() ) &&
-					'' !== $quantity
-				) { ?>
+				<?php if ( in_array( 'product', $allowed_fields ) || is_admin() ) : ?>
 					<tr>
-						<th><?php echo esc_html__( 'Quantity', 'price-offerings-for-woocommerce' ); ?></th>
-						<td><?php echo (int) $quantity; ?></td>
+						<th><?php echo esc_html__( 'Product', 'price-offerings-for-woocommerce' ); ?></th>
+						<td><?php
+							echo wp_kses_post( $offer->get_product_name_admin_link( false ) );
+							?></td>
 					</tr>
-				<?php } ?>
-				<tr>
-					<th><?php echo esc_html__( 'Customer', 'price-offerings-for-woocommerce' ); ?></th>
-					<td><?php
-						$customer_id = $offer->get_customer_id();
-						if (
-							! empty( $customer_id ) &&
-							false !== get_userdata( $customer_id )
-						) {
-							echo '<a href="' . esc_url( admin_url( 'user-edit.php?user_id=' . $customer_id ) ) . '">' .
-								esc_html( $offer->get_customer_name() ) .
-							'</a>';
-						} else {
-							echo esc_html( $offer->get_customer_name() );
-						}
-						?> (<?php
+				<?php endif; ?>
+				<?php if ( in_array( 'price', $allowed_fields ) || is_admin() ) : ?>
+					<tr>
+						<th><?php echo esc_html__( 'Price', 'price-offerings-for-woocommerce' ); ?></th>
+						<td><?php echo wp_kses_post( $offer->get_price_summary() ); ?></td>
+					</tr>
+				<?php endif; ?>
+				<?php if ( in_array( 'quantity', $allowed_fields ) || is_admin() ) : ?>
+					<?php if (
+						false !== ( $quantity = $offer->get_quantity() ) &&
+						'' !== $quantity
+					) { ?>
+						<tr>
+							<th><?php echo esc_html__( 'Quantity', 'price-offerings-for-woocommerce' ); ?></th>
+							<td><?php echo (int) $quantity; ?></td>
+						</tr>
+					<?php } ?>
+				<?php endif; ?>
+				<?php if ( in_array( 'customer', $allowed_fields ) || is_admin() ) : ?>
+					<tr>
+						<th><?php echo esc_html__( 'Customer', 'price-offerings-for-woocommerce' ); ?></th>
+						<td><?php
+							$customer_id = $offer->get_customer_id();
+							if (
+								! empty( $customer_id ) &&
+								false !== get_userdata( $customer_id )
+							) {
+								echo '<a href="' . esc_url( admin_url( 'user-edit.php?user_id=' . $customer_id ) ) . '">' .
+									esc_html( $offer->get_customer_name() ) .
+								'</a>';
+							} else {
+								echo esc_html( $offer->get_customer_name() );
+							}
+							?> (<?php
 							echo esc_html__( 'IP address', 'price-offerings-for-woocommerce' );
-						?>: <?php
+							?>: <?php
 							echo esc_html( $offer->get_user_ip() );
-						?>)<?php
-					?></td>
-				</tr>
-				<?php if (
-					false !== ( $customer_phone = $offer->get_customer_phone() ) &&
-					'' !== $customer_phone
-				) { ?>
-					<tr>
-						<th><?php echo esc_html__( 'Phone', 'price-offerings-for-woocommerce' ); ?></th>
-						<td><a href="tel:<?php echo esc_attr( $customer_phone ); ?>"><?php echo esc_html( $customer_phone ); ?></a></td>
+							?>)<?php
+							?></td>
 					</tr>
-				<?php } ?>
-				<tr>
-					<th><?php echo esc_html__( 'Email', 'price-offerings-for-woocommerce' ); ?></th>
-					<td><?php echo wp_kses_post( make_clickable( $offer->get_customer_email() ) ); ?></td>
-				</tr>
-				<tr>
-					<th><?php echo esc_html__( 'Sent to', 'price-offerings-for-woocommerce' ); ?></th>
-					<td><?php echo wp_kses_post( make_clickable( implode( ', ', $offer->get_sent_to() ) ) ); ?></td>
-				</tr>
+				<?php endif; ?>
+				<?php if ( in_array( 'phone', $allowed_fields ) || is_admin() ) : ?>
+					<?php
+					if (
+						false !== ( $customer_phone = $offer->get_customer_phone() ) &&
+						'' !== $customer_phone
+					) { ?>
+						<tr>
+							<th><?php echo esc_html__( 'Phone', 'price-offerings-for-woocommerce' ); ?></th>
+							<td>
+								<a href="tel:<?php echo esc_attr( $customer_phone ); ?>"><?php echo esc_html( $customer_phone ); ?></a>
+							</td>
+						</tr>
+					<?php } ?>
+				<?php endif; ?>
+				<?php if ( in_array( 'email', $allowed_fields ) || is_admin() ) : ?>
+					<tr>
+						<th><?php echo esc_html__( 'Email', 'price-offerings-for-woocommerce' ); ?></th>
+						<td><?php echo wp_kses_post( make_clickable( $offer->get_customer_email() ) ); ?></td>
+					</tr>
+				<?php endif; ?>
+				<?php if ( in_array( 'send_to', $allowed_fields ) || is_admin() ) : ?>
+					<tr>
+						<th><?php echo esc_html__( 'Sent to', 'price-offerings-for-woocommerce' ); ?></th>
+						<td><?php echo wp_kses_post( make_clickable( implode( ', ', $offer->get_sent_to() ) ) ); ?></td>
+					</tr>
+				<?php endif; ?>
 			</table>
 			<?php
 		}
@@ -476,7 +504,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_messages.
 	 *
-	 * @version 3.3.2
+	 * @version 3.4.1
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) better styling
@@ -500,7 +528,24 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 							<strong><?php
 								echo get_avatar( $message['author_email'], 32 ) . esc_html( $message['author'] );
 							?></strong><br>
-							<?php echo wp_kses_post( make_clickable( $message['author_email'] ) ); ?><br>
+							<?php
+							$allowed_fields = get_option(
+								'alg_wc_po_vendor_allowed_fields',
+								array(
+									'product',
+									'price',
+									'quantity',
+									'customer',
+									'phone',
+									'email',
+									'send_to',
+								)
+							);
+
+							if ( in_array( 'email', $allowed_fields ) || is_admin() ) :
+								echo wp_kses_post( make_clickable( sanitize_email( $message['author_email'] ) ) ) . '<br>';
+							endif;
+							?>
 							<small><?php
 								echo esc_html(
 									date_i18n(

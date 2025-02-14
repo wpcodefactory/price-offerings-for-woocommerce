@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Compatibility Section Settings
  *
- * @version 3.3.2
+ * @version 3.4.1
  * @since   3.3.2
  *
  * @author  Algoritmika Ltd
@@ -29,7 +29,7 @@ class Alg_WC_PO_Settings_Compatibility extends Alg_WC_PO_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.3.2
+	 * @version 3.4.1
 	 * @since   3.3.2
 	 */
 	function get_settings() {
@@ -55,6 +55,32 @@ class Alg_WC_PO_Settings_Compatibility extends Alg_WC_PO_Settings_Section {
 				'id'                => 'alg_wc_po_dokan_enabled',
 				'type'              => 'checkbox',
 				'default'           => 'no',
+				'custom_attributes' => apply_filters( 'alg_wc_price_offerings_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'desc'              => __( 'Offer details for vendors', 'price-offerings-for-woocommerce' ),
+				'desc_tip'          => __( 'Select the offer details that you want vendors to see in their dashboard.', 'price-offerings-for-woocommerce' ),
+				'id'                => 'alg_wc_po_vendor_allowed_fields',
+				'type'              => 'multiselect',
+				'class'             => 'chosen_select',
+				'default'           => array(
+					'product',
+					'price',
+					'quantity',
+					'customer',
+					'phone',
+					'email',
+					'send_to',
+				),
+				'options'           => array(
+					'product'  => __( 'Product', 'price-offerings-for-woocommerce' ),
+					'price'    => __( 'Price', 'price-offerings-for-woocommerce' ),
+					'quantity' => __( 'Quantity', 'price-offerings-for-woocommerce' ),
+					'customer' => __( 'Customer', 'price-offerings-for-woocommerce' ),
+					'phone'    => __( 'Phone', 'price-offerings-for-woocommerce' ),
+					'email'    => __( 'Email', 'price-offerings-for-woocommerce' ),
+					'send_to'  => __( 'Sent to', 'price-offerings-for-woocommerce' ),
+				),
 				'custom_attributes' => apply_filters( 'alg_wc_price_offerings_settings', array( 'disabled' => 'disabled' ) ),
 			),
 			array(
