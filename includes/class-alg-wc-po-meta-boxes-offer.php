@@ -246,7 +246,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	function meta_box_data( $post ) {
 		if ( ( $offer = new Alg_WC_Price_Offer( $post->ID ) ) ) {
 
-			$allowed_fields = get_option( 'alg_wc_po_vendor_allowed_fields', array(
+			$allowed_fields = get_option( 'alg_wc_po_dokan_vendor_allowed_fields', array(
 				'product',
 				'price',
 				'quantity',
@@ -530,7 +530,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 							?></strong><br>
 							<?php
 							$allowed_fields = get_option(
-								'alg_wc_po_vendor_allowed_fields',
+								'alg_wc_po_dokan_vendor_allowed_fields',
 								array(
 									'product',
 									'price',

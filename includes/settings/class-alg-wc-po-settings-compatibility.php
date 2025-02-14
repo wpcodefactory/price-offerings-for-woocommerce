@@ -60,7 +60,7 @@ class Alg_WC_PO_Settings_Compatibility extends Alg_WC_PO_Settings_Section {
 			array(
 				'desc'              => __( 'Offer details for vendors', 'price-offerings-for-woocommerce' ),
 				'desc_tip'          => __( 'Select the offer details that you want vendors to see in their dashboard.', 'price-offerings-for-woocommerce' ),
-				'id'                => 'alg_wc_po_vendor_allowed_fields',
+				'id'                => 'alg_wc_po_dokan_vendor_allowed_fields',
 				'type'              => 'multiselect',
 				'class'             => 'chosen_select',
 				'default'           => array(
