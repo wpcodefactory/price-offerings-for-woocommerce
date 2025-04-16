@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Main Class
  *
- * @version 3.3.0
+ * @version 3.4.2
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -45,7 +45,7 @@ final class Alg_WC_PO {
 	protected static $_instance = null;
 
 	/**
-	 * Main Alg_WC_PO Instance
+	 * Main Alg_WC_PO Instance.
 	 *
 	 * Ensures only one instance of Alg_WC_PO is loaded or can be loaded.
 	 *
@@ -120,20 +120,26 @@ final class Alg_WC_PO {
 	/**
 	 * wc_declare_compatibility.
 	 *
-	 * @version 2.3.1
+	 * @version 3.4.2
 	 * @since   2.2.0
 	 *
 	 * @see     https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
 	 */
 	function wc_declare_compatibility() {
-		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-			$files = ( defined( 'ALG_WC_PO_FILE_FREE' ) ?
-				array( ALG_WC_PO_FILE, ALG_WC_PO_FILE_FREE ) :
-				array( ALG_WC_PO_FILE )
+		if ( ! class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			return;
+		}
+		$files = (
+			defined( 'ALG_WC_PO_FILE_FREE' ) ?
+			array( ALG_WC_PO_FILE, ALG_WC_PO_FILE_FREE ) :
+			array( ALG_WC_PO_FILE )
+		);
+		foreach ( $files as $file ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
+				'custom_order_tables',
+				$file,
+				true
 			);
-			foreach ( $files as $file ) {
-				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', $file, true );
-			}
 		}
 	}
 
@@ -151,7 +157,7 @@ final class Alg_WC_PO {
 	/**
 	 * admin.
 	 *
-	 * @version 3.3.0
+	 * @version 3.4.2
 	 * @since   1.0.0
 	 */
 	function admin() {
@@ -160,10 +166,10 @@ final class Alg_WC_PO {
 		add_filter( 'plugin_action_links_' . plugin_basename( ALG_WC_PO_FILE ), array( $this, 'action_links' ) );
 
 		// "Recommendations" page
-		$this->add_cross_selling_library();
+		add_action( 'init', array( $this, 'add_cross_selling_library' ) );
 
 		// WC Settings tab as WPFactory submenu item
-		$this->move_wc_settings_tab_to_wpfactory_menu();
+		add_action( 'init', array( $this, 'move_wc_settings_tab_to_wpfactory_menu' ) );
 
 		// Settings
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_woocommerce_settings_tab' ) );
@@ -186,14 +192,17 @@ final class Alg_WC_PO {
 	 */
 	function action_links( $links ) {
 		$custom_links = array();
+
 		$custom_links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_price_offerings' ) . '">' .
 			__( 'Settings', 'price-offerings-for-woocommerce' ) .
 		'</a>';
+
 		if ( 'price-offerings-for-woocommerce.php' === basename( ALG_WC_PO_FILE ) ) {
 			$custom_links[] = '<a target="_blank" style="font-weight: bold; color: green;" href="https://wpfactory.com/item/price-offerings-for-woocommerce/">' .
 				__( 'Go Pro', 'price-offerings-for-woocommerce' ) .
 			'</a>';
 		}
+
 		return array_merge( $custom_links, $links );
 	}
 

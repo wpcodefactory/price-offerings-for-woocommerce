@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 3.4.0
+ * @version 3.4.2
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -326,7 +326,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * offer_price.
 	 *
-	 * @version 3.3.3
+	 * @version 3.4.2
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) start with "Create price offer"
@@ -436,6 +436,9 @@ class Alg_WC_PO_Actions {
 				return;
 			}
 
+			// Create price offer
+			$offer_id = Alg_WC_PO_Core::create_price_offer( false, false, $price_offer );
+
 			// Email content
 			$placeholders = array(
 				'%product_title%'    => $price_offer['product_title'],
@@ -479,9 +482,6 @@ class Alg_WC_PO_Actions {
 				'message' => __( 'Your price offer has been sent.', 'price-offerings-for-woocommerce' ),
 			), $notice_options );
 			wc_add_notice( $notice_options['message'], 'notice' );
-
-			// Create price offer
-			$offer_id = Alg_WC_PO_Core::create_price_offer( false, false, $price_offer );
 
 			// Action
 			do_action( 'alg_wc_po_price_offer_created', $offer_id );

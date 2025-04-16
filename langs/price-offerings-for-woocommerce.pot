@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Name Your Price: Make Your Own Offer for WooCommerce 3.4.1\n"
+"Project-Id-Version: Name Your Price: Make Your Own Offer for WooCommerce 3.4.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/price-offerings-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-14T18:54:43+00:00\n"
+"POT-Creation-Date: 2025-04-16T19:28:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: price-offerings-for-woocommerce\n"
@@ -96,7 +96,7 @@ msgstr ""
 msgid "You have already sent this offer."
 msgstr ""
 
-#: includes/class-alg-wc-po-actions.php:479
+#: includes/class-alg-wc-po-actions.php:482
 #: includes/settings/class-alg-wc-po-settings-form.php:295
 msgid "Your price offer has been sent."
 msgstr ""
@@ -494,16 +494,16 @@ msgid_plural "Average offer: %1$s (from %2$d offers)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-po.php:190
+#: includes/class-alg-wc-po.php:197
 msgid "Settings"
 msgstr ""
 
-#: includes/class-alg-wc-po.php:194
+#: includes/class-alg-wc-po.php:202
 msgid "Go Pro"
 msgstr ""
 
-#: includes/class-alg-wc-po.php:238
-#: includes/class-alg-wc-po.php:239
+#: includes/class-alg-wc-po.php:247
+#: includes/class-alg-wc-po.php:248
 #: includes/settings/class-alg-wc-po-settings.php:26
 msgid "Price Offers"
 msgstr ""
@@ -513,21 +513,21 @@ msgstr ""
 msgid "Status updated from %1$s to %2$s."
 msgstr ""
 
-#: includes/pro/class-alg-wc-po-pro.php:445
+#: includes/pro/class-alg-wc-po-pro.php:452
 #: includes/settings/class-alg-wc-po-settings-automation.php:122
 msgid "Your price offer has been accepted."
 msgstr ""
 
-#: includes/pro/class-alg-wc-po-pro.php:464
+#: includes/pro/class-alg-wc-po-pro.php:471
 msgid "Reason: auto-accepted."
 msgstr ""
 
-#: includes/pro/class-alg-wc-po-pro.php:516
+#: includes/pro/class-alg-wc-po-pro.php:523
 #: includes/settings/class-alg-wc-po-settings-automation.php:153
 msgid "Your price offer has been rejected."
 msgstr ""
 
-#: includes/pro/class-alg-wc-po-pro.php:535
+#: includes/pro/class-alg-wc-po-pro.php:542
 msgid "Reason: auto-rejected."
 msgstr ""
 
