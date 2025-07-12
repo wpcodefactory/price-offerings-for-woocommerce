@@ -3,7 +3,7 @@ Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, aegkr
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 3.4.2
+Stable tag: 3.4.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,7 +14,6 @@ Let customers name their own price on WooCommerce products & donations, offer fl
 > “Always at the top: I also bought this plugin which it works great. In addition, the availability and level of technical support always at the top. Thanks!” – ⭐⭐⭐⭐⭐  [gio61](https://wordpress.org/support/topic/always-at-the-top/)
 
 [Main Page](https://wpfactory.com/item/price-offers-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Main Page") | [Demo (Pro version)](https://nameyourprice.instawp.xyz/ "Demo") | [Support Forum](https://wpfactory.com/support/item/price-offers-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Support Forum") | [Documentation & How to](https://wpfactory.com/docs/price-offers-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "Documentation & How to")
-
 
 Name Your Price for WooCommerce is an intuitive plugin designed to give your customers the flexibility to set their own price for your products. Whether it's for open pricing, making a donation, or negotiating a preferred price, this plugin empowers your customers to choose how much they can pay.
 
@@ -35,7 +34,6 @@ The plugin adds a customizable "Make an Offer" button to your WooCommerce produc
 You'll receive an email with their offer, which will also be saved in the backend price offers dashboard. From there, you can take actions like rejecting, accepting, or countering the offer.
 
 Let's get into each feature in more details.
-
 
 ## 🚀 Main Features: FREE Version##
 
@@ -83,7 +81,6 @@ Adds a detailed offers report to each product's admin edit page, displaying all 
 
 * Exclude price offers from coupons
 * REST API support to list, retrieve and update offers
-
 
 ## 🏆 Do More: PRO Version##
 
@@ -158,9 +155,17 @@ WPFactory has a diverse range of plugins tailored to enhance your experience:
 4. After the installation is complete, click “Activate”.
 
 **Post-Activation:**
-Once activated, access the plugin's settings by navigating to “WooCommerce > Settings” and look for the relevant tab.
+Once activated, access the plugin's settings by navigating to the “WPFactory” menu and look for the relevant tab.
 
 == Changelog ==
+
+= 3.4.3 - 12/07/2025 =
+* Fix - Send a copy to your email - Email was not received in Gmail.
+* Dev - Security - Shortcodes - `[alg_wc_price_offers_translate]` - Output escaped.
+* Dev - WPFactory Admin Menu - Library updated.
+* Dev - WPFactory Admin Menu - Icon added.
+* Dev - Code refactoring.
+* WC tested up to: 9.9.
 
 = 3.4.2 - 16/04/2025 =
 * Dev - General - Prevent Duplicate Offers - Algorithm improved.

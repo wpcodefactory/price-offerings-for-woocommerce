@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 3.3.3
+ * @version 3.4.3
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -41,7 +41,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.3.3
+	 * @version 3.4.3
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) list placeholders in the Actions meta box
@@ -53,8 +53,8 @@ class Alg_WC_PO_Core {
 	function __construct() {
 
 		// Classes
-		require_once( 'classes/class-alg-wc-price-offer.php' );
-		require_once( 'classes/class-alg-wc-po-emails.php' );
+		require_once plugin_dir_path( __FILE__ ) . 'classes/class-alg-wc-price-offer.php';
+		require_once plugin_dir_path( __FILE__ ) . 'classes/class-alg-wc-po-emails.php';
 
 		// Send emails in background
 		add_action( 'alg_wc_price_offers_send_email', array( 'Alg_WC_PO_Emails', 'send_email' ), 10, 7 );
@@ -64,10 +64,10 @@ class Alg_WC_PO_Core {
 		add_action( 'init', array( $this, 'create_post_status' ), 9 );
 
 		// Frontend
-		$this->frontend = require_once( 'class-alg-wc-po-frontend.php' );
+		$this->frontend = require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-frontend.php';
 
 		// Actions
-		$this->actions = require_once( 'class-alg-wc-po-actions.php' );
+		$this->actions = require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-actions.php';
 
 		// Payment gateways
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'payment_gateways' ) );
@@ -82,13 +82,13 @@ class Alg_WC_PO_Core {
 		$this->maybe_init_rest_api();
 
 		// Offer meta boxes
-		$this->offer_meta_boxes = require_once( 'class-alg-wc-po-meta-boxes-offer.php' );
+		$this->offer_meta_boxes = require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-meta-boxes-offer.php';
 
 		// Admin
 		if ( is_admin() ) {
 
 			// Product meta boxes
-			require_once( 'class-alg-wc-po-meta-boxes-product.php' );
+			require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-meta-boxes-product.php';
 
 			// CSS
 			add_action( 'admin_head', array( $this, 'css' ) );
@@ -204,15 +204,15 @@ class Alg_WC_PO_Core {
 	/**
 	 * maybe_init_rest_api.
 	 *
-	 * @version 2.9.0
+	 * @version 3.4.3
 	 * @since   2.9.0
 	 *
 	 * @see     https://github.com/woocommerce/woocommerce/blob/8.8.2/plugins/woocommerce/includes/rest-api/Server.php#L59
 	 */
 	function maybe_init_rest_api() {
 		if ( 'yes' === get_option( 'alg_wc_po_rest_api_enabled', 'no' ) ) {
-			require_once( 'rest/class-wc-rest-alg-wc-po-controller.php' );
-			require_once( 'rest/class-wc-rest-alg-wc-po.php' );
+			require_once plugin_dir_path( __FILE__ ) . 'rest/class-wc-rest-alg-wc-po-controller.php';
+			require_once plugin_dir_path( __FILE__ ) . 'rest/class-wc-rest-alg-wc-po.php';
 			add_filter( 'woocommerce_rest_api_get_rest_namespaces', array( $this, 'add_rest_controller' ) );
 		}
 	}

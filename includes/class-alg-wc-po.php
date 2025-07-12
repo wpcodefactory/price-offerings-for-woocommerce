@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Main Class
  *
- * @version 3.4.2
+ * @version 3.4.3
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -123,7 +123,7 @@ final class Alg_WC_PO {
 	 * @version 3.4.2
 	 * @since   2.2.0
 	 *
-	 * @see     https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
+	 * @see     https://developer.woocommerce.com/docs/features/high-performance-order-storage/recipe-book/
 	 */
 	function wc_declare_compatibility() {
 		if ( ! class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
@@ -163,7 +163,10 @@ final class Alg_WC_PO {
 	function admin() {
 
 		// Action links
-		add_filter( 'plugin_action_links_' . plugin_basename( ALG_WC_PO_FILE ), array( $this, 'action_links' ) );
+		add_filter(
+			'plugin_action_links_' . plugin_basename( ALG_WC_PO_FILE ),
+			array( $this, 'action_links' )
+		);
 
 		// "Recommendations" page
 		add_action( 'init', array( $this, 'add_cross_selling_library' ) );
@@ -172,7 +175,10 @@ final class Alg_WC_PO {
 		add_action( 'init', array( $this, 'move_wc_settings_tab_to_wpfactory_menu' ) );
 
 		// Settings
-		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_woocommerce_settings_tab' ) );
+		add_filter(
+			'woocommerce_get_settings_pages',
+			array( $this, 'add_woocommerce_settings_tab' )
+		);
 
 		// Version update
 		if ( get_option( 'alg_wc_price_offerings_version', '' ) !== $this->version ) {
@@ -193,12 +199,18 @@ final class Alg_WC_PO {
 	function action_links( $links ) {
 		$custom_links = array();
 
-		$custom_links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_price_offerings' ) . '">' .
+		$custom_links[] = '<a' .
+			' href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_price_offerings' ) . '"' .
+		'>' .
 			__( 'Settings', 'price-offerings-for-woocommerce' ) .
 		'</a>';
 
 		if ( 'price-offerings-for-woocommerce.php' === basename( ALG_WC_PO_FILE ) ) {
-			$custom_links[] = '<a target="_blank" style="font-weight: bold; color: green;" href="https://wpfactory.com/item/price-offerings-for-woocommerce/">' .
+			$custom_links[] = '<a' .
+				' target="_blank"' .
+				' style="font-weight: bold; color: green;"' .
+				' href="https://wpfactory.com/item/price-offerings-for-woocommerce/"' .
+			'>' .
 				__( 'Go Pro', 'price-offerings-for-woocommerce' ) .
 			'</a>';
 		}
@@ -227,7 +239,7 @@ final class Alg_WC_PO {
 	/**
 	 * move_wc_settings_tab_to_wpfactory_menu.
 	 *
-	 * @version 3.3.0
+	 * @version 3.4.3
 	 * @since   3.3.0
 	 */
 	function move_wc_settings_tab_to_wpfactory_menu() {
@@ -245,7 +257,11 @@ final class Alg_WC_PO {
 		$wpfactory_admin_menu->move_wc_settings_tab_to_wpfactory_menu( array(
 			'wc_settings_tab_id' => 'alg_wc_price_offerings',
 			'menu_title'         => __( 'Price Offers', 'price-offerings-for-woocommerce' ),
-			'page_title'         => __( 'Price Offers', 'price-offerings-for-woocommerce' ),
+			'page_title'         => __( 'Name Your Price: Make Your Own Offer for WooCommerce', 'price-offerings-for-woocommerce' ),
+			'plugin_icon'        => array(
+				'get_url_method'    => 'wporg_plugins_api',
+				'wporg_plugin_slug' => 'price-offerings-for-woocommerce',
+			),
 		) );
 
 	}

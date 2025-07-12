@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Emails
  *
- * @version 2.7.1
+ * @version 3.4.3
  * @since   2.0.0
  *
  * @author  Algoritmika Ltd
@@ -27,7 +27,7 @@ class Alg_WC_PO_Emails {
 	/**
 	 * send_email.
 	 *
-	 * @version 2.7.1
+	 * @version 3.4.3
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) remove "From" and leave only "Reply-To"?
@@ -66,9 +66,11 @@ class Alg_WC_PO_Emails {
 		$content = self::wrap_in_wc_email_template( $content, $heading );
 
 		// Headers
-		$headers = 'Content-Type: text/html' . "\r\n" .
-			'From: "'    . $from_name . '" <' . $from . '>' . "\r\n" .
-			'Reply-To: ' . $from_name .  ' <' . $from . '>' . "\r\n";
+		$headers = 'Content-Type: text/html' . "\r\n";
+		$headers .= 'From: "' . $from_name . '" <' . $from . '>' . "\r\n";
+		if ( $from !== $to ) {
+			$headers .= 'Reply-To: ' . $from_name . ' <' . $from . '>' . "\r\n";
+		}
 
 		// Add email "name" and "address" filters
 		add_filter( 'wp_mail_from',      array( alg_wc_po()->core, 'get_email_from_address' ), PHP_INT_MAX );

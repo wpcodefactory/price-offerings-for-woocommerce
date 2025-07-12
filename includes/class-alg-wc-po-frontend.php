@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 3.3.2
+ * @version 3.4.3
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd
@@ -75,20 +75,57 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * language_shortcode.
 	 *
-	 * @version 3.0.0
+	 * @version 3.4.3
 	 * @since   1.0.0
 	 */
 	function language_shortcode( $atts, $content = '' ) {
+
 		// E.g.: `[alg_wc_price_offers_translate lang="EN,DE" lang_text="Text for EN & DE" not_lang_text="Text for other languages"]`
-		if ( isset( $atts['lang_text'], $atts['not_lang_text'] ) && ! empty( $atts['lang'] ) ) {
-			return ( ! defined( 'ICL_LANGUAGE_CODE' ) || ! in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['lang'] ) ) ) ) ) ?
-				$atts['not_lang_text'] : $atts['lang_text'];
+		if (
+			isset( $atts['lang_text'], $atts['not_lang_text'] ) &&
+			! empty( $atts['lang'] )
+		) {
+			return (
+				(
+					! defined( 'ICL_LANGUAGE_CODE' ) ||
+					! in_array(
+						strtolower( ICL_LANGUAGE_CODE ),
+						array_map( 'trim', explode( ',', strtolower( $atts['lang'] ) ) )
+					)
+				) ?
+				wp_kses_post( $atts['not_lang_text'] ) :
+				wp_kses_post( $atts['lang_text'] )
+			);
 		}
+
 		// E.g.: `[alg_wc_price_offers_translate lang="EN,DE"]Text for EN & DE[/alg_wc_price_offers_translate][alg_wc_price_offers_translate not_lang="EN,DE"]Text for other languages[/alg_wc_price_offers_translate]`
 		return (
-			( ! empty( $atts['lang'] )     && ( ! defined( 'ICL_LANGUAGE_CODE' ) || ! in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['lang'] ) ) ) ) ) ) ||
-			( ! empty( $atts['not_lang'] ) &&     defined( 'ICL_LANGUAGE_CODE' ) &&   in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['not_lang'] ) ) ) ) )
-		) ? '' : $content;
+			(
+				(
+					! empty( $atts['lang'] ) &&
+					(
+						! defined( 'ICL_LANGUAGE_CODE' ) ||
+						! in_array(
+							strtolower( ICL_LANGUAGE_CODE ),
+							array_map( 'trim', explode( ',', strtolower( $atts['lang'] ) ) )
+						)
+					)
+				) ||
+				(
+					! empty( $atts['not_lang'] ) &&
+					(
+						defined( 'ICL_LANGUAGE_CODE' ) &&
+						in_array(
+							strtolower( ICL_LANGUAGE_CODE ),
+							array_map( 'trim', explode( ',', strtolower( $atts['not_lang'] ) ) )
+						)
+					)
+				)
+			) ?
+			'' :
+			wp_kses_post( $content )
+		);
+
 	}
 
 	/**

@@ -2,20 +2,21 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Name Your Price: Make Your Own Offer for WooCommerce 3.4.2\n"
+"Project-Id-Version: Name Your Price: Make Your Own Offer for WooCommerce 3.4.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/price-offerings-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-16T19:28:19+00:00\n"
+"POT-Creation-Date: 2025-07-12T10:07:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: price-offerings-for-woocommerce\n"
 
 #. Plugin Name of the plugin
 #: price-offerings-for-woocommerce.php
+#: includes/class-alg-wc-po.php:260
 msgid "Name Your Price: Make Your Own Offer for WooCommerce"
 msgstr ""
 
@@ -204,7 +205,7 @@ msgid "Offer"
 msgstr ""
 
 #: includes/class-alg-wc-po-core.php:495
-#: includes/class-alg-wc-po-frontend.php:233
+#: includes/class-alg-wc-po-frontend.php:270
 #: includes/class-alg-wc-po-meta-boxes-offer.php:281
 #: includes/settings/class-alg-wc-po-settings-automation.php:80
 #: includes/settings/class-alg-wc-po-settings-compatibility.php:78
@@ -339,54 +340,54 @@ msgstr ""
 msgid "Completed"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:195
+#: includes/class-alg-wc-po-frontend.php:232
 #: includes/settings/class-alg-wc-po-settings-form.php:232
 msgid "reCAPTCHA check failed."
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:234
+#: includes/class-alg-wc-po-frontend.php:271
 #: includes/settings/class-alg-wc-po-settings-form.php:190
 msgid "Your email"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:235
+#: includes/class-alg-wc-po-frontend.php:272
 #: includes/settings/class-alg-wc-po-settings-form.php:197
 msgid "Your name"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:236
+#: includes/class-alg-wc-po-frontend.php:273
 #: includes/settings/class-alg-wc-po-settings-form.php:204
 msgid "Your phone"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:237
+#: includes/class-alg-wc-po-frontend.php:274
 #: includes/settings/class-alg-wc-po-settings-form.php:211
 msgid "Your message"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:238
+#: includes/class-alg-wc-po-frontend.php:275
 #: includes/settings/class-alg-wc-po-settings-form.php:238
 msgid "Send a copy to your email"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:239
+#: includes/class-alg-wc-po-frontend.php:276
 #: includes/settings/class-alg-wc-po-settings-form.php:267
 msgid "Send"
 msgstr ""
 
 #. Translators: %s: Currency symbol placeholder.
-#: includes/class-alg-wc-po-frontend.php:478
+#: includes/class-alg-wc-po-frontend.php:515
 #: includes/settings/class-alg-wc-po-settings-form.php:136
 msgid "Your price (%s)"
 msgstr ""
 
 #. Translators: %s: Product title placeholder.
-#: includes/class-alg-wc-po-frontend.php:488
+#: includes/class-alg-wc-po-frontend.php:525
 #: includes/settings/class-alg-wc-po-settings-form.php:257
 msgid "Suggest your price for %s"
 msgstr ""
 
-#: includes/class-alg-wc-po-frontend.php:568
+#: includes/class-alg-wc-po-frontend.php:605
 #: includes/settings/class-alg-wc-po-settings-button.php:49
 msgid "Make an offer"
 msgstr ""
@@ -494,16 +495,15 @@ msgid_plural "Average offer: %1$s (from %2$d offers)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-po.php:197
+#: includes/class-alg-wc-po.php:205
 msgid "Settings"
 msgstr ""
 
-#: includes/class-alg-wc-po.php:202
+#: includes/class-alg-wc-po.php:214
 msgid "Go Pro"
 msgstr ""
 
-#: includes/class-alg-wc-po.php:247
-#: includes/class-alg-wc-po.php:248
+#: includes/class-alg-wc-po.php:259
 #: includes/settings/class-alg-wc-po-settings.php:26
 msgid "Price Offers"
 msgstr ""
@@ -1398,7 +1398,7 @@ msgid "You can see and manage all price offers in the %s dashboard."
 msgstr ""
 
 #. Translators: %s: Placeholder name(s).
-#: includes/settings/class-alg-wc-po-settings-section.php:64
+#: includes/settings/class-alg-wc-po-settings-section.php:71
 msgid "Available placeholder: %s."
 msgid_plural "Available placeholders: %s."
 msgstr[0] ""
@@ -1432,22 +1432,22 @@ msgstr ""
 msgid "Footer text color"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings.php:54
+#: includes/settings/class-alg-wc-po-settings.php:56
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings.php:59
+#: includes/settings/class-alg-wc-po-settings.php:61
 msgid "Reset section settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings.php:60
+#: includes/settings/class-alg-wc-po-settings.php:62
 msgid "Reset"
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings.php:61
+#: includes/settings/class-alg-wc-po-settings.php:63
 msgid "Check the box and save changes to reset."
 msgstr ""
 
-#: includes/settings/class-alg-wc-po-settings.php:100
+#: includes/settings/class-alg-wc-po-settings.php:107
 msgid "Your settings have been reset."
 msgstr ""
