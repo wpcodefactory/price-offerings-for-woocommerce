@@ -1,9 +1,9 @@
 === Name Your Price: Make Your Own Offer for WooCommerce ===
-Contributors: wpcodefactory, algoritmika, anbinder, karzin, omardabbas, aegkr
+Contributors: wpcodefactory, anbinder, karzin, omardabbas, aegkr
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 3.4.3
+Stable tag: 3.4.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -158,6 +158,9 @@ WPFactory has a diverse range of plugins tailored to enhance your experience:
 Once activated, access the plugin's settings by navigating to the “WPFactory” menu and look for the relevant tab.
 
 == Changelog ==
+
+= 3.4.4 - 09/09/2025 =
+* WC tested up to: 10.1.
 
 = 3.4.3 - 12/07/2025 =
 * Fix - Send a copy to your email - Email was not received in Gmail.
