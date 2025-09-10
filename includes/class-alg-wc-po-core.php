@@ -213,7 +213,10 @@ class Alg_WC_PO_Core {
 		if ( 'yes' === get_option( 'alg_wc_po_rest_api_enabled', 'no' ) ) {
 			require_once plugin_dir_path( __FILE__ ) . 'rest/class-wc-rest-alg-wc-po-controller.php';
 			require_once plugin_dir_path( __FILE__ ) . 'rest/class-wc-rest-alg-wc-po.php';
-			add_filter( 'woocommerce_rest_api_get_rest_namespaces', array( $this, 'add_rest_controller' ) );
+			add_filter(
+				'woocommerce_rest_api_get_rest_namespaces',
+				array( $this, 'add_rest_controller' )
+			);
 		}
 	}
 
