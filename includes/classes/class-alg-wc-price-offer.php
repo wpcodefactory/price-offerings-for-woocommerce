@@ -2,10 +2,10 @@
 /**
  * Price Offers for WooCommerce - Price Offer Class
  *
- * @version 3.3.2
+ * @version 3.5.0
  * @since   2.0.0
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -173,7 +173,7 @@ class Alg_WC_Price_Offer {
 	/**
 	 * get_human_time_diff_date.
 	 *
-	 * @version 2.0.0
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 */
 	function get_human_time_diff_date() {
@@ -182,12 +182,12 @@ class Alg_WC_Price_Offer {
 		if ( $offer_timestamp > strtotime( '-1 day', time() ) && $offer_timestamp <= time() ) {
 			return sprintf(
 				/* Translators: %s: Human-readable time difference. */
-				_x( '%s ago', '%s = human-readable time difference', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+				_x( '%s ago', '%s = human-readable time difference', 'price-offerings-for-woocommerce' ),
 				human_time_diff( $offer_timestamp, time() )
 			);
 		} else {
 			return date_i18n(
-				apply_filters( 'woocommerce_admin_order_date_format', __( 'M j, Y', 'woocommerce' ) ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+				apply_filters( 'woocommerce_admin_order_date_format', __( 'M j, Y', 'price-offerings-for-woocommerce' ) ), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				$offer_timestamp
 			);
 		}
@@ -202,7 +202,7 @@ class Alg_WC_Price_Offer {
 	function get_human_time_diff_date_label() {
 		return sprintf(
 			'<time datetime="%1$s" title="%2$s">%3$s</time>',
-			esc_attr( date( 'Y-m-d\TH:i:s+00:00', $this->get_timestamp() ) ),
+			esc_attr( date( 'Y-m-d\TH:i:s+00:00', $this->get_timestamp() ) ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 			esc_html( $this->get_formatted_date() ),
 			esc_html( $this->get_human_time_diff_date() )
 		);

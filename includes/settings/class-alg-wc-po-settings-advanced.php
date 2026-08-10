@@ -5,7 +5,7 @@
  * @version 3.3.2
  * @since   3.3.2
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -56,7 +56,7 @@ class Alg_WC_PO_Settings_Advanced extends Alg_WC_PO_Settings_Section {
 				'class'             => 'chosen_select',
 				'default'           => 'exclude',
 				'options'           => array(
-					'exclude' => __( 'Exclude', 'price-offerings-for-woocommerce' ),
+					'exclude' => __( 'Exclude', 'price-offerings-for-woocommerce' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'require' => __( 'Restrict', 'price-offerings-for-woocommerce' ),
 				),
 			),

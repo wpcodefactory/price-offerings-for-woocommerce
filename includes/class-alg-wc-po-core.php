@@ -2,10 +2,10 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 3.4.3
+ * @version 3.5.0
  * @since   1.0.0
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -41,7 +41,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.4.3
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (desc) list placeholders in the Actions meta box
@@ -91,7 +91,7 @@ class Alg_WC_PO_Core {
 			require_once plugin_dir_path( __FILE__ ) . 'class-alg-wc-po-meta-boxes-product.php';
 
 			// CSS
-			add_action( 'admin_head', array( $this, 'css' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_css' ) );
 
 			// Custom post columns
 			add_filter( 'manage_edit-alg_wc_price_offer_columns', array( $this, 'modify_columns' ) );
@@ -106,7 +106,7 @@ class Alg_WC_PO_Core {
 
 			// Disable "Add new"
 			add_action( 'admin_menu', array( $this, 'disable_new_posts_submenu' ) );
-			add_action( 'admin_head', array( $this, 'disable_new_posts_buttons' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'disable_new_posts_buttons' ) );
 			add_action( 'admin_bar_menu', array( $this, 'disable_new_posts_admin_bar' ), PHP_INT_MAX );
 
 			// Admin loaded
@@ -143,13 +143,13 @@ class Alg_WC_PO_Core {
 	 */
 	function recaptcha_ajax() {
 		$res = 0;
-		if ( isset( $_POST['recaptcha_response'] ) ) {
+		if ( isset( $_POST['recaptcha_response'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 			$form_options = get_option( 'alg_wc_price_offerings_form', array() );
 			$form_options = array_merge( array( 'recaptcha_secret_key' => '' ), $form_options );
 			$secret       = $form_options['recaptcha_secret_key'];
 
-			$response = sanitize_text_field( wp_unslash( $_POST['recaptcha_response'] ) );
+			$response = sanitize_text_field( wp_unslash( $_POST['recaptcha_response'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 			$url = 'https://www.google.com/recaptcha/api/siteverify';
 			$url = add_query_arg( array( 'secret' => $secret, 'response' => $response ), $url );
@@ -204,15 +204,15 @@ class Alg_WC_PO_Core {
 	/**
 	 * maybe_init_rest_api.
 	 *
-	 * @version 3.4.3
+	 * @version 3.5.0
 	 * @since   2.9.0
 	 *
 	 * @see     https://github.com/woocommerce/woocommerce/blob/8.8.2/plugins/woocommerce/includes/rest-api/Server.php#L59
 	 */
 	function maybe_init_rest_api() {
 		if ( 'yes' === get_option( 'alg_wc_po_rest_api_enabled', 'no' ) ) {
-			require_once plugin_dir_path( __FILE__ ) . 'rest/class-wc-rest-alg-wc-po-controller.php';
-			require_once plugin_dir_path( __FILE__ ) . 'rest/class-wc-rest-alg-wc-po.php';
+			require_once plugin_dir_path( __FILE__ ) . 'rest/class-alg-wc-po-rest-controller.php';
+			require_once plugin_dir_path( __FILE__ ) . 'rest/class-alg-wc-po-rest.php';
 			add_filter(
 				'woocommerce_rest_api_get_rest_namespaces',
 				array( $this, 'add_rest_controller' )
@@ -223,11 +223,11 @@ class Alg_WC_PO_Core {
 	/**
 	 * add_rest_controller.
 	 *
-	 * @version 2.9.0
+	 * @version 3.5.0
 	 * @since   2.9.0
 	 */
 	function add_rest_controller( $controllers ) {
-		$controllers['wc/v3']['alg_wc_price_offers'] = 'WC_REST_Alg_WC_PO_Controller';
+		$controllers['wc/v3']['alg_wc_price_offers'] = 'Alg_WC_PO_REST_Controller';
 		return $controllers;
 	}
 
@@ -289,20 +289,27 @@ class Alg_WC_PO_Core {
 	/**
 	 * disable_new_posts_buttons.
 	 *
-	 * @version 3.3.3
+	 * @version 3.5.0
 	 * @since   2.0.0
+	 *
+	 * @todo    (v3.5.0) rename the CSS file to, e.g., `alg-wc-po-admin-new-posts.css`? or merge all admin CSS into a single file?
 	 */
 	function disable_new_posts_buttons() {
 		if (
-			( isset( $_GET['post_type'] ) && 'alg_wc_price_offer' === $_GET['post_type'] ) ||
-			( ( $id = get_the_ID() ) && 'alg_wc_price_offer' === get_post_type( $id ) )
+			! $this->is_admin_price_offer_list_screen() &&
+			! $this->is_admin_single_price_offer_screen()
 		) {
-			?><style>
-				a.page-title-action {
-					display: none !important;
-				}
-			</style><?php
+			return;
 		}
+
+		$min_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
+
+		wp_enqueue_style(
+			'alg-wc-price-offerings-admin',
+			alg_wc_po()->plugin_url() . '/assets/css/alg-wc-po-admin' . $min_suffix . '.css',
+			array(),
+			alg_wc_po()->version
+		);
 	}
 
 	/**
@@ -316,34 +323,54 @@ class Alg_WC_PO_Core {
 	}
 
 	/**
-	 * css.
+	 * is_admin_price_offer_list_screen.
 	 *
-	 * @version 2.0.0
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 */
+	function is_admin_price_offer_list_screen() {
+		global $pagenow;
+		return (
+			'edit.php' === $pagenow &&
+			isset( $_GET['post_type'] ) && // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			'alg_wc_price_offer' === sanitize_text_field( wp_unslash( $_GET['post_type'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		);
+	}
+
+	/**
+	 * is_admin_single_price_offer_screen.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 */
+	function is_admin_single_price_offer_screen() {
+		global $pagenow;
+		return (
+			'post.php' === $pagenow &&
+			( $id = get_the_ID() ) &&
+			'alg_wc_price_offer' === get_post_type( $id )
+		);
+	}
+
+	/**
+	 * admin_css.
+	 *
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 *
-	 * @todo    (dev) load only when necessary
-	 * @todo    (dev) use `admin_enqueue_scripts`
+	 * @todo    (v3.5.0) load only when necessary (offer list, product edit pages)?
+	 * @todo    (v3.5.0) load for dokan (frontend)?
 	 * @todo    (dev) `alg_wc_po_counter`: different color?
 	 */
-	function css() {
-		?><style>
-			.order-status.status-alg_wc_po_open {
-				background: #f8dda7;
-				color: #94660c;
-			}
-			.order-status.status-alg_wc_po_complete {
-				background: #c8d7e1;
-				color: #2e4453;
-			}
-			.order-status.status-alg_wc_po_accept,
-			.order-status.status-alg_wc_po_counter {
-				background: #c6e1c6;
-				color: #5b841b;
-			}
-			.post-type-alg_wc_price_offer .wp-list-table.posts td.column-status {
-				padding-top: 15px;
-			}
-		</style><?php
+	function admin_css() {
+		$min_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
+
+		wp_enqueue_style(
+			'alg-wc-price-offerings-admin-status',
+			alg_wc_po()->plugin_url() . '/assets/css/alg-wc-po-admin-status' . $min_suffix . '.css',
+			array(),
+			alg_wc_po()->version
+		);
 	}
 
 	/**
@@ -396,7 +423,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * render_columns.
 	 *
-	 * @version 3.3.1
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) links?
@@ -425,7 +452,7 @@ class Alg_WC_PO_Core {
 					break;
 
 				case 'price':
-					echo wp_kses_post( $offer->get_price_summary() );
+					echo wp_kses( $offer->get_price_summary(), self::get_price_allowed_html() );
 					break;
 
 				case 'status':
@@ -618,6 +645,19 @@ class Alg_WC_PO_Core {
 	}
 
 	/**
+	 * get_price_allowed_html.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 */
+	static function get_price_allowed_html() {
+		$allowed_html                      = wp_kses_allowed_html( 'post' );
+		$allowed_html['bdi']               = array();
+		$allowed_html['span']['translate'] = true;
+		return $allowed_html;
+	}
+
+	/**
 	 * add_screen_ids.
 	 *
 	 * @version 2.0.0
@@ -643,7 +683,7 @@ class Alg_WC_PO_Core {
 		$id = wp_insert_post( array(
 			'post_type'   => 'alg_wc_price_offer',
 			'post_status' => ( $status ? $status : 'alg_wc_po_open' ),
-			'post_date'   => ( $time ? date( 'Y-m-d H:i:s', $time ) : null ),
+			'post_date'   => ( $time ? date( 'Y-m-d H:i:s', $time ) : null ), // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 		) );
 
 		if ( $id ) {

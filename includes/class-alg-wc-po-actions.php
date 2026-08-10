@@ -2,10 +2,10 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 3.4.2
+ * @version 3.5.0
  * @since   2.0.0
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -218,12 +218,12 @@ class Alg_WC_PO_Actions {
 	 */
 	function add_to_cart() {
 		if (
-			! empty( $_GET['alg_wc_price_offer_id'] ) &&
-			! empty( $_GET['alg_wc_price_offer_token'] )
+			! empty( $_GET['alg_wc_price_offer_id'] ) && // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			! empty( $_GET['alg_wc_price_offer_token'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		) {
 
-			$offer_id    = sanitize_text_field( wp_unslash( $_GET['alg_wc_price_offer_id'] ) );
-			$offer_token = sanitize_text_field( wp_unslash( $_GET['alg_wc_price_offer_token'] ) );
+			$offer_id    = sanitize_text_field( wp_unslash( $_GET['alg_wc_price_offer_id'] ) );    // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$offer_token = sanitize_text_field( wp_unslash( $_GET['alg_wc_price_offer_token'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			if (
 				( $offer = new Alg_WC_Price_Offer( $offer_id ) ) &&
@@ -306,7 +306,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * cart_item_quantity.
 	 *
-	 * @version 2.6.0
+	 * @version 3.5.0
 	 * @since   2.6.0
 	 *
 	 * @todo    (dev) make this optional || only for qty != 1
@@ -316,7 +316,7 @@ class Alg_WC_PO_Actions {
 			return sprintf(
 				'<label class="screen-reader-text" for="%1$s">%2$s</label><span id="%1$s">%3$s</span>',
 				esc_attr( uniqid( 'quantity_' ) ),
-				esc_html__( 'Quantity', 'woocommerce' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch
+				esc_html__( 'Quantity', 'price-offerings-for-woocommerce' ),
 				$cart_item['quantity']
 			);
 		}
@@ -339,6 +339,7 @@ class Alg_WC_PO_Actions {
 	 * @todo    (dev) recheck "From" header
 	 */
 	function offer_price() {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( isset(
 			$_POST['alg-wc-price-offerings-submit'],
 			$_POST['alg-wc-price-offerings-product-id'],
@@ -487,6 +488,7 @@ class Alg_WC_PO_Actions {
 			do_action( 'alg_wc_po_price_offer_created', $offer_id );
 
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 }

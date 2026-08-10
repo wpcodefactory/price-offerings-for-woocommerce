@@ -2,10 +2,10 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 3.4.3
+ * @version 3.5.0
  * @since   1.0.0
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -17,36 +17,21 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.2.4
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (feature) AJAX form
-	 * @todo    (feature) button: multiple positions
 	 */
 	function __construct() {
 
-		// Button
-		$position_options = get_option( 'alg_wc_price_offerings_button', array() );
-		$position_options = array_merge( array(
-			'position_single_hook'     => 'woocommerce_single_product_summary',
-			'position_single_priority' => 31,
-		), $position_options );
-		if ( 'disable' != $position_options['position_single_hook'] ) {
-			add_action(
-				$position_options['position_single_hook'],
-				array( $this, 'add_offer_price_button' ),
-				$position_options['position_single_priority']
-			);
-		}
+		// Buttons
+		$this->add_offer_price_buttons();
 
 		// Form
 		add_action( 'wp_footer', array( $this, 'add_offer_price_form' ) );
 
 		// Scripts
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
-		// CSS
-		add_action( 'wp_head', array( $this, 'add_styling' ), PHP_INT_MAX );
 
 		// Language shortcodes
 		add_shortcode( 'alg_wc_price_offerings_translate', array( $this, 'language_shortcode' ) );
@@ -61,15 +46,85 @@ class Alg_WC_PO_Frontend {
 	}
 
 	/**
+	 * add_offer_price_buttons.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 *
+	 * @todo    (feature) multiple positions (e.g., on a single product page)?
+	 */
+	function add_offer_price_buttons() {
+		// Button: Options
+		$position_options = get_option( 'alg_wc_price_offerings_button', array() );
+		$position_options = array_merge( array(
+			'position_single_hook'       => 'woocommerce_single_product_summary',
+			'position_single_priority'   => 31,
+			'position_archives_hook'     => 'disable',
+			'position_archives_priority' => 9,
+			'position_custom_hook'       => '',
+			'position_custom_priority'   => '',
+		), $position_options );
+
+		// Button: Single product page
+		if ( 'disable' != $position_options['position_single_hook'] ) {
+			add_action(
+				$position_options['position_single_hook'],
+				array( $this, 'add_offer_price_button' ),
+				$position_options['position_single_priority']
+			);
+		}
+
+		// Button: Archives
+		if ( 'disable' != $position_options['position_archives_hook'] ) {
+			add_action(
+				$position_options['position_archives_hook'],
+				array( $this, 'add_offer_price_button' ),
+				$position_options['position_archives_priority']
+			);
+		}
+
+		// Button: Custom position(s)
+		if ( ! empty( $position_options['position_custom_hook'] ) ) {
+			$position_options['position_custom_hook']     = array_filter(
+				array_map(
+					'trim',
+					explode( '|', $position_options['position_custom_hook'] )
+				)
+			);
+			$position_options['position_custom_priority'] = array_map(
+				'trim',
+				explode( '|', $position_options['position_custom_priority'] )
+			);
+			foreach ( $position_options['position_custom_hook'] as $i => $custom_hook ) {
+				$priority = (
+					isset( $position_options['position_custom_priority'][ $i ] ) ?
+					intval( $position_options['position_custom_priority'][ $i ] ) :
+					10
+				);
+				add_action(
+					$custom_hook,
+					array( $this, 'add_offer_price_button' ),
+					$priority
+				);
+			}
+		}
+	}
+
+	/**
 	 * button_shortcode.
 	 *
-	 * @version 2.2.4
+	 * @version 3.5.0
 	 * @since   2.2.4
 	 */
 	function button_shortcode( $atts, $content = '' ) {
 		ob_start();
 		$this->add_offer_price_button();
-		return ob_get_clean();
+		$button = ob_get_clean();
+
+		$allowed_html = wp_kses_allowed_html( 'post' );
+		$allowed_html['button']['alg_wc_price_offerings_data'] = true;
+
+		return wp_kses( $button, $allowed_html );
 	}
 
 	/**
@@ -129,12 +184,12 @@ class Alg_WC_PO_Frontend {
 	}
 
 	/**
-	 * add_styling.
+	 * get_styling.
 	 *
-	 * @version 3.3.2
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 */
-	function add_styling() {
+	function get_styling() {
 
 		$styling_options = get_option( 'alg_wc_price_offerings_styling', array() );
 		$styling_options = array_merge( array(
@@ -145,44 +200,43 @@ class Alg_WC_PO_Frontend {
 			'form_footer_text_color' => '#ffffff',
 		), $styling_options );
 
+		ob_start();
 		?>
-		<style type="text/css">
-			.alg-wc-price-offerings-modal-content {
-				width: <?php echo esc_attr( $styling_options['form_content_width'] ); ?>;
-			}
-			.alg-wc-price-offerings-modal-header {
-				background-color: <?php echo esc_attr( $styling_options['form_header_back_color'] ); ?>;
-				color: <?php echo esc_attr( $styling_options['form_header_text_color'] ); ?>;
-			}
-			.alg-wc-price-offerings-modal-header h1,
-			.alg-wc-price-offerings-modal-header h2,
-			.alg-wc-price-offerings-modal-header h3,
-			.alg-wc-price-offerings-modal-header h4,
-			.alg-wc-price-offerings-modal-header h5,
-			.alg-wc-price-offerings-modal-header h6 {
-				color: <?php echo esc_attr( $styling_options['form_header_text_color'] ); ?>;
-			}
-			.alg-wc-price-offerings-modal-footer {
-				background-color: <?php echo esc_attr( $styling_options['form_footer_back_color'] ); ?>;
-				color: <?php echo esc_attr( $styling_options['form_footer_text_color'] ); ?>;
-			}
-			.alg-wc-price-offerings-modal-footer h1,
-			.alg-wc-price-offerings-modal-footer h2,
-			.alg-wc-price-offerings-modal-footer h3,
-			.alg-wc-price-offerings-modal-footer h4,
-			.alg-wc-price-offerings-modal-footer h5,
-			.alg-wc-price-offerings-modal-footer h6 {
-				color: <?php echo esc_attr( $styling_options['form_footer_text_color'] ); ?>;
-			}
-		</style>
+		.alg-wc-price-offerings-modal-content {
+			width: <?php echo esc_attr( $styling_options['form_content_width'] ); ?>;
+		}
+		.alg-wc-price-offerings-modal-header {
+			background-color: <?php echo esc_attr( $styling_options['form_header_back_color'] ); ?>;
+			color: <?php echo esc_attr( $styling_options['form_header_text_color'] ); ?>;
+		}
+		.alg-wc-price-offerings-modal-header h1,
+		.alg-wc-price-offerings-modal-header h2,
+		.alg-wc-price-offerings-modal-header h3,
+		.alg-wc-price-offerings-modal-header h4,
+		.alg-wc-price-offerings-modal-header h5,
+		.alg-wc-price-offerings-modal-header h6 {
+			color: <?php echo esc_attr( $styling_options['form_header_text_color'] ); ?>;
+		}
+		.alg-wc-price-offerings-modal-footer {
+			background-color: <?php echo esc_attr( $styling_options['form_footer_back_color'] ); ?>;
+			color: <?php echo esc_attr( $styling_options['form_footer_text_color'] ); ?>;
+		}
+		.alg-wc-price-offerings-modal-footer h1,
+		.alg-wc-price-offerings-modal-footer h2,
+		.alg-wc-price-offerings-modal-footer h3,
+		.alg-wc-price-offerings-modal-footer h4,
+		.alg-wc-price-offerings-modal-footer h5,
+		.alg-wc-price-offerings-modal-footer h6 {
+			color: <?php echo esc_attr( $styling_options['form_footer_text_color'] ); ?>;
+		}
 		<?php
-
+		return ob_get_clean();
 	}
 
 	/**
 	 * enqueue_scripts.
 	 *
-	 * @version 3.3.1
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 *
 	 * @see     https://www.w3schools.com/howto/howto_css_modals.asp
@@ -191,18 +245,23 @@ class Alg_WC_PO_Frontend {
 	 */
 	function enqueue_scripts() {
 
-		$min_suffix = ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ? '' : '.min' );
+		$min_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
 
 		wp_enqueue_style(
 			'alg-wc-price-offerings',
-			alg_wc_po()->plugin_url() . '/includes/css/alg-wc-po' . $min_suffix . '.css',
+			alg_wc_po()->plugin_url() . '/assets/css/alg-wc-po' . $min_suffix . '.css',
 			array(),
 			alg_wc_po()->version
 		);
 
+		wp_add_inline_style(
+			'alg-wc-price-offerings',
+			$this->get_styling()
+		);
+
 		wp_enqueue_script(
 			'alg-wc-price-offerings',
-			alg_wc_po()->plugin_url() . '/includes/js/alg-wc-po' . $min_suffix . '.js',
+			alg_wc_po()->plugin_url() . '/assets/js/alg-wc-po' . $min_suffix . '.js',
 			array( 'jquery' ),
 			alg_wc_po()->version,
 			true
@@ -221,7 +280,7 @@ class Alg_WC_PO_Frontend {
 
 			wp_enqueue_script(
 				'alg-wc-price-offerings-recaptcha',
-				alg_wc_po()->plugin_url() . '/includes/js/alg-wc-po-recaptcha' . $min_suffix . '.js',
+				alg_wc_po()->plugin_url() . '/assets/js/alg-wc-po-recaptcha' . $min_suffix . '.js',
 				array( 'jquery' ),
 				alg_wc_po()->version,
 				true
@@ -247,7 +306,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * add_offer_price_form.
 	 *
-	 * @version 3.3.1
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) `recaptcha`: remove `wrapper`?
@@ -435,22 +494,68 @@ class Alg_WC_PO_Frontend {
 		}
 
 		// Final form
-		echo '<div id="alg-wc-price-offerings-modal" class="alg-wc-price-offerings-modal">' .
-			'<div class="alg-wc-price-offerings-modal-content">' .
-				'<div class="alg-wc-price-offerings-modal-header">' .
-					'<span class="alg-wc-price-offerings-form-close">&times;</span>' . '<div id="alg-wc-price-offerings-form-header"></div>' .
-				'</div>' .
-				'<div class="alg-wc-price-offerings-modal-body">' .
-					'<form method="post" id="alg-wc-price-offerings-form">' .
-						implode( '', $fields ) .
-						'<input type="hidden" id="alg-wc-price-offerings-product-id" name="alg-wc-price-offerings-product-id">' .
-						'<input type="hidden" name="alg-wc-price-offerings-customer-id" value="' . (int) $customer_id . '">' .
-					'</form>' .
-				'</div>' .
-				( '' != $form_options['footer_template'] ? '<div class="alg-wc-price-offerings-modal-footer">' . $form_options['footer_template'] . '</div>' : '' ) .
-			'</div>' .
-		'</div>';
+		?>
+		<div id="alg-wc-price-offerings-modal" class="alg-wc-price-offerings-modal">
+			<div class="alg-wc-price-offerings-modal-content">
+				<div class="alg-wc-price-offerings-modal-header">
+					<span class="alg-wc-price-offerings-form-close">&times;</span><div id="alg-wc-price-offerings-form-header"></div>
+				</div>
+				<div class="alg-wc-price-offerings-modal-body">
+					<form method="post" id="alg-wc-price-offerings-form">
+						<?php
+						echo wp_kses(
+							implode( '', $fields ),
+							$this->get_field_allowed_html()
+						);
+						?>
+						<input type="hidden" id="alg-wc-price-offerings-product-id" name="alg-wc-price-offerings-product-id">
+						<input type="hidden" name="alg-wc-price-offerings-customer-id" value="<?php echo (int) $customer_id; ?>">
+					</form>
+				</div>
+				<?php
+				echo wp_kses_post(
+					'' != $form_options['footer_template'] ?
+					(
+						'<div class="alg-wc-price-offerings-modal-footer">' .
+							$form_options['footer_template'] .
+						'</div>'
+					) :
+					''
+				);
+				?>
+			</div>
+		</div>
+		<?php
 
+	}
+
+	/**
+	 * get_field_allowed_html.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 */
+	function get_field_allowed_html() {
+		$allowed_html = array(
+			'input' => array(
+				'type'     => true,
+				'id'       => true,
+				'name'     => true,
+				'class'    => true,
+				'style'    => true,
+				'value'    => true,
+				'required' => true,
+				'checked'  => true,
+				'min'      => true,
+				'max'      => true,
+				'disabled' => true,
+				'readonly' => true,
+			),
+		);
+		return array_merge(
+			wp_kses_allowed_html( 'post' ),
+			$allowed_html
+		);
 	}
 
 	/**
@@ -550,7 +655,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * add_offer_price_button.
 	 *
-	 * @version 2.8.0
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 */
 	function add_offer_price_button() {
@@ -582,21 +687,21 @@ class Alg_WC_PO_Frontend {
 
 		// The button
 		do_action( 'alg_wc_po_before_offer_price_button', $product_id );
-		echo $this->get_offer_price_button( $product_id );
+		$this->output_offer_price_button( $product_id );
 		do_action( 'alg_wc_po_after_offer_price_button', $product_id );
 
 	}
 
 	/**
-	 * get_offer_price_button.
+	 * output_offer_price_button.
 	 *
-	 * @version 3.3.2
+	 * @version 3.5.0
 	 * @since   2.3.0
 	 *
 	 * @see     https://www.php.net/manual/en/function.htmlspecialchars.php
 	 * @see     https://stackoverflow.com/questions/34769665/php-json-encode-data-with-double-quotes
 	 */
-	function get_offer_price_button( $product_id, $do_hide = false ) {
+	function output_offer_price_button( $product_id, $do_hide = false ) {
 
 		$button_options = get_option( 'alg_wc_price_offerings_button', array() );
 		$button_options = array_merge( array(
@@ -605,18 +710,20 @@ class Alg_WC_PO_Frontend {
 			'label' => __( 'Make an offer', 'price-offerings-for-woocommerce' ),
 		), $button_options );
 
-		return '<p class="alg-wc-price-offerings-button-wrapper">' .
-			'<button' .
-				' type="button"' .
-				' id="alg-wc-price-offerings-button-' . $product_id . '"' .
-				' class="alg-wc-price-offerings-button' . ' ' . $button_options['class'] . '"' .
-				' value="' . $product_id . '"' .
-				' style="' . ( $do_hide ? 'display:none;' : '' ) . $button_options['style'] . '"' .
-				' alg_wc_price_offerings_data=\'' . htmlspecialchars( wp_json_encode( $this->get_data_array( $product_id ) ), ENT_QUOTES, 'UTF-8' ) . '\'' .
-			'>' .
-				$button_options['label'] .
-			'</button>' .
-		'</p>';
+		?>
+		<p class="alg-wc-price-offerings-button-wrapper">
+			<button
+				type="button"
+				id="alg-wc-price-offerings-button-<?php echo (int) $product_id; ?>"
+				class="alg-wc-price-offerings-button <?php echo esc_attr( $button_options['class'] ); ?>"
+				value="<?php echo (int) $product_id; ?>"
+				style="<?php echo esc_attr( ( $do_hide ? 'display:none;' : '' ) . $button_options['style'] ); ?>"
+				alg_wc_price_offerings_data="<?php echo esc_attr( wp_json_encode( $this->get_data_array( $product_id ) ) ); ?>"
+			>
+				<?php echo esc_html( $button_options['label'] ); ?>
+			</button>
+		</p>
+		<?php
 
 	}
 

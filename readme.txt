@@ -3,7 +3,7 @@ Contributors: wpcodefactory, anbinder, karzin, omardabbas, aegkr
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
 Tested up to: 7.0
-Stable tag: 3.4.6
+Stable tag: 3.5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -77,6 +77,10 @@ Tailor the emails sent for accepted, rejected, or countered offers. Change the "
 
 Adds a detailed offers report to each product's admin edit page, displaying all received offers along with their status, quantity, user information, and other relevant details.
 
+### 🚀 Show Name Your Price on Archive/Category Pages ###
+
+Enable the Name Your Price field on archive and category pages (shop pages), to allow customers to browse & set their own prices directly from these pages.
+
 ### 🚀 Advanced Options  ###
 
 * Exclude price offers from coupons
@@ -89,10 +93,6 @@ The plugin is free, including all features listed above, but if you want to go f
 ### 🏆 Enable Name Your Price by Product ###
 
 The plugin free version enables open pricing site-wide by default (with filters mentioned above), the Pro version allows you to select on a product level which products to have this option enabled.
-
-### 🏆 Show Name Your Price on Archive/Category Pages ###
-
-Enable the Name Your Price field on archive and category pages (shop pages), to allow customers to browse & set their own prices directly from these pages.
 
 ___
 ## ❤️ User Testimonials: See What Others Are Saying!##
@@ -133,6 +133,19 @@ WPFactory has a diverse range of plugins tailored to enhance your experience:
 
 * [**Free Shipping Bar: Amount Left for Free Shipping for WooCommerce**](https://wpfactory.com/item/amount-left-free-shipping-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Free Shipping Bar: Amount Left for Free Shipping for WooCommerce**"): Encourage higher spending by offering free shipping based on amount, with a progress bar for customers. (**[Free version](https://wordpress.org/plugins/amount-left-free-shipping-woocommerce/ "Free version")**)
 
+== Frequently Asked Questions ==
+
+= External services =
+
+This plugin connects to Google reCAPTCHA to help protect the price offering form from spam and automated submissions.
+
+When reCAPTCHA is enabled, the plugin loads the Google reCAPTCHA JavaScript API from Google's servers. When the form is submitted, the reCAPTCHA response token is sent to Google's reCAPTCHA verification service to verify the response.
+
+This service is provided by Google LLC:
+
+* Terms of Service: https://policies.google.com/terms
+* Privacy Policy: https://policies.google.com/privacy
+
 == Installation ==
 
 **Follow these simplified steps to get your plugin up and running:**
@@ -158,6 +171,24 @@ WPFactory has a diverse range of plugins tailored to enhance your experience:
 Once activated, access the plugin's settings by navigating to the “WPFactory” menu and look for the relevant tab.
 
 == Changelog ==
+
+= 3.5.0 - 10/08/2026 =
+* Fix - Text domain mismatch fixed.
+* Dev - Security - User capability checks added.
+* Dev - Security - Output escaped.
+* Dev - Security - Input sanitized.
+* Dev - Security - Nonces added.
+* Dev - Button - Advanced Positions Options - Moved to the free plugin version.
+* Dev - Button - Advanced Positions Options - Position on archive pages - Position priority - Default value updated (from `10` to `9`).
+* Dev - Prefix added to the plugin's `version_update` event action.
+* Dev - Style moved to CSS files.
+* Dev - JavaScript moved to JS files.
+* Dev - WPFactory Admin Menu - Library updated (to v1.1.2).
+* Dev - WPFactory Cross-Selling - Library updated (to v1.1.3).
+* Dev - WPFactory Key Manager - Library updated (to v1.0.9).
+* Dev - Code refactoring.
+* Dev - Coding standards improved.
+* WC tested up to: 11.0.
 
 = 3.4.6 - 24/05/2026 =
 * Tested up to: 7.0.

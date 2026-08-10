@@ -2,10 +2,10 @@
 /**
  * Price Offers for WooCommerce - Main Class
  *
- * @version 3.4.3
+ * @version 3.5.0
  * @since   1.0.0
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -65,7 +65,7 @@ final class Alg_WC_PO {
 	/**
 	 * Alg_WC_PO Constructor.
 	 *
-	 * @version 3.3.0
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 *
 	 * @access  public
@@ -81,9 +81,6 @@ final class Alg_WC_PO {
 		if ( is_admin() ) {
 			require_once plugin_dir_path( ALG_WC_PO_FILE ) . 'vendor/autoload.php';
 		}
-
-		// Set up localisation
-		add_action( 'init', array( $this, 'localize' ), 9 );
 
 		// Declare compatibility with custom order tables for WooCommerce
 		add_action( 'before_woocommerce_init', array( $this, 'wc_declare_compatibility' ) );
@@ -101,20 +98,6 @@ final class Alg_WC_PO {
 			$this->admin();
 		}
 
-	}
-
-	/**
-	 * localize.
-	 *
-	 * @version 2.0.0
-	 * @since   1.1.0
-	 */
-	function localize() {
-		load_plugin_textdomain(
-			'price-offerings-for-woocommerce',
-			false,
-			dirname( plugin_basename( ALG_WC_PO_FILE ) ) . '/langs/'
-		);
 	}
 
 	/**

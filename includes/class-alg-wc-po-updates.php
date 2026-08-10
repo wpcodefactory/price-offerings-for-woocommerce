@@ -2,10 +2,10 @@
 /**
  * Price Offers for WooCommerce - Updates Class
  *
- * @version 2.0.0
+ * @version 3.5.0
  * @since   2.0.0
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -17,24 +17,24 @@ class Alg_WC_PO_Updates {
 	/**
 	 * Constructor.
 	 *
-	 * @version 2.0.0
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 */
 	function __construct() {
 		add_action( 'alg_wc_price_offerings_before_version_update', array( $this, 'schedule_update_events' ) );
-		add_action( 'version_update_from_before_v200', array( $this, 'convert_price_offers_from_meta_to_custom_posts' ) );
+		add_action( 'alg_wc_po_version_update_from_before_v200', array( $this, 'convert_price_offers_from_meta_to_custom_posts' ) );
 	}
 
 	/**
 	 * schedule_update_events.
 	 *
-	 * @version 2.0.0
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 */
 	function schedule_update_events( $version ) {
 		$prev_version = get_option( 'alg_wc_price_offerings_version', '' );
 		if ( '' !== $prev_version && version_compare( $prev_version, '2.0.0', '<' ) ) {
-			wp_schedule_single_event( time(), 'version_update_from_before_v200' );
+			wp_schedule_single_event( time(), 'alg_wc_po_version_update_from_before_v200' );
 		}
 	}
 

@@ -1,0 +1,43 @@
+/**
+ * Price Offers for WooCommerce - Admin Meta Boxes CSS
+ *
+ * @version 3.5.0
+ * @since   3.5.0
+ *
+ * @author  WPFactory
+ */
+
+/* General */
+#post-body-content {
+	display: none;
+}
+
+/* "Comments" meta box */
+#add-new-comment {
+	display: none;
+}
+
+.comments .row-actions {
+	display: none;
+}
+
+/* "Update" meta box */
+#alg-wc-price-offer-update .inside {
+	margin: 0;
+	padding: 0;
+}
+
+/* "Actions" meta box */
+.alg-wc-price-offer-actions-data {
+	display: none;
+}
+
+.alg-wc-price-offer-action-label {
+	display: block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.alg-wc-price-offer-action-email-content {
+	height: 200px;
+}

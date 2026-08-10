@@ -1,10 +1,10 @@
 /**
- * alg-wc-price-offerings.js
+ * Price Offers for WooCommerce - Frontend JS
  *
  * @version 2.5.0
  * @since   1.0.0
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 jQuery( document ).ready( function () {

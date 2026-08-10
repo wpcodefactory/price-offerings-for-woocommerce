@@ -2,10 +2,10 @@
 /**
  * Price Offers for WooCommerce - REST Price Offer Class
  *
- * @version 2.9.0
+ * @version 3.5.0
  * @since   2.9.0
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  *
  * @see     https://github.com/woocommerce/woocommerce/blob/8.8.2/plugins/woocommerce/includes/abstracts/abstract-wc-data.php
  * @see     https://github.com/woocommerce/woocommerce/blob/8.8.2/plugins/woocommerce/includes/class-wc-coupon.php
@@ -13,9 +13,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WC_REST_Alg_WC_PO' ) ) :
+if ( ! class_exists( 'Alg_WC_PO_REST' ) ) :
 
-class WC_REST_Alg_WC_PO extends WC_Data {
+class Alg_WC_PO_REST extends WC_Data {
 
 	/**
 	 * offer.
@@ -31,7 +31,7 @@ class WC_REST_Alg_WC_PO extends WC_Data {
 	 * @version 2.9.0
 	 * @since   2.9.0
 	 *
-	 * @todo    (dev) merge `WC_REST_Alg_WC_PO` and `Alg_WC_Price_Offer` classes
+	 * @todo    (dev) merge `Alg_WC_PO_REST` and `Alg_WC_Price_Offer` classes
 	 */
 	function __construct( $id ) {
 		parent::__construct( $id );

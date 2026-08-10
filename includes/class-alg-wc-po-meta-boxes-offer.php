@@ -2,10 +2,10 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Custom Post
  *
- * @version 3.4.1
+ * @version 3.5.0
  * @since   2.0.0
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -17,7 +17,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.1.0
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 */
 	function __construct() {
@@ -27,90 +27,36 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_action( 'save_post_alg_wc_price_offer', array( $this, 'save_meta_boxes' ) );
 		add_action( 'admin_menu', array( $this, 'remove_publish_meta_box' ) );
-		add_action( 'admin_head', array( $this, 'css' ) );
-		add_action( 'admin_head', array( $this, 'js' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
 	}
 
 	/**
-	 * js.
+	 * enqueue_admin_assets.
 	 *
-	 * @version 2.0.0
+	 * @version 3.5.0
 	 * @since   2.0.0
-	 *
-	 * @todo    (dev) use `admin_enqueue_scripts`
 	 */
-	function js() {
-		if ( ( $id = get_the_ID() ) && 'alg_wc_price_offer' === get_post_type( $id ) ) {
-			?>
-			<script>
-				/* "Actions" meta box */
-				jQuery( document ).ready( function() {
-					jQuery( '#alg-wc-price-offer-action' ).on( 'change' , function() {
-						jQuery( '.alg-wc-price-offer-actions-data' ).hide();
-						jQuery( '.alg-wc-price-offer-show-for-' + jQuery( this ).val() ).show();
-						if ( 'counter' === jQuery( this ).val() ) {
-							jQuery( '#alg-wc-price-offer-price-counter' ).prop( 'required', true );
-						} else {
-							jQuery( '#alg-wc-price-offer-price-counter' ).prop( 'required', false );
-						}
-					} );
-				} );
-			</script>
-			<?php
+	function enqueue_admin_assets() {
+		if ( ! alg_wc_po()->core->is_admin_single_price_offer_screen() ) {
+			return;
 		}
-	}
 
-	/**
-	 * css.
-	 *
-	 * @version 2.0.0
-	 * @since   2.0.0
-	 *
-	 * @todo    (dev) use `admin_enqueue_scripts`
-	 */
-	function css() {
-		if ( ( $id = get_the_ID() ) && 'alg_wc_price_offer' === get_post_type( $id ) ) {
-			?>
-			<style>
+		$min_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
 
-				/* General */
-				#post-body-content {
-					display: none;
-				}
+		wp_enqueue_style(
+			'alg-wc-price-offerings-admin-meta-boxes',
+			alg_wc_po()->plugin_url() . '/assets/css/alg-wc-po-admin-meta-boxes' . $min_suffix . '.css',
+			array(),
+			alg_wc_po()->version
+		);
 
-				/* "Comments" meta box */
-				#add-new-comment {
-					display: none;
-				}
-
-				.comments .row-actions {
-					display: none;
-				}
-
-				/* "Update" meta box */
-				#alg-wc-price-offer-update .inside {
-					margin: 0;
-					padding: 0;
-				}
-
-				/* "Actions" meta box */
-				.alg-wc-price-offer-actions-data {
-					display: none;
-				}
-
-				.alg-wc-price-offer-action-label {
-					display: block;
-					padding-top: 5px;
-					padding-bottom: 5px;
-				}
-
-				.alg-wc-price-offer-action-email-content {
-					height: 200px;
-				}
-
-			</style>
-			<?php
-		}
+		wp_enqueue_script(
+			'alg-wc-price-offerings-admin-meta-boxes',
+			alg_wc_po()->plugin_url() . '/assets/js/alg-wc-po-admin-meta-boxes' . $min_suffix . '.js',
+			array( 'jquery' ),
+			alg_wc_po()->version,
+			true
+		);
 	}
 
 	/**
@@ -238,7 +184,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_data.
 	 *
-	 * @version 3.4.1
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) add `get_user_agent()`?
@@ -246,15 +192,10 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	function meta_box_data( $post ) {
 		if ( ( $offer = new Alg_WC_Price_Offer( $post->ID ) ) ) {
 
-			$allowed_fields = get_option( 'alg_wc_po_dokan_vendor_allowed_fields', array(
-				'product',
-				'price',
-				'quantity',
-				'customer',
-				'phone',
-				'email',
-				'send_to',
-			) );
+			$allowed_fields = apply_filters(
+				'alg_wc_po_meta_box_allowed_fields_frontend',
+				array()
+			);
 
 			?>
 			<table class="widefat striped">
@@ -269,7 +210,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 				<?php if ( in_array( 'price', $allowed_fields ) || is_admin() ) : ?>
 					<tr>
 						<th><?php echo esc_html__( 'Price', 'price-offerings-for-woocommerce' ); ?></th>
-						<td><?php echo wp_kses_post( $offer->get_price_summary() ); ?></td>
+						<td><?php echo wp_kses( $offer->get_price_summary(), Alg_WC_PO_Core::get_price_allowed_html() ); ?></td>
 					</tr>
 				<?php endif; ?>
 				<?php if ( in_array( 'quantity', $allowed_fields ) || is_admin() ) : ?>
@@ -381,7 +322,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_actions.
 	 *
-	 * @version 3.3.2
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) "Send email" checkboxes
@@ -498,13 +439,17 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 			</div>
 
 			<?php
+			wp_nonce_field(
+				'alg_wc_po_nonce_save_meta_boxes',
+				'_alg_wc_po_nonce_save_meta_boxes'
+			);
 		}
 	}
 
 	/**
 	 * meta_box_messages.
 	 *
-	 * @version 3.4.1
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) better styling
@@ -529,17 +474,9 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 								echo get_avatar( $message['author_email'], 32 ) . esc_html( $message['author'] );
 							?></strong><br>
 							<?php
-							$allowed_fields = get_option(
-								'alg_wc_po_dokan_vendor_allowed_fields',
-								array(
-									'product',
-									'price',
-									'quantity',
-									'customer',
-									'phone',
-									'email',
-									'send_to',
-								)
+							$allowed_fields = apply_filters(
+								'alg_wc_po_meta_box_allowed_fields_frontend',
+								array()
 							);
 
 							if ( in_array( 'email', $allowed_fields ) || is_admin() ) :
@@ -568,61 +505,103 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	}
 
 	/**
+	 * check_user_capability.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 */
+	function check_user_capability( $offer_id ) {
+		return (
+			current_user_can( 'manage_woocommerce' ) ||
+			current_user_can( 'edit_post', $offer_id ) ||
+			(
+				// Frontend vendor dashboard (e.g., Dokan)
+				is_user_logged_in() &&
+				( $product_id = get_post_meta( $offer_id, 'product_id', true ) ) &&
+				(int) get_post_field( 'post_author', $product_id ) === get_current_user_id()
+			)
+		);
+	}
+
+	/**
 	 * save_meta_boxes.
 	 *
-	 * @version 3.3.3
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 *
 	 * @todo    (dev) notices?
-	 * @todo    (dev) nonce?
 	 */
 	function save_meta_boxes( $post_id ) {
-		if ( ( $offer = new Alg_WC_Price_Offer( $post_id ) ) ) {
-			if ( ! empty( $_POST['alg_wc_price_offer_action'] ) ) {
-				remove_action( 'save_post_alg_wc_price_offer', array( $this, 'save_meta_boxes' ) );
+		// Check nonce
+		if (
+			! isset( $_POST['_alg_wc_po_nonce_save_meta_boxes'] ) ||
+			! wp_verify_nonce(
+				sanitize_text_field( wp_unslash( $_POST['_alg_wc_po_nonce_save_meta_boxes'] ) ),
+				'alg_wc_po_nonce_save_meta_boxes'
+			)
+		) {
+			return;
+		}
 
-				// Get action
-				$action = sanitize_text_field( wp_unslash( $_POST['alg_wc_price_offer_action'] ) );
+		// Check user capability
+		if ( ! $this->check_user_capability( $post_id ) ) {
+			return;
+		}
 
-				// Update status
-				$offer->update_status( 'alg_wc_po_' . $action );
+		// Check offer
+		if ( ! ( $offer = new Alg_WC_Price_Offer( $post_id ) ) ) {
+			return;
+		}
 
-				// Action args
-				$action_args = array();
-				if ( in_array( $action, array( 'reject', 'accept', 'counter' ) ) ) {
-					$action_args = array(
-						'do_send_email' => true,
-						'email_subject' => (
-							isset( $_POST[ "alg_wc_price_offer_email_subject_{$action}" ] ) ?
-							sanitize_text_field( wp_unslash( $_POST[ "alg_wc_price_offer_email_subject_{$action}" ] ) ) :
-							''
-						),
-						'email_heading' => (
-							isset( $_POST[ "alg_wc_price_offer_email_heading_{$action}" ] ) ?
-							sanitize_text_field( wp_unslash( $_POST[ "alg_wc_price_offer_email_heading_{$action}" ] ) ) :
-							''
-						),
-						'email_content' => (
-							isset( $_POST[ "alg_wc_price_offer_email_content_{$action}" ] ) ?
-							trim( wp_kses_post( wp_unslash( $_POST[ "alg_wc_price_offer_email_content_{$action}" ] ) ) ) :
-							''
-						),
-					);
-					if ( 'counter' === $action ) {
-						$action_args['counter_price'] = (
-							isset( $_POST['alg_wc_price_offer_price_counter'] ) ?
-							sanitize_text_field( wp_unslash( $_POST['alg_wc_price_offer_price_counter'] ) ) :
-							''
-						);
-					}
-				}
+		// Check action
+		if ( empty( $_POST['alg_wc_price_offer_action'] ) ) {
+			return;
+		}
 
-				// Process action
-				$offer->process_action( $action, $action_args );
+		// Temporarily remove callback
+		remove_action( 'save_post_alg_wc_price_offer', array( $this, 'save_meta_boxes' ) );
 
-				add_action( 'save_post_alg_wc_price_offer', array( $this, 'save_meta_boxes' ) );
+		// Get action
+		$action = sanitize_text_field( wp_unslash( $_POST['alg_wc_price_offer_action'] ) );
+
+		// Update status
+		$offer->update_status( 'alg_wc_po_' . $action );
+
+		// Action args
+		$action_args = array();
+		if ( in_array( $action, array( 'reject', 'accept', 'counter' ) ) ) {
+			$action_args = array(
+				'do_send_email' => true,
+				'email_subject' => (
+					isset( $_POST[ "alg_wc_price_offer_email_subject_{$action}" ] ) ?
+					sanitize_text_field( wp_unslash( $_POST[ "alg_wc_price_offer_email_subject_{$action}" ] ) ) :
+					''
+				),
+				'email_heading' => (
+					isset( $_POST[ "alg_wc_price_offer_email_heading_{$action}" ] ) ?
+					sanitize_text_field( wp_unslash( $_POST[ "alg_wc_price_offer_email_heading_{$action}" ] ) ) :
+					''
+				),
+				'email_content' => (
+					isset( $_POST[ "alg_wc_price_offer_email_content_{$action}" ] ) ?
+					trim( wp_kses_post( wp_unslash( $_POST[ "alg_wc_price_offer_email_content_{$action}" ] ) ) ) :
+					''
+				),
+			);
+			if ( 'counter' === $action ) {
+				$action_args['counter_price'] = (
+					isset( $_POST['alg_wc_price_offer_price_counter'] ) ?
+					sanitize_text_field( wp_unslash( $_POST['alg_wc_price_offer_price_counter'] ) ) :
+					''
+				);
 			}
 		}
+
+		// Process action
+		$offer->process_action( $action, $action_args );
+
+		// Re-add callback
+		add_action( 'save_post_alg_wc_price_offer', array( $this, 'save_meta_boxes' ) );
 	}
 
 }

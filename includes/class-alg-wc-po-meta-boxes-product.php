@@ -2,10 +2,10 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Product
  *
- * @version 3.3.2
+ * @version 3.5.0
  * @since   1.0.0
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -68,7 +68,7 @@ class Alg_WC_PO_Meta_Boxes_Product {
 	/**
 	 * create_offer_price_history_meta_box.
 	 *
-	 * @version 3.3.2
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 */
 	function create_offer_price_history_meta_box() {
@@ -151,7 +151,10 @@ class Alg_WC_PO_Meta_Boxes_Product {
 			}
 
 			// Offers table
-			echo $this->get_table_html( $table_data, array( 'table_class' => 'widefat striped' ) );
+			echo wp_kses(
+				$this->get_table_html( $table_data, array( 'table_class' => 'widefat striped' ) ),
+				Alg_WC_PO_Core::get_price_allowed_html()
+			);
 
 			// Average offer
 			foreach ( $average_offers as $average_offer_currency_code => $average_offer_data ) {
@@ -170,7 +173,7 @@ class Alg_WC_PO_Meta_Boxes_Product {
 					);
 					echo '<p>' . sprintf(
 						esc_html( $average_offer_template ),
-						wp_kses_post( $average_offer ),
+						wp_kses( $average_offer, Alg_WC_PO_Core::get_price_allowed_html() ),
 						(int) $average_offer_data['total_offers']
 					) . '</p>';
 				}

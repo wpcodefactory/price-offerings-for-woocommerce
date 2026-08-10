@@ -1,10 +1,10 @@
 /**
- * recaptcha.js
+ * Price Offers for WooCommerce - reCAPTCHA JS
  *
  * @version 3.1.1
  * @since   2.9.9
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 jQuery( document ).ready( function () {

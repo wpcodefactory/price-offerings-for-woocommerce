@@ -1,0 +1,12 @@
+/**
+ * Price Offers for WooCommerce - Admin CSS
+ *
+ * @version 3.5.0
+ * @since   3.5.0
+ *
+ * @author  WPFactory
+ */
+
+a.page-title-action {
+	display: none !important;
+}

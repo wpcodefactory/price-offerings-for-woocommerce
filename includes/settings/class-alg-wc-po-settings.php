@@ -5,7 +5,7 @@
  * @version 3.3.2
  * @since   1.0.0
  *
- * @author  Algoritmika Ltd
+ * @author  WPFactory
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -50,7 +50,7 @@ class Alg_WC_PO_Settings extends WC_Settings_Page {
 	function get_settings() {
 		global $current_section;
 		return array_merge(
-			apply_filters( 'woocommerce_get_settings_' . $this->id . '_' . $current_section, array() ),
+			apply_filters( 'woocommerce_get_settings_' . $this->id . '_' . $current_section, array() ), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			array(
 				array(
 					'title'     => __( 'Reset Settings', 'price-offerings-for-woocommerce' ),
