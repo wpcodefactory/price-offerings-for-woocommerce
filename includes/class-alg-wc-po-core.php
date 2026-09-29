@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Core Class
  *
- * @version 3.5.0
+ * @version 3.5.1
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -136,15 +136,13 @@ class Alg_WC_PO_Core {
 	/**
 	 * reCAPTCHA AJAX.
 	 *
-	 * @version 3.3.3
+	 * @version 3.5.1
 	 * @since   2.9.9
-	 *
-	 * @todo    (dev) fallback for the `file_get_contents()`
 	 */
 	function recaptcha_ajax() {
 		$res = 0;
-		if ( isset( $_POST['recaptcha_response'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
+		if ( isset( $_POST['recaptcha_response'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$form_options = get_option( 'alg_wc_price_offerings_form', array() );
 			$form_options = array_merge( array( 'recaptcha_secret_key' => '' ), $form_options );
 			$secret       = $form_options['recaptcha_secret_key'];
@@ -154,14 +152,22 @@ class Alg_WC_PO_Core {
 			$url = 'https://www.google.com/recaptcha/api/siteverify';
 			$url = add_query_arg( array( 'secret' => $secret, 'response' => $response ), $url );
 
-			$verify = file_get_contents( $url );
-			$verify = json_decode( $verify );
+			$http_response = wp_remote_get( $url );
 
-			if ( $verify->success ) {
+			$verify = (
+				(
+					! is_wp_error( $http_response ) &&
+					200 === wp_remote_retrieve_response_code( $http_response )
+				) ?
+				json_decode( wp_remote_retrieve_body( $http_response ) ) :
+				false
+			);
+
+			if ( ! empty( $verify->success ) ) {
 				$res = 1;
 			}
-
 		}
+
 		echo (int) $res;
 		die();
 	}
@@ -611,7 +617,7 @@ class Alg_WC_PO_Core {
 	/**
 	 * create_post_status.
 	 *
-	 * @version 2.0.0
+	 * @version 3.5.1
 	 * @since   2.0.0
 	 *
 	 * @see     https://developer.wordpress.org/reference/functions/register_post_status/
@@ -619,6 +625,45 @@ class Alg_WC_PO_Core {
 	 * @todo    (dev) recheck args
 	 */
 	function create_post_status() {
+		$label_counts = array(
+			/* Translators: %s: Number of offers. */
+			'alg_wc_po_open'     => _n_noop(
+				'Open <span class="count">(%s)</span>',
+				'Open <span class="count">(%s)</span>',
+				'price-offerings-for-woocommerce'
+			),
+			/* Translators: %s: Number of offers. */
+			'alg_wc_po_reject'   => _n_noop(
+				'Rejected <span class="count">(%s)</span>',
+				'Rejected <span class="count">(%s)</span>',
+				'price-offerings-for-woocommerce'
+			),
+			/* Translators: %s: Number of offers. */
+			'alg_wc_po_accept'   => _n_noop(
+				'Accepted <span class="count">(%s)</span>',
+				'Accepted <span class="count">(%s)</span>',
+				'price-offerings-for-woocommerce'
+			),
+			/* Translators: %s: Number of offers. */
+			'alg_wc_po_counter'  => _n_noop(
+				'Counter <span class="count">(%s)</span>',
+				'Counter <span class="count">(%s)</span>',
+				'price-offerings-for-woocommerce'
+			),
+			/* Translators: %s: Number of offers. */
+			'alg_wc_po_cancel'   => _n_noop(
+				'Cancelled <span class="count">(%s)</span>',
+				'Cancelled <span class="count">(%s)</span>',
+				'price-offerings-for-woocommerce'
+			),
+			/* Translators: %s: Number of offers. */
+			'alg_wc_po_complete' => _n_noop(
+				'Completed <span class="count">(%s)</span>',
+				'Completed <span class="count">(%s)</span>',
+				'price-offerings-for-woocommerce'
+			),
+		);
+
 		foreach ( $this->get_statuses() as $id => $title ) {
 			register_post_status( $id, array(
 				'label'                     => $title,
@@ -626,9 +671,14 @@ class Alg_WC_PO_Core {
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
-					$title . ' <span class="count">(%s)</span>', // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralSingular
-					$title . ' <span class="count">(%s)</span>'  // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralPlural
+				'label_count'               => (
+					$label_counts[ $id ] ??
+					/* Translators: %s: Number of offers. */
+					_n_noop(
+						'Offer <span class="count">(%s)</span>',
+						'Offers <span class="count">(%s)</span>',
+						'price-offerings-for-woocommerce'
+					)
 				),
 			) );
 		}

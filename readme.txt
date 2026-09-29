@@ -2,8 +2,9 @@
 Contributors: wpcodefactory, anbinder, karzin, omardabbas, aegkr
 Tags: woocommerce, price, offers, price offers, negotiations
 Requires at least: 4.4
-Tested up to: 7.0
-Stable tag: 3.5.0
+Tested up to: 7.1
+Requires PHP: 7.3
+Stable tag: 3.5.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -171,6 +172,17 @@ This service is provided by Google LLC:
 Once activated, access the plugin's settings by navigating to the “WPFactory” menu and look for the relevant tab.
 
 == Changelog ==
+
+= 3.5.1 - 29/09/2026 =
+* Dev - Security - Frontend nonce added.
+* Dev - reCAPTCHA verification error improved (using the WordPress HTTP API).
+* Dev - Missing text domain fixed.
+* Dev - Translation support for offer status count labels improved.
+* Dev - WPFactory Cross-Selling - Library updated (to v1.1.6).
+* Dev - WPFactory Key Manager - Library updated (to v1.1.1).
+* Tested up to: 7.1.
+* WC tested up to: 11.1.
+* Requires PHP: 7.3.
 
 = 3.5.0 - 10/08/2026 =
 * Fix - Text domain mismatch fixed.

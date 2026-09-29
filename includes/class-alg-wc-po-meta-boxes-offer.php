@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Admin Meta Boxes - Custom Post
  *
- * @version 3.5.0
+ * @version 3.5.1
  * @since   2.0.0
  *
  * @author  WPFactory
@@ -122,7 +122,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 	/**
 	 * meta_box_update.
 	 *
-	 * @version 3.3.1
+	 * @version 3.5.1
 	 * @since   2.0.0
 	 *
 	 * @see     https://developer.wordpress.org/reference/functions/post_submit_meta_box/
@@ -137,7 +137,7 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 		?>
 		<div class="submitbox" id="submitpost">
 			<div id="misc-publishing-actions">
-				<div class="misc-pub-section misc-pub-post-status"><?php esc_html_e( 'Status:' ); /* phpcs:ignore WordPress.WP.I18n.MissingArgDomain */ ?>
+				<div class="misc-pub-section misc-pub-post-status"><?php esc_html_e( 'Status:', 'price-offerings-for-woocommerce' ); ?>
 					<span id="post-status-display"><?php echo esc_html( $offer->get_status_name() ); ?></span>
 				</div>
 			</div>
@@ -160,9 +160,9 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 					<?php
 					if ( current_user_can( 'delete_post', $post_id ) ) {
 						if ( ! EMPTY_TRASH_DAYS ) {
-							$delete_text = __( 'Delete permanently' ); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+							$delete_text = __( 'Delete permanently', 'price-offerings-for-woocommerce' );
 						} else {
-							$delete_text = __( 'Move to Trash' ); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+							$delete_text = __( 'Move to Trash', 'price-offerings-for-woocommerce' );
 						}
 						?>
 						<a class="submitdelete deletion" href="<?php echo esc_url( get_delete_post_link( $post_id ) ); ?>"><?php echo esc_html( $delete_text ); ?></a>
@@ -172,8 +172,8 @@ class Alg_WC_PO_Meta_Boxes_Offer {
 				</div>
 				<div id="publishing-action">
 					<span class="spinner"></span>
-					<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update' ); /* phpcs:ignore WordPress.WP.I18n.MissingArgDomain */ ?>" />
-					<?php submit_button( __( 'Update' ), 'primary large', 'save', false, array( 'id' => 'publish' ) ); /* phpcs:ignore WordPress.WP.I18n.MissingArgDomain */ ?>
+					<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e( 'Update', 'price-offerings-for-woocommerce' ); ?>" />
+					<?php submit_button( __( 'Update', 'price-offerings-for-woocommerce' ), 'primary large', 'save', false, array( 'id' => 'publish' ) ); ?>
 				</div>
 				<div class="clear"></div>
 			</div>

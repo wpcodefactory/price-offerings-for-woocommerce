@@ -687,7 +687,7 @@ class Alg_WC_Price_Offer {
 				$content,
 				$args['email_heading'],
 				alg_wc_po()->core->get_email_from_address(),
-				alg_wc_po()->core->get_email_from_name(),
+				alg_wc_po()->core->get_email_from_name()
 			);
 
 		}

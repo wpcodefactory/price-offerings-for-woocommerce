@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Actions
  *
- * @version 3.5.0
+ * @version 3.5.1
  * @since   2.0.0
  *
  * @author  WPFactory
@@ -326,7 +326,7 @@ class Alg_WC_PO_Actions {
 	/**
 	 * offer_price.
 	 *
-	 * @version 3.4.2
+	 * @version 3.5.1
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) start with "Create price offer"
@@ -339,12 +339,26 @@ class Alg_WC_PO_Actions {
 	 * @todo    (dev) recheck "From" header
 	 */
 	function offer_price() {
-		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( isset(
 			$_POST['alg-wc-price-offerings-submit'],
+			$_POST['alg-wc-price-offerings-nonce'],
 			$_POST['alg-wc-price-offerings-product-id'],
 			$_POST['alg-wc-price-offerings-customer-id']
 		) ) {
+
+			// Verify nonce
+			if (
+				! wp_verify_nonce(
+					sanitize_text_field( wp_unslash( $_POST['alg-wc-price-offerings-nonce'] ) ),
+					'alg_wc_price_offerings_submit_offer'
+				)
+			) {
+				wc_add_notice(
+					__( 'Your session has expired. Please refresh the page and try again.', 'price-offerings-for-woocommerce' ),
+					'error'
+				);
+				return;
+			}
 
 			// Product
 			$product_id = intval( $_POST['alg-wc-price-offerings-product-id'] );
@@ -488,7 +502,6 @@ class Alg_WC_PO_Actions {
 			do_action( 'alg_wc_po_price_offer_created', $offer_id );
 
 		}
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 }

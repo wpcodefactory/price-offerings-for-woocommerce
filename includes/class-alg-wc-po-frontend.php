@@ -2,7 +2,7 @@
 /**
  * Price Offers for WooCommerce - Frontend Class
  *
- * @version 3.5.0
+ * @version 3.5.1
  * @since   1.0.0
  *
  * @author  WPFactory
@@ -306,7 +306,7 @@ class Alg_WC_PO_Frontend {
 	/**
 	 * add_offer_price_form.
 	 *
-	 * @version 3.5.0
+	 * @version 3.5.1
 	 * @since   1.0.0
 	 *
 	 * @todo    (dev) `recaptcha`: remove `wrapper`?
@@ -510,6 +510,12 @@ class Alg_WC_PO_Frontend {
 						?>
 						<input type="hidden" id="alg-wc-price-offerings-product-id" name="alg-wc-price-offerings-product-id">
 						<input type="hidden" name="alg-wc-price-offerings-customer-id" value="<?php echo (int) $customer_id; ?>">
+						<?php
+						wp_nonce_field(
+							'alg_wc_price_offerings_submit_offer',
+							'alg-wc-price-offerings-nonce'
+						);
+						?>
 					</form>
 				</div>
 				<?php
